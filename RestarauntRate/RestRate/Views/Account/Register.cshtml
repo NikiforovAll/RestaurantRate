@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Rest-Rate Admin Page</title>
+    <link rel="icon" type="image/ico" href="~/Content/Images/Admin/favicon.ico" />
+    <meta name="description" content="Bootstrap with HTML5 / CSS3 / JavaScript">
+    <meta name="author" content="Yuriy Chikhray">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+    <script src="assets/bootstrap-3.3.5/bootstrap-dialog.min.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link href="assets/bootstrap-3.3.5/bootstrap-dialog.min.css" rel="stylesheet">
+    <link href="~/Content/Login/style.css" rel="stylesheet" type="text/css">
+    <link href="assets/own_fonts/Indie-Flower.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row vertical-offset">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="row-fluid user-row">
+                            <img src="Content/images/RegisterIcon.png" class="img-responsive">
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <form method="post" accept-charset="UTF-8" role="form" class="form-signin" id="registerForm">
+                            <fieldset>
+                                <input class="form-control" placeholder="E-mail" name="email" maxlength="50" type="text">
+                                <input class="form-control" placeholder="Username" name="username" maxlength="50" type="text">
+                                <input class="form-control" placeholder="Password" name="password" maxlength="50" type="password">
+                                <br>
+                                <button class="btn btn-lg btn-primary btn-block" type="submit" id="register">  Register »</button>
+                            </fieldset>
+                            <br>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <script src="~/Scripts/ProjScripts/register.js"></script>
+        <script src="~/Scripts/ProjScripts/shareFunctions.js"></script>
+    </footer>
+
+</body>
+</html>
