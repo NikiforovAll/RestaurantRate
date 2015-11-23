@@ -3,80 +3,99 @@ var testRest = [
     { Name: "Test0", adress: "TestAdress0", stars: 1 },
     { Name: "Test1", adress: "TestAdress1", stars: 2 },
     { Name: "Test2", adress: "TestAdress2", stars: 3 },
-    { Name: "Test3", adress: "TestAdress3", stars: 4 }
+    { Name: "Test3", adress: "TestAdress3", stars: 4 },
+    { Name: "Test4", adress: "TestAdress4", stars: 5 },
+    { Name: "Test5", adress: "TestAdress5", stars: 1 },
+    { Name: "Test6", adress: "TestAdress6", stars: 2 },
+    { Name: "Test7", adress: "TestAdress7", stars: 3 },
+    { Name: "Test8", adress: "TestAdress8", stars: 4 },
+    { Name: "Test9", adress: "TestAdress8", stars: 5 }
 ];
+var minRad = 700;
+var maxRad = 2000;
 var panel;
 var state = { color: "rgba(55, 47, 45,0.4)", marginLeft: "0%" }
 var prevItem;
-var availabletypes = ['restaurant', 'bar', 'cafe'];
+var availabletypes = ["restaurant", "bar", "cafe"];
 
 
 function panelInit() {
 
     panel = $(".mainpanel");
     prevItem = $(".panel-item").first();
-    nearbyMarkerSearch();
+    nearbyMarkerSearch(minRad);
 
     // Scroll init
     $(".content").mCustomScrollbar({
         theme: "rounded-dots-dark",
-        scrollInertia:100,
+        scrollInertia: 100,
         scrollButtons: {
             enable: true
         }
     });
-    //TODO search lang
+
+    $("#orderByRating").click(function () {
+        restaurantsSort();
+        clearPanel();
+        restaurants.forEach(function(el) {
+            addToPanel(el); 
+        });
+    });
+    $("#getFullList").click(function() {
+        citySearch();
+    });
+    //TODO pick search lang
 };
-function nearbyMarkerSearch() {
+function citySearch() {
+    // TODO search by city;
+    //nearbyMarkerSearch(maxRad); 
+    for (var j = 0; j < 3; j++) {
+        restaurants = restaurants.concat(testRest);
+    }
+        restaurants.forEach(function(el) {
+            addToPanel(el);
+        });
+    
+}
+function nearbyMarkerSearch(r) {
     restaurants = [];
     var service = new google.maps.places.PlacesService(map);
     service.nearbySearch({
+        
         location: marker.getPosition(),
-        radius: 500,
-        types:availabletypes
+        radius: r,
+        types: availabletypes
     }, function (results, status) {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
             clearPanel();
-            console.log()
             for (var i = 0; i < results.length; i++) {
-
-               //restaurants.push({
-               //     Name: results[i].name,
-               //     stars: results[i].rating,
-               //     adress:   
-                // });
-                
                 var request = { reference: results[i].reference };
                 service.getDetails(request, function (details, status) {
-                    var tmpItem = {
-                        Name: details.name,
-                        stars: (details.rating === undefined) ? 0 : details.rating,
-                        adress: details.address_components[1].long_name+", "+details.address_components[0].long_name//.replace("вулиця","")
-                    };
-                    restaurants.push(tmpItem);
-
-                    addToPanel(tmpItem);
-
+                    if (status === google.maps.places.PlacesServiceStatus.OK) {
+                        var tmpItem = {
+                            Name: details.name,
+                            stars: (details.rating === undefined) ? 0 : details.rating,
+                            adress: details.address_components[1].long_name + ", " + details.address_components[0].long_name//.replace("вулиця","")
+                        };
+                        restaurants.push(tmpItem);
+                        addToPanel(tmpItem);
+                    }
+                   
                 });
                 //TODO make async sort
-                restaurants.sort(function (a, b) { return a.rating - b.rating });
-
-                //console.log(results[i].address_components.street_address);
+               // restaurantsSort();
             }
-            //initPanel(restaurants);
-
         }
-        //initPanel(restaurants);
     });
 }
 
 function togglePanel(e) {
     {
         var target = $(e.target).closest(".panel-item");
-        if (target.css("background-color") === "rgb(255, 255, 255)") { 
+        if (target.css("background-color") === "rgb(255, 255, 255)") {
             target.css("background-color", state.color);
             target.css("margin-left", state.marginLeft);
-            
+
         } else {
             prevItem.css("background-color", state.color);
             prevItem.css("margin-left", state.marginLeft);
@@ -86,17 +105,13 @@ function togglePanel(e) {
         prevItem = target;
     }
 }
-
-function initPanel(items) {
-    $(".panelItems>*").remove();
-    //for (var i = 0; i < items.length; i++) {
-    //    addToPanel(items[i]);
-    //}
-    //$(".panel-item").click(togglePanel);
-
-
+function restaurantsSort()
+{
+     restaurants.sort(function (a, b) {
+                    //console.log("calling async");
+                    return b.stars - a.stars;
+                });
 }
-
 function clearPanel() {
     $(".panelItems>*").remove();
 }

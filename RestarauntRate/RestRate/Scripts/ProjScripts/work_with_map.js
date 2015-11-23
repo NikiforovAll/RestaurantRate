@@ -36,7 +36,7 @@ function initMap() {
     //    console.log(map.getZoom());
     //});
     panelInit();
-    //TODO buind the output results 
+    //TODO buind the output results of geoloc after clicking 
     google.maps.event.addListener(map, 'click', function (event) {
         if (trackClick) {
             //return coordinates 
@@ -134,9 +134,9 @@ function switchDraggable() {
         marker.setDraggable(false);
         $("#" + draggButton).css("background-color", "#900");
         marker.setAnimation(null);
-        //TODO updating panel - after relocating a marker or ?  
-        nearbyMarkerSearch();
-        initPanel(restaurants);
+        //TODO updating panel - after relocating a marker or another approach?  
+        nearbyMarkerSearch(minRad);
+       
     }
     else {
         marker.setDraggable(true);

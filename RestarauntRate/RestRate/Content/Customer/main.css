@@ -20,7 +20,22 @@ footer {
     color: #1C51F0;
     font-weight: bold;
 }
+#reviewBody {
+    position: absolute;
+    z-index: 99;
+    background-color: rgba(55, 47, 45, 0.7);
+    left: 500px;
+    width: 400px;
+    top: 10px;
+    outline: 2px solid black;
+}
 
+.reviewInfo button {
+    float: right;
+}
+.reviewInfo div {
+    color: rgb(216, 211, 13);
+}
 #draggableButton {
     position: absolute;
     top: 90%;
@@ -33,7 +48,11 @@ footer {
     height: 40px;
 }
 
-
+/*#reviewInfo  {
+    background-color: white;
+    position: absolute;
+    z-index: 99;
+}*/
 .mainpanel {
     position: absolute;
     z-index: 99;
@@ -50,17 +69,30 @@ footer {
     background-color: rgb(55, 47, 45);
     border-radius: 10px;
 }
-.settingsButt {
-     background-color: Transparent;
-    background-repeat:no-repeat;
-    border: none;
-    cursor:pointer;
-    overflow: hidden;
-    outline:none;
-    margin-right:10px;
-    margin-top: 5px;
+
+.settingsPanel {
+    display: inline-block;
+    width: 45px;
     float: right;
+    margin-right: 10px;
 }
+.settingsPanel ul {
+    background-color: rgb(55, 47, 45);
+    margin-left: 70%
+}
+.settingsPanel ul li a {
+    color:#9F9067;
+    font-weight: bold;
+}
+.settingsButt {
+    background:none;
+    border:none;
+    -webkit-box-shadow:none;
+    -ms-box-shadow:none;
+    box-shadow:none;
+    margin-top: 5px;
+}
+
 #cogwheel {
     width: 40px;
 }
@@ -116,7 +148,7 @@ footer {
 	/*background: #333;*/
 	width: 750px;
 	max-width: 105%;
-	height: 800px;
+	height: 500px;
 	-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;
 
 }

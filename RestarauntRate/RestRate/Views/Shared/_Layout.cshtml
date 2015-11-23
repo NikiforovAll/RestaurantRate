@@ -6,16 +6,19 @@
     <title>@ViewBag.Title - Rest-Rate</title>
     <link href="~/Content/Customer/main.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+
     <link rel="stylesheet" href="~/Content/font-awesome.css">
     <link rel="stylesheet" href="~/Content/Menu/sky-mega-menu.css">
     <script src="~/Scripts/modernizr-2.8.3.js"></script>
     <script src="~/Scripts/jquery-2.1.4.min.js"></script>
+    @*TODO dowload, tmp CDN solution*@
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="~/Scripts/ProjScripts/work_with_map.js"></script>
     <script src="~/Scripts/ProjScripts/work_with_panel.js"></script>
 
     <script src="~/Scripts/jquery.mCustomScrollbar.concat.min.js"></script>
     <link rel="stylesheet" href="~/Content/Customer/jquery.mCustomScrollbar.css" />
-
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6qMb55_T65pEOrrZ2duf5JMR_KWQtyMY&libraries=places">
     </script>
 </head>
@@ -26,18 +29,35 @@
         <div class="panelheader">
             <img src="/Content/Images/Customer/star.png" />
             <span>Rest-Rate</span>
-            <button type="button" class="settingsButt">
-                <img id="cogwheel" src="/Content/Images/Customer/Cogwheel.png" />
-            </button>
+            <div class="dropdown settingsPanel">
+                <button type="button" class="  dropdown-toggle  settingsButt" data-toggle="dropdown">
+                    <img id="cogwheel" src="/Content/Images/Customer/Cogwheel.png" />
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="#">~this is STUB~</a></li>
+                    <li><a id="orderByRating" href="#">Order By Rating</a></li>
+                    <li><a id ="getFullList" href="#">Full List</a></li>
+                </ul>
+            </div>
         </div>
-        <div  >
+        <div>
             <div class=" content">
-                <div  id="content-1" class ="panelItems"></div>
+                <div id="content-1" class="panelItems"></div>
+            </div>
+        </div>
+        @* TODO Different review button implementation??*@
+        <div class="reviewInfo">
+            <button type="button" class="btn " data-toggle="collapse" data-target="#reviewBody">Review</button>
+            <div id="reviewBody" class="collapse">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
             </div>
         </div>
 
     </div>
-
+   
+    
 
     <button id="draggableButton">Draggable</button>
     <div id="map"></div>
