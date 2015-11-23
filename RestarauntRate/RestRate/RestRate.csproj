@@ -168,6 +168,7 @@
     <Content Include="Scripts\ProjScripts\work_with_map.js" />
     <Content Include="Scripts\star-rating.js" />
     <Content Include="Scripts\star-rating.min.js" />
+    <Content Include="Scripts\ProjScripts\work_with_panel.js" />
     <Content Include="Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />

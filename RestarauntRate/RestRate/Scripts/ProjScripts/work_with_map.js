@@ -7,7 +7,7 @@ var draggButton = "draggableButton";
 var coordinates = { lat: 46.480679, lng: 30.755164 };
 var dragState = false;
 var trackClick = true;
-
+var test = 1;
 //entry point
 $(document).ready(function () {
     initLocation();
@@ -34,7 +34,7 @@ function initMap() {
     //map.addListener('zoom_changed', function() {
     //    console.log(map.getZoom());
     //});
-
+    panelInit();
     //TODO buind the output results 
     google.maps.event.addListener(map, 'click', function (event) {
         if (trackClick) {
@@ -80,7 +80,7 @@ function initMarker() {
     });
     // bind event on default butt 
     $("#" + draggButton).bind("click", function () {
-        console.log("I was pused");
+        //console.log("I was pushed");
         switchDraggable();
         updateLocation();
     });
@@ -120,23 +120,28 @@ function updateLocation() {
         });
     }
     setMapPosition();
-    console.log(coordinates);
+    //console.log(coordinates);
 }
 
 
 function switchDraggable() {
 
     //console.log("switched");
+   
     trackClick = !trackClick;
     if (marker.getDraggable()) {
         marker.setDraggable(false);
         $("#" + draggButton).css("background-color", "#900");
         marker.setAnimation(null);
+        //TODO updating func - after relocating a marker 
+        nearbyMarkerSearch();
+        initPanel(restaurants);
     }
     else {
         marker.setDraggable(true);
         $("#" + draggButton).css("background-color", "green");
         marker.animation = google.maps.Animation.BOUNCE;
+        
 
     }
 
@@ -146,6 +151,9 @@ function setMapPosition() {
     //map.setCenter(marker.getPosition());
     //more  smoother 
     map.panTo(marker.getPosition());
+
+   // nearbyMarkerSearch();
+    //initPanel();
 }
 //secondary
 function sleep(ms) {
