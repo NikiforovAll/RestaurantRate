@@ -2,6 +2,7 @@ var map;
 var marker;
 var request;
 var markerImage;
+var startZoom =10 ;
 var draggButton = "draggableButton";
 //default = DataArt geoloc
 var coordinates = { lat: 46.480679, lng: 30.755164 };
@@ -22,7 +23,7 @@ function initMap() {
 
     map = new google.maps.Map(document.getElementById('map'), {
         center: coordinates,
-        zoom: 17,
+        zoom: startZoom,
         minZoom: 13,
         maxZoom: 19,
         streetViewControl: false,
@@ -133,7 +134,7 @@ function switchDraggable() {
         marker.setDraggable(false);
         $("#" + draggButton).css("background-color", "#900");
         marker.setAnimation(null);
-        //TODO updating func - after relocating a marker 
+        //TODO updating panel - after relocating a marker or ?  
         nearbyMarkerSearch();
         initPanel(restaurants);
     }

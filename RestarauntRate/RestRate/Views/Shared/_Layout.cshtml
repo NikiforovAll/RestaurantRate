@@ -12,27 +12,34 @@
     <script src="~/Scripts/jquery-2.1.4.min.js"></script>
     <script src="~/Scripts/ProjScripts/work_with_map.js"></script>
     <script src="~/Scripts/ProjScripts/work_with_panel.js"></script>
-    
+
+    <script src="~/Scripts/jquery.mCustomScrollbar.concat.min.js"></script>
+    <link rel="stylesheet" href="~/Content/Customer/jquery.mCustomScrollbar.css" />
+
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6qMb55_T65pEOrrZ2duf5JMR_KWQtyMY&libraries=places">
     </script>
 </head>
 <body>
     <!-- #region test-->
-    <div class="mainpanel">
+
+    <div class="mainpanel ">
         <div class="panelheader">
             <img src="/Content/Images/Customer/star.png" />
             <span>Rest-Rate</span>
+            <button type="button" class="settingsButt">
+                <img id="cogwheel" src="/Content/Images/Customer/Cogwheel.png" />
+            </button>
         </div>
-
-        <div class="panelItems ">
-
+        <div  >
+            <div class=" content">
+                <div  id="content-1" class ="panelItems"></div>
+            </div>
         </div>
 
     </div>
-   
-    <button id="draggableButton">
-        Draggable
-    </button>
+
+
+    <button id="draggableButton">Draggable</button>
     <div id="map"></div>
     <footer>&copy; @DateTime.Now.Year - Alpha Team</footer>
     <div class="container body-content">
