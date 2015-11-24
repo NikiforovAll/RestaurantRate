@@ -20,32 +20,23 @@ footer {
     color: #1C51F0;
     font-weight: bold;
 }
-#reviewBody {
-    position: absolute;
-    z-index: 99;
-    background-color: rgba(55, 47, 45, 0.7);
-    left: 500px;
-    width: 400px;
-    top: 10px;
-    outline: 2px solid black;
-}
 
-.reviewInfo button {
-    float: right;
-}
-.reviewInfo div {
-    color: rgb(216, 211, 13);
-}
+
+
 #draggableButton {
     position: absolute;
     top: 90%;
-    left: 90%;
+    left: 85%;
     z-index: 99;
     color: #FFF;
-    background-color: #900;
+    background-color: #798386;
+    border: 1px solid #798386;
+    color: black;
+    padding: 8px;
     font-weight: bold;
-    width: 100px;
-    height: 40px;
+    font-style: Italic;
+    border: 1px solid;
+    border-radius: 6px;
 }
 
 /*#reviewInfo  {
@@ -76,32 +67,36 @@ footer {
     float: right;
     margin-right: 10px;
 }
-.settingsPanel ul {
-    background-color: rgb(55, 47, 45);
-    margin-left: 70%
-}
-.settingsPanel ul li a {
-    color:#9F9067;
-    font-weight: bold;
-}
+
+    .settingsPanel ul {
+        background-color: rgb(55, 47, 45);
+        margin-left: 70%;
+    }
+
+        .settingsPanel ul li a {
+            color: #9F9067;
+            font-weight: bold;
+        }
+
 .settingsButt {
-    background:none;
-    border:none;
-    -webkit-box-shadow:none;
-    -ms-box-shadow:none;
-    box-shadow:none;
+    background: none;
+    border: none;
+    -webkit-box-shadow: none;
+    -ms-box-shadow: none;
+    box-shadow: none;
     margin-top: 5px;
 }
 
 #cogwheel {
     width: 40px;
 }
-#cogwheel:hover {
-    width: 45px;
-    
-}
+
+    #cogwheel:hover {
+        width: 45px;
+    }
+
 .settingsButt:hover {
-   margin-right: 3px;
+    margin-right: 3px;
     margin-top: 2px;
 }
 
@@ -137,20 +132,127 @@ footer {
         margin-left: 5%;
     }
 
+    .panel-item-w > div:last-child {
+        font-size: 9pt;
+    }
+
+    .panel-item-w > div {
+        margin-left: 8%;
+    }
+
+    .panel-item-w span {
+        margin-left: 5%;
+    }
+
     .panel-item:hover {
         background-color: rgb(157, 144, 123);
     }
- /*scroll configuration */
-.content{
-	overflow: auto;
-	position: relative;
-	padding: 10px;
-	/*background: #333;*/
-	width: 750px;
-	max-width: 105%;
-	height: 500px;
-	-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;
+
+    .panel-item-w {
+        margin-left: 12%;
+        background-color: white;
+        font-size: 12pt;
+        border-bottom: 2px solid;
+        font-weight: bold;
+        font-family: Arial;
+        border-radius: 10px;
+        border-right: 1px solid;
+    }
+/*scroll configuration */
+.content {
+    overflow: auto;
+    position: relative;
+    padding: 10px;
+    /*background: #333;*/
+    width: 750px;
+    max-width: 105%;
+    height: 500px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+#review {
+    position: absolute;
+    z-index: 99;
+    left: 45%;
+    width: 35%;
+    top: 5px;
+    display: none;
+       
+}
+/*Select all headears*/
+#review >div> div:first-child {
+    color: rgb(160, 145, 104);
+    font-size: 12pt;
+    font-weight: bold;
+    padding: 10px;
+    margin: 0;
+    background-color: rgba(55, 47, 45, 0.9);
+
+}
+#review > div {
+    margin-top: 3%;
+    outline: 2px solid black;
+    padding: 0px;
+    color: whitesmoke;
+    background-color: rgba(55, 47, 45, 0.65);
+    }
+#reviewRating *:not(div){
+    /*display: inline;*/
+    width: 50px;
+    /*padding: 5px;*/
+    
+}
+
+#reviewRating img:nth-child(odd)  {
+    width: 75px;
+    margin-left: 10px;
+}
+#reviewBody *:nth-child(2) {
+    /*left:15%;
+    position: relative;*/
+    font-size: 11pt;
+    margin-left: 30px;
+}
+#reviewBody *:last-child {
+    /*left:15%;
+    position: relative;*/
+    margin-left: 50%;
+}
+#reviewBody * {
+    padding: 9px;
+    margin-left: 5px;
+    font-size: 10pt
+}
+#reviewGallery *:not(div) {
+    padding: 10px;
+    height: 130px;
 
 }
 
+
+
+
+.mainpanel button:last-child {
+    float: right;
+    background-color: #798386;
+    border: 1px solid #798386;
+    width: 45%;
+    padding: 2px;
+    font-size: 14pt;
+    font-family: "Monospace";
+    font-weight: bold;
+    font-style: Italic;
+    color: black;
+    border: 1px solid black;
+    align-content: center;
+    margin-right: 15px; 
+}
+.reviewInfo button span img {
+    float: right;
+    margin-right: 8px;
+    margin-top: 6px;
+    
+}
 

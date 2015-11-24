@@ -2,23 +2,26 @@ var map;
 var marker;
 var request;
 var markerImage;
-var startZoom =10 ;
+var startZoom = 15;
 var draggButton = "draggableButton";
 //default = DataArt geoloc
 var coordinates = { lat: 46.480679, lng: 30.755164 };
 var dragState = false;
-var trackClick = true;
+var isDragging = false;
 var test = 1;
 //entry point
 $(document).ready(function () {
     initLocation();
     sleep(1000);
+
     //initMap();
 
 
 });
 
 // initiation
+//TODO independent map initialization bug:if user refused - map didnt show up 
+//TODO marshal markers of restaurants
 function initMap() {
 
     map = new google.maps.Map(document.getElementById('map'), {
@@ -38,7 +41,7 @@ function initMap() {
     panelInit();
     //TODO buind the output results of geoloc after clicking 
     google.maps.event.addListener(map, 'click', function (event) {
-        if (trackClick) {
+        if (!isDragging) {
             //return coordinates 
             console.log("Map listener: \n" + "Latitude: " + event.latLng.lat() + " " + ", longitude: " + event.latLng.lng());
             // return adress
@@ -69,8 +72,8 @@ function initMap() {
 function initMarker() {
 
     markerImage = {
-        url: '/Content/Images/Customer/i.png',
-        scaledSize: new google.maps.Size(70, 70)
+        url: '/Content/Images/Customer/marker.png',
+        scaledSize: new google.maps.Size(60, 60)
     };
     marker = new google.maps.Marker({
         position: coordinates,
@@ -124,25 +127,27 @@ function updateLocation() {
     //console.log(coordinates);
 }
 
-
+//TODO pick approach to redrawing the main panel : 1) after marker relocation?
 function switchDraggable() {
-
     //console.log("switched");
-   
-    trackClick = !trackClick;
+    isDragging = !isDragging;
+    //TODO depricate watching review when user drag marker 
+    //if (isDragging) {
+    //    $(".reviewInfo button").trigger();
+    //}
     if (marker.getDraggable()) {
         marker.setDraggable(false);
-        $("#" + draggButton).css("background-color", "#900");
+        //$("#" + draggButton).css("background-color", "#900");
         marker.setAnimation(null);
-        //TODO updating panel - after relocating a marker or another approach?  
-        nearbyMarkerSearch(minRad);
        
+        nearbyMarkerSearch(minRad);
     }
     else {
         marker.setDraggable(true);
-        $("#" + draggButton).css("background-color", "green");
+        $("#review").slideUp();
+        //$("#" + draggButton).css("background-color", "green");
         marker.animation = google.maps.Animation.BOUNCE;
-        
+
 
     }
 
@@ -153,7 +158,7 @@ function setMapPosition() {
     //more  smoother 
     map.panTo(marker.getPosition());
 
-   // nearbyMarkerSearch();
+    // nearbyMarkerSearch();
     //initPanel();
 }
 //secondary

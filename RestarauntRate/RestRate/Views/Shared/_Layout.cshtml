@@ -20,11 +20,11 @@
     <script src="~/Scripts/jquery.mCustomScrollbar.concat.min.js"></script>
     <link rel="stylesheet" href="~/Content/Customer/jquery.mCustomScrollbar.css" />
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6qMb55_T65pEOrrZ2duf5JMR_KWQtyMY&libraries=places">
-    </script>
+        </script>
 </head>
 <body>
     <!-- #region test-->
-
+    @*TODO Adaptive layout*@
     <div class="mainpanel ">
         <div class="panelheader">
             <img src="/Content/Images/Customer/star.png" />
@@ -36,7 +36,7 @@
                 <ul class="dropdown-menu">
                     <li><a href="#">~this is STUB~</a></li>
                     <li><a id="orderByRating" href="#">Order By Rating</a></li>
-                    <li><a id ="getFullList" href="#">Full List</a></li>
+                    <li><a id="getFullList" href="#">Full List</a></li>
                 </ul>
             </div>
         </div>
@@ -45,21 +45,48 @@
                 <div id="content-1" class="panelItems"></div>
             </div>
         </div>
-        @* TODO Different review button implementation??*@
-        <div class="reviewInfo">
-            <button type="button" class="btn " data-toggle="collapse" data-target="#reviewBody">Review</button>
-            <div id="reviewBody" class="collapse">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+        <button type="button" id ="showReview"class="btn " @*data-toggle="collapse" data-target="#review"*@>To Review<span><img src="/Content/Images/Customer/arrow1.png" /></span></button>
+        @*TODO Different review button implementation??*@
+        @*TODO Review implementation!*@
+        @*TODO change marker*@
+        
+    </div>
+    <div class="reviewInfo">
+        @*<button type="button" class="btn " data-toggle="collapse" data-target="#review">To Review<span><img src="/Content/Images/Customer/arrow1.png" /></span></button>*@
+
+        <div id="review" @*class="collapse"*@>
+
+            <div id="reviewRating">
+                <div>Rating</div>
+                <span><img src="/Content/Images/Customer/food.svg" /><img src="/Content/Images/Customer/starIcon.png" /></span>
+                <span><img src="/Content/Images/Customer/interior.svg" /><img src="/Content/Images/Customer/starIcon.png" /></span>
+                <span><img src="/Content/Images/Customer/service.svg" /><img src="/Content/Images/Customer/starIcon.png" /></span>
+            </div>
+            <div id="reviewBody">
+                <div>Description</div>
+                <p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"</p>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in
+                    reprehenderit in voluptate velitesse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+                    non proident sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </p>
+                <p>Visited on November 7th</p>
+            </div>
+            <div id="reviewGallery">
+                <div>Gallery</div>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
                 sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
             </div>
         </div>
-
     </div>
-   
-    
 
-    <button id="draggableButton">Draggable</button>
+    @*TODO design draggable button*@
+    <button id="draggableButton" class="btn active">SET POSITION</button>
     <div id="map"></div>
     <footer>&copy; @DateTime.Now.Year - Alpha Team</footer>
     <div class="container body-content">

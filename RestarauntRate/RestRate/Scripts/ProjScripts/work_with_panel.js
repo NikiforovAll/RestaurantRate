@@ -14,11 +14,11 @@ var testRest = [
 var minRad = 700;
 var maxRad = 2000;
 var panel;
-var state = { color: "rgba(55, 47, 45,0.4)", marginLeft: "0%" }
+//var state = { color: "rgba(55, 47, 45,0.4)", marginLeft: "0%" }
 var prevItem;
 var availabletypes = ["restaurant", "bar", "cafe"];
 
-
+//TODO implement scrollbar to review panel 
 function panelInit() {
 
     panel = $(".mainpanel");
@@ -41,13 +41,24 @@ function panelInit() {
             addToPanel(el); 
         });
     });
+   
     $("#getFullList").click(function() {
         citySearch();
     });
+    //TODO add bussiness logic
+    $("#showReview").click(function() {
+        console.log(isDragging);
+        if (isDragging) {
+
+        } else {
+            $("#review").slideToggle();
+        }
+       
+    })
     //TODO pick search lang
 };
 function citySearch() {
-    // TODO search by city;
+    // TODO city search - get all restaurants;
     //nearbyMarkerSearch(maxRad); 
     for (var j = 0; j < 3; j++) {
         restaurants = restaurants.concat(testRest);
@@ -92,16 +103,29 @@ function nearbyMarkerSearch(r) {
 function togglePanel(e) {
     {
         var target = $(e.target).closest(".panel-item");
-        if (target.css("background-color") === "rgb(255, 255, 255)") {
-            target.css("background-color", state.color);
-            target.css("margin-left", state.marginLeft);
-
-        } else {
-            prevItem.css("background-color", state.color);
-            prevItem.css("margin-left", state.marginLeft);
-            target.css("background-color", "white");
-            target.css("margin-left", "12%");
+        if (target.length === 0) {
+            target = $(e.target).closest(".panel-item-w");
         }
+
+        if (target.hasClass('panel-item-w')) {
+            target.removeClass('panel-item-w');
+            target.addClass('panel-item');
+        } else {
+            prevItem.removeClass('panel-item-w');
+            prevItem.addClass("panel-item")
+            target.removeClass("panel-item");
+            target.addClass('panel-item-w');
+        }
+        //if (target.css("background-color") === "rgb(255, 255, 255)") {
+        //    target.css("background-color", state.color);
+        //    target.css("margin-left", state.marginLeft);
+
+        //} else {
+        //    prevItem.css("background-color", state.color);
+        //    prevItem.css("margin-left", state.marginLeft);
+        //    target.css("background-color", "white");
+        //    target.css("margin-left", "12%");
+        //}
         prevItem = target;
     }
 }
@@ -131,6 +155,15 @@ function addToPanel(item) {
     var $item = $(src);
     $item.click(togglePanel);
     $(".panelItems").append($item);
+}
+
+function getActivePanelElement() {
+    if (prevItem.hasClass("panel-item-w")) {
+        return prevItem;
+    } else {
+        return null;
+    }
+
 }
 
 // test 

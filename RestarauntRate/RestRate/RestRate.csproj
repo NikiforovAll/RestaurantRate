@@ -122,6 +122,7 @@
     <Content Include="Content\Images\Admin\bg.png" />
     <Content Include="Content\Images\Admin\favicon.ico" />
     <Content Include="Content\Images\Admin\logo_big.png" />
+    <Content Include="Content\Images\Customer\arrow1.png" />
     <Content Include="Content\Images\Customer\i.png" />
     <Content Include="Content\Images\Customer\r.png" />
     <Content Include="Content\Login\assets\3dcube\Overlay.css" />
