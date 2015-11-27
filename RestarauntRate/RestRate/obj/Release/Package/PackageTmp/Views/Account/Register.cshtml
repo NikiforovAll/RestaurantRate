@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Rest-Rate Admin Page</title>
+    <link rel="icon" type="image/ico" href="~/Content/Images/Admin/favicon.ico" />
+    <meta name="description" content="Bootstrap with HTML5 / CSS3 / JavaScript">
+    <meta name="author" content="Yuriy Chikhray">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <script src="~/Scripts/jquery-2.1.4.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/bootstrap-dialog.min.js"></script>
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="~/Content/bootstrap-dialog.min.css" rel="stylesheet">
+    <link href="~/Content/Login/style.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row vertical-offset">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="row-fluid user-row">
+                            <img src="~/Content/Images/Admin/register.png" class="img-responsive">
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <form method="post" accept-charset="UTF-8" role="form" class="form-signin" id="registerForm">
+                            <fieldset>
+                                <input class="form-control" placeholder="E-mail" name="email" maxlength="50" type="text">
+                                <input class="form-control" placeholder="Username" name="username" maxlength="50" type="text">
+                                <input class="form-control" placeholder="Password" name="password" maxlength="50" type="password">
+                                <br>
+                                <button class="btn btn-lg btn-primary btn-block" type="submit" id="register">  Register »</button>
+                            </fieldset>
+                            <br>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <script src="~/Scripts/ProjScripts/register.js"></script>
+        <script src="~/Scripts/ProjScripts/shareFunctions.js"></script>
+    </footer>
+
+</body>
+</html>

@@ -11,6 +11,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <script src="~/Scripts/jquery-2.1.4.min.js"></script>
+    <script src="~/Scripts/jquery.redirect.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Scripts/bootstrap-dialog.min.js"></script>
 
@@ -45,7 +46,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="restoreButton">Restore</button>
+                    <button type="button" class="btn btn-primary" id="restoreButton"> Restore</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -69,13 +70,13 @@
                                 <input class="form-control" placeholder="Username" name="username" maxlength="20" type="text">
                                 <input class="form-control" placeholder="Password" name="password" maxlength="20" type="password">
                                 <br>
-                                <button class="btn btn-lg btn-primary btn-block" type="submit" id="login">  Login »</button>
+                                <button class="btn btn-lg btn-primary btn-block" type="submit" id="login"> Login »</button>
                             </fieldset>
                             <br>
                             <center>
                                 <div class="restoreLink">Forgot the password?</div>
                                 <br>
-                                <a href="../Account/Register">Registration</a>
+                                <a href="@Url.Action("Register", "Account")">Registration</a>
                             </center>
                         </form>
                     </div>
@@ -86,7 +87,7 @@
 
     <footer>
         <script src="~/Scripts/ProjScripts/login.js"></script>
+        <script src="~/Scripts/ProjScripts/shareFunctions.js"></script>
     </footer>
-
 </body>
 </html>

@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="EFDbContext-Web.config Connection String" description="EFDbContext Connection String used in web.config by the application to access the database." defaultValue="Server=tcp:ddctykhc5o.database.windows.net,1433;Database=rest-rate-db;User ID=rest-rate-db@ddctykhc5o;Password=Q!W@E#R$t5y6;Trusted_Connection=False;Encrypt=True;Connection Timeout=30;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="E:\\Ruslan\\Web\\Projects\\RestRate\\RestarauntRate\\RestRate\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='EFDbContext']/@connectionString" />
+  </parameter>
+</parameters>

@@ -1,0 +1,91 @@
+﻿@{
+    ViewBag.Title = "Admin: Log In";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="icon" type="image/ico" href="~/Content/Images/Admin/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <script src="~/Scripts/jquery-2.1.4.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/bootstrap-dialog.min.js"></script>
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet">
+    <link href="~/Content/bootstrap-dialog.min.css" rel="stylesheet">
+    <link href="~/Content/Login/style.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
+</head>
+<body>
+    <div class="modal fade" id="passwordRestore" role="dialog" aria-labelledby="gridSystemModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="gridSystemModalLabel">Restore password</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-md-3">
+                                    Your e-mail address:
+                                </label>
+                                <div class="col-md-9">
+                                    <input class="form-control" placeholder="E-mail" name="email" maxlength="60" type="text" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="restoreButton">Restore</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div class="container">
+
+        <div class="row vertical-offset">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="row-fluid user-row">
+                            <img src="~/Content/Images/Admin/logo_big.png" class="img-responsive">
+                        </div>
+
+                    </div>
+                    <div class="panel-body">
+                        <form method="post" accept-charset="UTF-8" role="form" class="form-signin" id="LoginForm">
+
+                            <fieldset>
+                                <input class="form-control" placeholder="Username" name="username" maxlength="20" type="text">
+                                <input class="form-control" placeholder="Password" name="password" maxlength="20" type="password">
+                                <br>
+                                <button class="btn btn-lg btn-primary btn-block" type="submit" id="login">  Login »</button>
+                            </fieldset>
+                            <br>
+                            <center>
+                                <div class="restoreLink">Forgot the password?</div>
+                                <br>
+                                <a href="@Url.Action("Register", "Account")">Registration</a>
+                            </center>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <script src="~/Scripts/ProjScripts/login.js"></script>
+    </footer>
+</body>
+</html>

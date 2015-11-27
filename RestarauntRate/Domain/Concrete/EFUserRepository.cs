@@ -19,6 +19,7 @@ namespace Domain.Concrete
         {
             if (user.UserID == 0)
             {
+                user.Role = User.UserRole.Inactive;
                 context.Users.Add(user);
             }
             else

@@ -7,6 +7,8 @@ using System.Web.Security;
 using RestRate.Infrastructure.Abstract;
 using Domain.Entities;
 using System.Net.Mail;
+using System.Web.Mvc;
+using System.Web;
 using System.Net;
 
 namespace RestRate.Infrastructure.Concrete
@@ -15,7 +17,6 @@ namespace RestRate.Infrastructure.Concrete
     {
         public bool Authenticate(User user)
         {
-            if(UserWasFound(user))
             {
                 FormsAuthentication.SetAuthCookie(user.UserName, false);
                 return true;

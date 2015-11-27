@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Domain.Entities;
 using Domain.Abstract;
+using System.Web.Security;
 using RestRate.Infrastructure.Abstract;
 
 namespace RestRate.Controllers
@@ -28,12 +29,32 @@ namespace RestRate.Controllers
             return View();
         }
         [HttpPost]
-        public JsonResult Login(User data)
+        public ActionResult Login(User data, bool persistCookie = false)
         {
             try
-            {
-                if (authProvider.Authenticate(data))
+            {                             
+                if ((authProvider.Authenticate(data)))
                 {
+                    FormsAuthenticationTicket ticket = new FormsAuthenticationTicket
+                    (
+                     1,
+                    data.UserName,
+                    DateTime.Now,
+                    DateTime.Now.AddMinutes(30),
+                    false,
+                    data.UserName,
+                    FormsAuthentication.FormsCookiePath
+                    );
+                    Response.Cookies.Add
+                    (
+                        new HttpCookie
+                        (
+                            FormsAuthentication.FormsCookieName,
+                            FormsAuthentication.Encrypt(ticket)
+                        )
+                    );
+                    var cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+                    var ticketInfo = FormsAuthentication.Decrypt(cookie.Value); 
                     return Json(new { result = "success" });
                 }
                 else
@@ -43,7 +64,7 @@ namespace RestRate.Controllers
             }
             catch
             {
-                return Json(new { message = "JSON request is NULL."});
+                return Json(new { result = "error", message = "Unknown error!\nPlease, try again later."});
             }
         }
         [HttpPost]
@@ -54,32 +75,43 @@ namespace RestRate.Controllers
                 User user = authProvider.GetUserByEmail(email);
                 string body = String.Format("Hello, {0}! Your password is {1}.", user.UserName, user.Password);
                 const string subject = "Password restoration.";
-                try {
+                try
+                {
                     authProvider.EmailSender(new System.Net.Mail.MailAddress("restrate.postservice@gmail.com", "Restaurant Rating Team"), "secret0000",
                                             new System.Net.Mail.MailAddress(email), subject, body);
-                    return Json(new { result = "success" });
-                }
+                    return Json(new { result = "success", message = "Restore E-mail was sended successful!" });
+                    }
                 catch
                 {
-                    return Json(new { result = "error" });
+                    return Json(new { result = "error", message = "Error occured while sending e-mail\nPlease, try again later." });
                 }
             }
             catch
             {
-                return Json(new { message = "JSON request is NULL." });
+                return Json(new { result = "error", message = "User with this E-mail doesn't exist!\nWe cannot restore password unregistered user." });
             }
         }
         [HttpPost]
-        public JsonResult Register(string bla)
+        public JsonResult Register(User user)
         {
-            string body = String.Format("Dear {0}, you have recently registered on the Restaurant Rating website and we are glad to inform you that your application has been accepted. To get access to the Admin part of our website, please, use the login \"{1}\" and the password you’ve indicated while registering. Thank you for visiting our website. Yours sincerely, Restaurant Rating Team");
-            const string subject = "Account activation.";
-            return Json(null);
+            try // TODO: RETURN ERROR MESSAGE WHEN USER IS ALREADY EXIST
+            {
+                if (user != null)
+                {
+                    userRepository.SaveUser(user);
+                    return Json(new { result = "success", message = "User was created successful!\nNow, please, wait for confirmation by Administrator." });
+                    }
+                else
+                {
+                    return Json(new { result = "error", message = "Registration error!\nPlease, try again later." });
+                }
+            }
+            catch
+            {
+                return Json(new { result = "error", message = "Registration error! Maybe, DB is down.\nPlease, try register later." });
+            }
         }
-        [HttpPost]
-        public ViewResult Logout()
-        {
-            return View();
-        }
+        //string body = String.Format("Dear {0}, you have recently registered on the Restaurant Rating website and we are glad to inform you that your application has been accepted. To get access to the Admin part of our website, please, use the login \"{1}\" and the password you’ve indicated while registering. Thank you for visiting our website. Yours sincerely, Restaurant Rating Team");
+        //const string subject = "Account activation.";
     }
 }

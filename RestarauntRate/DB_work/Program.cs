@@ -41,20 +41,23 @@ namespace DB_work
                     //db.SaveChanges();
                     using (var context = new EFDbContext())
                     {
-                        User user = context.Users.Where(usr => usr.Email == "ruslan.avsenin@gmail.com").First();
-                        Console.WriteLine(user.UserName + " " + user.Password + " " + user.Role);
-                    }
+                        //   User user = context.Users.Where(usr => usr.Email == "ruslan.avsenin@gmail.com").First();
+                        // Console.WriteLine(user.UserName + " " + user.Password + " " + user.Role);
 
-                    //   User dbEntry = db.Users.Where(usr => usr.UserName == "admin").First();
-                    // Console.WriteLine(dbEntry.UserName + dbEntry.Password + dbEntry.Role);
-                    // foreach(User usr in db.Users)
-                    //{
-                    //    Console.WriteLine(usr.UserName + usr.Password + usr.Role);
-                    //}
-                    //foreach (var u in db.Users)
-                    // {
-                    // Console.WriteLine("Name: {0} Password: {1} Email: {2} Role: {3}", u.UserName, u.Password, u.Email, u.Role);
-                    //}
+                       // User user = context.Users.Find(1);
+                       // user.Role = User.UserRole.Moderator;
+                        //context.SaveChanges();
+                        //   User dbEntry = db.Users.Where(usr => usr.UserName == "admin").First();
+                        // Console.WriteLine(dbEntry.UserName + dbEntry.Password + dbEntry.Role);
+                        // foreach(User usr in db.Users)
+                        //{
+                        //    Console.WriteLine(usr.UserName + usr.Password + usr.Role);
+                        //}
+                        //foreach (var u in db.Users)
+                        // {
+                        // Console.WriteLine("Name: {0} Password: {1} Email: {2} Role: {3}", u.UserName, u.Password, u.Email, u.Role);
+                        //}
+                    }
                 }
                 catch
                 {

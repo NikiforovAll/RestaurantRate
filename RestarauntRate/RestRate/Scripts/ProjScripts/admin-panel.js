@@ -1,36 +1,25 @@
-﻿$("input").change(function () {
-    var value = this.value;
-    if (value != '') {
-        $(this).removeClass("incorrect_data");
-    }
-}).trigger("change");
-
+﻿// Show modal form for change password
 function changePassword() {
     $("#changePasswordForm").modal({ backdrop: "static" });
 }
 
+// Send post data to controller to change password
+//$("#changePassword").click(function () {
+//    var oldPass = $('input[name="email"]').val();
+//    var newPass = $('input[name="email"]').val();
+//    var newPassRepeat = $('input[name="email"]').val();
+
+// Show modal form to add new restaurant
 $("#add").click(function () {
     if (document.getElementById('restName').value === '') {
-        BootstrapDialog.show({
-            title: 'Adding error!',
-            message: 'Restaurant name field is empty! Please, enter a restaurant name before clicking "Add »"!',
-            closable: false,
-            buttons: [{
-                label: 'Close',
-                hotkey: 13,
-                action: function (dialogItself) {
-                    dialogItself.close();
-                    $('#restName').addClass("incorrect_data")
-                    $('#restName').focus();
-                }
-            }]
-        });
+        informationWindow('Adding error!', 'Restaurant name field is empty! Please, enter a restaurant name before clicking "Add »"!', {'restName': ''});
     }
     else {
         $("#myModal").modal({ backdrop: "static" });
     }
 });
 
+// Update countdown to show how mush symbols left
 function updateCountdown() {
     var remaining = 500 - jQuery('#formReview').val().length;
     jQuery('.help-block').text(remaining + ' characters left.');
