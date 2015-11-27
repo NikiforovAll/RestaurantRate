@@ -45,18 +45,24 @@ function panelInit() {
     $("#getFullList").click(function() {
         citySearch();
     });
-    //TODO add bussiness logic
-    $("#showReview").click(function() {
-        console.log(isDragging);
-        if (isDragging) {
-
-        } else {
-            $("#review").slideToggle();
-        }
-       
-    })
+   
+    $("#showReview").click(toggleReview);
     //TODO pick search lang
 };
+//TODO :add filling logic for review panel;
+//TODO tost for not active revision action; finish review toggle logic 
+function toggleReview() {
+    if (isDragging) {
+    } else {
+        var activeEl = getActivePanelElement();
+        if (!!activeEl) {
+            
+            $("#review").slideToggle();
+        } else {
+            $("#review").slideUp();
+        }
+    }
+}
 function citySearch() {
     // TODO city search - get all restaurants;
     //nearbyMarkerSearch(maxRad); 
