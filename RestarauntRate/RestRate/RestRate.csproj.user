@@ -3,6 +3,7 @@
   <PropertyGroup>
     <WebStackScaffolding_ViewDialogWidth>600</WebStackScaffolding_ViewDialogWidth>
     <NameOfLastUsedPublishProfile>rest-rate - Web Deploy</NameOfLastUsedPublishProfile>
+    <ProjectView>ProjectFiles</ProjectView>
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
