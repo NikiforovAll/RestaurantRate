@@ -13,7 +13,6 @@ var test = 1;
 $(document).ready(function () {
     initLocation();
     sleep(1000);
-
     //initMap();
 
 
@@ -22,8 +21,8 @@ $(document).ready(function () {
 // initiation
 //TODO independent map initialization bug:if user refused - map didnt show up 
 //TODO marshal markers of restaurants
-function initMap() {
 
+function initGMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: coordinates,
         zoom: startZoom,
@@ -34,6 +33,10 @@ function initMap() {
             mapTypeIds: ['coordinate']
         }
     });
+}
+function initMap() {
+
+    initGMap();
     initMarker();
     //map.addListener('zoom_changed', function() {
     //    console.log(map.getZoom());
@@ -100,15 +103,17 @@ function initLocation() {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
             };
-            initMap();
+            marker.setPosition(coordinates);
+            setMapPosition();
+            nearbyMarkerSearch(minRad);
+            //initMap();
         }, showAlert, {
             enableHighAccuracy: true,
             timeout: 5000,
             maximumAge: 0
         });
-    } else {
-        initMap();
-    }
+    } 
+    initMap();
 }
 
 // TODO create a func that updates position (call updateLocation) depending  on frequency 
@@ -127,11 +132,10 @@ function updateLocation() {
     //console.log(coordinates);
 }
 
-//TODO pick approach to redrawing the main panel : 1) after marker relocation?
+//  
 function switchDraggable() {
     //console.log("switched");
     isDragging = !isDragging;
-    //TODO depricate watching review when user drag marker 
     //if (isDragging) {
     //    $(".reviewInfo button").trigger();
     //}
