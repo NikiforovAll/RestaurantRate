@@ -26,7 +26,7 @@ $("#restoreButton").click(function () {
     if (validateEmail(email)) {
         $.ajax({
             type: "POST",
-            url: "/Controllers/Account",
+            url: "/Account/Login",
             data: JSON.stringify({'Email': email}),
             contentType: "application/json; charset=utf-8",
             dataType: 'json',
@@ -69,7 +69,7 @@ function (event) {
         jQuery.ajaxSettings.traditional = true;
         $.ajax({
             type: "POST",
-            url: "/Controllers/Account/Login",
+            url: "/Account/Login",
             data: JSON.stringify({"UserName": user, "Password": pass}),
             contentType: "application/json; charset=utf-8",
             dataType: 'json',
@@ -80,7 +80,7 @@ function (event) {
             success: function (answer) {
                 if (answer['result'] == 'success') {
                     $("#login, input, .restoreLink").prop("disabled", false);
-                    window.location.href = "/Controllers/Admin/Index"
+                    window.location.href = "/Admin/Index"
                 }
                 else {
                     $("#login, input, .restoreLink").prop("disabled", false);

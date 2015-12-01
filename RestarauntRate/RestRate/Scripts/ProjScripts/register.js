@@ -23,7 +23,7 @@ function (event) {
     else {
         $.ajax({
             type: "POST",
-            url: "/Controllers/Account/Login",
+            url: "/Account/Register",
             data: JSON.stringify({ "UserName": user, "Password": pass, "Email": email }),
             contentType: "application/json; charset=utf-8",
             beforeSend: function () {
@@ -32,7 +32,7 @@ function (event) {
             },
             success: function (answer) {
                 if (answer['result'] == 'success') {
-                    var url = "/Controllers/Account/Login";
+                    var url = "/Account/Login";
                     informationWindow('Register successful.', answer['message'], { 'location': url });
                 }
                 else {
