@@ -31,6 +31,7 @@ namespace Domain.Concrete
                     dbEntry.Password = user.Password;
                     dbEntry.Email = user.Email;
                     dbEntry.Role = user.Role;
+                    dbEntry.RegisterDate = DateTime.Now;
                 }
             }
             context.SaveChanges();

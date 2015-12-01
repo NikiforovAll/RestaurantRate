@@ -16,8 +16,10 @@ namespace Domain.Entities
         public int LanguageID { get; set; }
         [HiddenInput(DisplayValue = false)]
         [StringLength(3)]
+        [Index(IsUnique = true)]
         public string Code { get; set; }
         [StringLength(30)]
+        [Index(IsUnique = true)]
         public string Name { get; set; }
         public virtual List<RestarauntLang> RestLangs { get; set; }
         public Language()

@@ -17,6 +17,7 @@ namespace RestRate.Infrastructure.Concrete
     {
         public bool Authenticate(User user)
         {
+            if(UserWasFound(user))
             {
                 FormsAuthentication.SetAuthCookie(user.UserName, false);
                 return true;

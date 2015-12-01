@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Domain.Entities;
@@ -30,7 +32,7 @@ namespace RestRate.Controllers
         public ActionResult Login(User data, bool persistCookie = false)
         {
             try
-            {                             
+            {
                 if ((authProvider.Authenticate(data)))
                 {
                     FormsAuthenticationTicket ticket = new FormsAuthenticationTicket
@@ -52,7 +54,7 @@ namespace RestRate.Controllers
                         )
                     );
                     var cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
-                    var ticketInfo = FormsAuthentication.Decrypt(cookie.Value); 
+                    var ticketInfo = FormsAuthentication.Decrypt(cookie.Value);
                     return Json(new { result = "success" });
                 }
                 else
@@ -62,12 +64,12 @@ namespace RestRate.Controllers
             }
             catch
             {
-                return Json(new { result = "error", message = "Unknown error!\nPlease, try again later."});
+                return Json(new { result = "error", message = "Unknown error!\nPlease, try again later." });
             }
         }
         [HttpPost]
         public JsonResult Restore(string email)
-        {          
+        {
             try
             {
                 User user = authProvider.GetUserByEmail(email);
@@ -78,7 +80,7 @@ namespace RestRate.Controllers
                     authProvider.EmailSender(new System.Net.Mail.MailAddress("restrate.postservice@gmail.com", "Restaurant Rating Team"), "secret0000",
                                             new System.Net.Mail.MailAddress(email), subject, body);
                     return Json(new { result = "success", message = "Restore E-mail was sended successful!" });
-                    }
+                }
                 catch
                 {
                     return Json(new { result = "error", message = "Error occured while sending e-mail\nPlease, try again later." });
@@ -96,9 +98,15 @@ namespace RestRate.Controllers
             {
                 if (user != null)
                 {
-                    userRepository.SaveUser(user);
-                    return Json(new { result = "success", message = "User was created successful!\nNow, please, wait for confirmation by Administrator." });
+                    try {
+                        userRepository.SaveUser(user);
+                        return Json(new { result = "success", message = "Thank you for registering! Your request is in processing.\nYou'll be informed about the activation of your account by an e-mail" });
                     }
+                    catch
+                    {
+                        return Json(new { result = "error", message = "A user with such Email address/Username already exists. Please, enter another one." });
+                    }
+                }
                 else
                 {
                     return Json(new { result = "error", message = "Registration error!\nPlease, try again later." });

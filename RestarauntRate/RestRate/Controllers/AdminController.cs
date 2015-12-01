@@ -33,6 +33,8 @@ namespace RestRate.Controllers
         }       
         public RedirectToRouteResult Logout()
         {
+            var cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+            var ticketInfo = FormsAuthentication.Decrypt(cookie.Value);
             FormsAuthentication.SignOut();
             return RedirectToAction("Login", "Account");
         }

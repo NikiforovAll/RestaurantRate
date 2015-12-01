@@ -10,11 +10,15 @@ function (event) {
     var email = $(this).find('input[name="email"]').val();
     var user = $(this).find('input[name="username"]').val();
     var pass = $(this).find('input[name="password"]').val();
+    var passConfirm = $(this).find('input[name="passwordConfirm"]').val();
     if (user == '' || pass == '' || email == '') {
-        informationWindow('Register error.', 'Some fields are empty...\nPlease, fill all fields.', {'user': user, 'pass': pass, 'email': email});
+        informationWindow('Register error.', 'There is an empty field! Please, fill in all the fields!', { 'user': user, 'pass': pass, 'email': email });
     }
     else if (!validateEmail(email)) {
-        informationWindow('Register error.', 'E-mail field is not correct.\nPlease, write correct e-mail.', {'email': ''});
+        informationWindow('Register error.', "Invalid input!\nPlease, check that all the symbols in the fields are correct.", { 'email': '' });
+    }
+    else if (pass != passConfirm) {
+        informationWindow('Register error.', "Invalid input!\nPlease, enter exactly the same password.", { 'pass': '' });
     }
     else {
         $.ajax({
@@ -22,11 +26,11 @@ function (event) {
             url: "/Account/Register",
             data: JSON.stringify({ "UserName": user, "Password": pass, "Email": email }),
             contentType: "application/json; charset=utf-8",
-            beforeSend:function() {
-                $("#login").prepend("<i class='fa fa-spinner fa-spin' id='spiner'></i>");
+            beforeSend: function () {
+                $("#register").prepend("<i class='fa fa-spinner fa-spin' id='spiner'></i>");
                 $("#register, input").prop("disabled", true);
             },
-            success: function(answer){
+            success: function (answer) {
                 if (answer['result'] == 'success') {
                     var url = "../Account/Login";
                     informationWindow('Register successful.', answer['message'], { 'location': url });
@@ -36,7 +40,7 @@ function (event) {
                 }
                 $("#register, input").prop("disabled", false);
             },
-            error: function() {
+            error: function () {
                 informationWindow('Register error.', 'Something wrong was happend!\nPlease, try later.');
                 $("#register, input").prop("disabled", false);
             },

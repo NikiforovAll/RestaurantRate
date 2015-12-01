@@ -16,5 +16,6 @@ namespace Domain.Concrete
         public DbSet<Restaraunt> Restaraunts { get; set; }
         public DbSet<RestarauntLang> RestarauntLangs { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<UserEvent> UserEvents { get; set; }
     }
 }

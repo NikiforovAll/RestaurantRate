@@ -12,7 +12,7 @@ function changePassword() {
 // Show modal form to add new restaurant
 $("#add").click(function () {
     if (document.getElementById('restName').value === '') {
-        informationWindow('Adding error!', 'Restaurant name field is empty! Please, enter a restaurant name before clicking "Add »"!', {'restName': ''});
+        informationWindow('Adding error!', 'Restaurant name field is empty! Please, enter a restaurant name before clicking "Add »"!', { 'restName': '' });
     }
     else {
         $("#myModal").modal({ backdrop: "static" });
@@ -25,6 +25,49 @@ function updateCountdown() {
     jQuery('.help-block').text(remaining + ' characters left.');
 }
 
+// Open map to add restaurant
+function openMap() {
+    // TODO!
+    $(".modal-content").after("<div id='map'></div>");
+
+    console.log("map is opened!");
+}
+
+// Open/close additional address fields
+$(function () {
+    $(document).on('click', '.btn-add', function (e) {
+        $(this).removeClass('btn-add btn-success').addClass('btn-remove btn-danger').html('<span class="glyphicon glyphicon-minus"></span>');
+        $("<div class='additionalAddress' style='display:none'>\
+            <div class='row form-group'>\
+                <label class='control-label col-md-3'>City:</label>\
+                <div class='col-md-9'>\
+                    <input class='form-control' placeholder='City' id='formRestCity' maxlength='80' type='text' value='Odessa' />\
+                </div>\
+            </div>\
+            <div class='row form-group'>\
+                <label class='control-label col-md-3'>Region:</label>\
+                <div class='col-md-9'>\
+                    <input class='form-control' placeholder='Region' id='formRestCity' maxlength='80' type='text' value='Odessa' />\
+                </div>\
+            </div>\<div class='row form-group'>\
+                <label class='control-label col-md-3'>Country:</label>\
+                <div class='col-md-9'>\
+                    <input class='form-control' placeholder='Country' id='formRestCity' maxlength='80' type='text' value='Ukraine' />\
+                </div>\
+            </div>\
+           </div>\
+        ").insertAfter("#addressRestaurant");
+        $(".additionalAddress").slideDown(1000);
+
+    }).on('click', '.btn-remove', function (e) {
+        $(this).removeClass('btn-remove btn-danger').addClass('btn-add btn-success').html('<span class="glyphicon glyphicon-plus"></span>');
+        $(".additionalAddress").slideUp(1000, function () {
+            $('.additionalAddress').remove();
+        });
+    });
+});
+
+// Count if char was entered to field
 jQuery(document).ready(function ($) {
     updateCountdown();
     $('#formReview').change(updateCountdown);

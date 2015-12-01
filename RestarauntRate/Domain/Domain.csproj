@@ -62,6 +62,7 @@
     <Compile Include="Abstract\ILanguageRepository.cs" />
     <Compile Include="Abstract\IRestarauntLangRepository.cs" />
     <Compile Include="Abstract\IRestarauntRepository.cs" />
+    <Compile Include="Abstract\IUserEventRepository.cs" />
     <Compile Include="Abstract\IUserRepository.cs" />
     <Compile Include="Concrete\EFCommentRepository.cs" />
     <Compile Include="Concrete\EFDbContext.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="Concrete\EFLanguageRepository.cs" />
     <Compile Include="Concrete\EFRestarauntLangRepository.cs" />
     <Compile Include="Concrete\EFRestarauntRepository.cs" />
+    <Compile Include="Concrete\EFUserEventRepository.cs" />
     <Compile Include="Concrete\EFUserRepository.cs" />
     <Compile Include="Entities\Comment.cs" />
     <Compile Include="Entities\Image.cs" />
@@ -76,6 +78,7 @@
     <Compile Include="Entities\Restaraunt.cs" />
     <Compile Include="Entities\RestarauntLang.cs" />
     <Compile Include="Entities\User.cs" />
+    <Compile Include="Entities\UserEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

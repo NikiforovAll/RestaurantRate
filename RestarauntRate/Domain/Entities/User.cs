@@ -12,7 +12,6 @@ namespace Domain.Entities
     public class User
     {
         [Key]
-        [HiddenInput(DisplayValue = false)]
         public int UserID { get; set; }
         [Required]
         [StringLength(30)]
@@ -35,6 +34,11 @@ namespace Domain.Entities
             Admin,
             Moderator,
             Inactive
+        }
+        public virtual List<UserEvent> UserEvent { get; set; }
+        public User()
+        {
+            this.UserEvent = new List<UserEvent>();
         }
     }
 }
