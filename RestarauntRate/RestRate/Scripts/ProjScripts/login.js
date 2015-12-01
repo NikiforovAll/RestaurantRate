@@ -27,7 +27,7 @@ $("#restoreButton").click(function () {
         $.ajax({
             type: "POST",
             url: "/Account/Login",
-            data: JSON.stringify({'Email': email}),
+            data: JSON.stringify({ 'Email': email }),
             contentType: "application/json; charset=utf-8",
             dataType: 'json',
             beforeSend: function () {
@@ -52,7 +52,7 @@ $("#restoreButton").click(function () {
         });
     }
     else {
-        informationWindow('Password restore', 'E-mail is not correct!\nPlease, enter your real e-mail to restore!', {'email': ''});
+        informationWindow('Password restore', 'E-mail is not correct!\nPlease, enter your real e-mail to restore!', { 'email': '' });
     }
 });
 
@@ -63,14 +63,14 @@ function (event) {
     var user = document.forms["LoginForm"]["username"].value;
     var pass = document.forms["LoginForm"]["password"].value;
     if (user == '' || pass == '') {
-        informationWindow('Login error', 'Login or password field is empty!\nPlease, fill all the fields!', {'user': user, 'pass': pass});
+        informationWindow('Login error', 'Login or password field is empty!\nPlease, fill all the fields!', { 'user': user, 'pass': pass });
     }
     else {
         jQuery.ajaxSettings.traditional = true;
         $.ajax({
             type: "POST",
             url: "/Account/Login",
-            data: JSON.stringify({"UserName": user, "Password": pass}),
+            data: JSON.stringify({ "UserName": user, "Password": pass }),
             contentType: "application/json; charset=utf-8",
             dataType: 'json',
             beforeSend: function () {
@@ -80,7 +80,10 @@ function (event) {
             success: function (answer) {
                 if (answer['result'] == 'success') {
                     $("#login, input, .restoreLink").prop("disabled", false);
-                    window.location.href = "/Admin/Index"
+                    document.cookie = "username=" + user;
+                    var x = document.cookie;
+                    console.log(x);
+                    window.location.href = "/Admin/Index";
                 }
                 else {
                     $("#login, input, .restoreLink").prop("disabled", false);

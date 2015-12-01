@@ -11,8 +11,8 @@ function (event) {
     var user = $(this).find('input[name="username"]').val();
     var pass = $(this).find('input[name="password"]').val();
     var passConfirm = $(this).find('input[name="passwordConfirm"]').val();
-    if (user == '' || pass == '' || email == '') {
-        informationWindow('Register error.', 'There is an empty field! Please, fill in all the fields!', { 'user': user, 'pass': pass, 'email': email });
+    if (user == '' || pass == '' || email == '' || passConfirm == '') {
+        informationWindow('Register error.', 'There is an empty field! Please, fill in all the fields!', { 'user': user, 'pass': pass, 'email': email, 'confirm': passConfirm });
     }
     else if (!validateEmail(email)) {
         informationWindow('Register error.', "Invalid input!\nPlease, check that all the symbols in the fields are correct.", { 'email': '' });

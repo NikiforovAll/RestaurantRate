@@ -4,20 +4,59 @@ function changePassword() {
 }
 
 // Send post data to controller to change password
-//$("#changePassword").click(function () {
-//    var oldPass = $('input[name="email"]').val();
-//    var newPass = $('input[name="email"]').val();
-//    var newPassRepeat = $('input[name="email"]').val();
+$("#changePassword").click(function () {
+    var oldPass = $('#formOldPassword').val();
+    var newPass = $('#formNewPassword').val();
+    var newPassConfirm = $('#formNewPasswordConfirm').val();
+    if (newPass != newPassConfirm) {
+        informationWindow('Changing error!', "Password confirmation mismatch.\nPlease repeat you new password again.", { 'pass': '', 'confirm': '' });
+    }
+    else {
+        $.ajax({
+            url: "/Admin/Index",
+            type: "POST",
+            data: JSON.stringify({ "oldPass": oldPass, "newPass": newPass }),
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            beforeSend: function () {
+                $("#changePassword").prepend("<i class='fa fa-spinner fa-spin' id='spiner'></i> ");
+                $(".btn, input").prop("disabled", true);
+            },
+            success: function (answer) {
+                if (answer['result'] == 'success') {
+                    $(".btn, input").prop("disabled", false);
+                    informationWindow('Changing successful!', answer['message']);
+                }
+                else {
+                    $(".btn, input").prop("disabled", false);
+                    informationWindow('Changing error!', answer['message']);
+                }
+            },
+            error: function () {
+                $(".btn, input").prop("disabled", false);
+                informationWindow('Changing error!', 'Unknown error!\nMaybe DB is not working now. Please, try again later.');
+            },
+            timeout: 10000
+        });
+    }
+});
 
 // Show modal form to add new restaurant
 $("#add").click(function () {
-    if (document.getElementById('restName').value === '') {
+    if ($('#restName').val() == '') {
         informationWindow('Adding error!', 'Restaurant name field is empty! Please, enter a restaurant name before clicking "Add »"!', { 'restName': '' });
     }
     else {
+        var name = $('#restName').val();
+        $('#formRestName').val(name);
         $("#myModal").modal({ backdrop: "static" });
     }
 });
+
+// Send post data to controller to add new restaurant
+//$('#addRestaurant').click(function () {
+//    
+//});
 
 // Update countdown to show how mush symbols left
 function updateCountdown() {
@@ -99,6 +138,10 @@ $(window).resize(function () {
     $(window).resize();
 });
 
-$('.vertical-offset').css({
-    top: calculate()
+$(document).ready(function () {
+    $('.vertical-offset').css({
+        top: calculate()
+    });
 });
+var x = document.cookie;
+console.log(x);
