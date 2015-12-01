@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using RestRate.ModelView;
 
 namespace RestRate.Controllers
 {
@@ -38,22 +39,26 @@ namespace RestRate.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("Login", "Account");
         }
-        public ActionResult ChangePassword(string data)
+        [HttpPost]
+        public ActionResult ChangePassword(ChangePasswordData data)
         {
             if (!data.Equals(null))
             {
                 var cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
                 var ticketInfo = FormsAuthentication.Decrypt(cookie.Value);
-                if (IsPasswordValid(ticketInfo.UserData, data))
+                if (IsPasswordValid(ticketInfo.UserData, data.OldPassword))
                 {
-                    return Json("success");
+                    User UpdateUser = userRepository.GetUserByUserName(ticketInfo.UserData);
+                    UpdateUser.Password = data.NewPassword;
+                    userRepository.SaveUser(UpdateUser); // update user password
+                    return Json(new { result = "success", message = "Your password was changed successfuly" });
                 }
                 else
                 {
-                    return Json("Invalid old password");
+                    return Json(new { result = "Invalid old password", message = "Wrong old password!" });
                 }
             }
-            return Json("JSON IS NULL");
+            return Json(new { result = "JSON IS NULL" });
         }
         private bool IsPasswordValid(string username, string password)
         {

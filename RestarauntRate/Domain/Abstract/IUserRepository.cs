@@ -13,5 +13,6 @@ namespace Domain.Abstract
         void SaveUser(User user);
         User DeleteUser(int UserID);
         User BlockUser(int UserID);
+        User GetUserByUserName(string userName);
     }
 }

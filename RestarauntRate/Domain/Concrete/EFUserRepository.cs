@@ -55,5 +55,12 @@ namespace Domain.Concrete
             }
             return dbEntry;
         }
+        public User GetUserByUserName(string userName)
+        {
+            using (var context = new EFDbContext())
+            {
+                return (context.Users.Where(user => user.UserName == userName).First());
+            }
+        }
     }
 }

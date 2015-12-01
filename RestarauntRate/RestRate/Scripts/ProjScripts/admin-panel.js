@@ -8,14 +8,15 @@ $("#changePassword").click(function () {
     var oldPass = $('#formOldPassword').val();
     var newPass = $('#formNewPassword').val();
     var newPassConfirm = $('#formNewPasswordConfirm').val();
-    if (newPass != newPassConfirm) {
+   /* if (newPass != newPassConfirm) {
         informationWindow('Changing error!', "Password confirmation mismatch.\nPlease repeat you new password again.", { 'pass': '', 'confirm': '' });
-    }
-    else {
+    }*/
+    //else {
+    {
         $.ajax({
-            url: "/Admin/Index",
+            url: "/Admin/ChangePassword",
             type: "POST",
-            data: JSON.stringify({ "oldPass": oldPass, "newPass": newPass }),
+            data: JSON.stringify({ "OldPassword": oldPass, "NewPassword": newPass }),
             contentType: "application/json; charset=utf-8",
             dataType: 'json',
             beforeSend: function () {
