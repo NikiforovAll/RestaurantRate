@@ -15,8 +15,8 @@ namespace DB_work
         {
             using (var db = new EFDbContext())
             {
-                var user = new User() { UserName = "testname", Password = "testpass", Email = "7245932@gmail.com", Role = User.UserRole.Inactive };
-                var user1 = new User() { UserName = "admin", Password = "secret", Email = "ruslan.avsenin@gmail.com", Role = User.UserRole.Admin };
+                var user = new User() { UserName = "testname", Password = "testpass", Email = "7245932@gmail.com", Role = User.UserRole.Inactive, RegisterDate = DateTime.Now };
+                var user1 = new User() { UserName = "admin", Password = "secret", Email = "ruslan.avsenin@gmail.com", Role = User.UserRole.Admin, RegisterDate = DateTime.Now };
                 db.Users.Add(user);
                 db.Users.Add(user1);
                 //var rest = new Restaraunt() { MaintenanceRate = 30, InteriorRate = 30, KitchenRate = 40, AddedDate = DateTime.Now, RestarauntType = Restaraunt.RestType.Cafe };
