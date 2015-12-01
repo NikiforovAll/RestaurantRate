@@ -118,10 +118,11 @@
     <Content Include="Content\Customer\main.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
-    <Content Include="Content\Images\Admin\avatar.jpg" />
+    <Content Include="Content\Images\Admin\avatar.png" />
     <Content Include="Content\Images\Admin\bg.png" />
     <Content Include="Content\Images\Admin\favicon.ico" />
     <Content Include="Content\Images\Admin\logo_big.png" />
+    <Content Include="Content\Images\Admin\register.png" />
     <Content Include="Content\Images\Customer\arrow1.png" />
     <Content Include="Content\Images\Customer\Cogwheel.png" />
     <Content Include="Content\Images\Customer\food.svg" />

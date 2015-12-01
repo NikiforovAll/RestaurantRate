@@ -75,7 +75,7 @@ function initMap() {
 function initMarker() {
 
     markerImage = {
-        url: '/Content/Images/Customer/marker.png',
+        url: '~/Content/Images/Customer/marker.png',
         scaledSize: new google.maps.Size(60, 60)
     };
     marker = new google.maps.Marker({
