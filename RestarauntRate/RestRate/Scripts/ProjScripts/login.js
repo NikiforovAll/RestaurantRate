@@ -26,7 +26,7 @@ $("#restoreButton").click(function () {
     if (validateEmail(email)) {
         $.ajax({
             type: "POST",
-            url: "@Url.Action(\"Restore\", \"Account\")",
+            url: "/Controllers/Account",
             data: JSON.stringify({'Email': email}),
             contentType: "application/json; charset=utf-8",
             dataType: 'json',
@@ -69,7 +69,7 @@ function (event) {
         jQuery.ajaxSettings.traditional = true;
         $.ajax({
             type: "POST",
-            url: "@Url.Action(\"Login\", \"Account\")",
+            url: "/Controllers/Account",
             data: JSON.stringify({"UserName": user, "Password": pass}),
             contentType: "application/json; charset=utf-8",
             dataType: 'json',

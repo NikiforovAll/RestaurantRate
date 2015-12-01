@@ -23,7 +23,7 @@ function (event) {
     else {
         $.ajax({
             type: "POST",
-            url: "@Url.Action(\"Register\", \"Account\")",
+            url: "/Controllers/Admin",
             data: JSON.stringify({ "UserName": user, "Password": pass, "Email": email }),
             contentType: "application/json; charset=utf-8",
             beforeSend: function () {
