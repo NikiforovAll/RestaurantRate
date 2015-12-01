@@ -37,7 +37,7 @@ namespace RestRate.Controllers
                 {
                     FormsAuthenticationTicket ticket = new FormsAuthenticationTicket
                     (
-                     1,
+                    1,
                     data.UserName,
                     DateTime.Now,
                     DateTime.Now.AddMinutes(30),
@@ -98,7 +98,9 @@ namespace RestRate.Controllers
             {
                 if (user != null)
                 {
-                    try {
+                     try 
+                    {
+                        user.RegisterDate = DateTime.Now;
                         userRepository.SaveUser(user);
                         return Json(new { result = "success", message = "Thank you for registering! Your request is in processing.\nYou'll be informed about the activation of your account by an e-mail" });
                     }

@@ -1,5 +1,6 @@
-﻿@{
-    ViewBag.Title = "Index";
+﻿
+@{
+    ViewBag.Title = "Rest-Rate";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
@@ -65,7 +66,7 @@
                             </div>
 
                             <hr style="width: 100%; color: black; height: 1px; background-color:black;" />
-                            <h4><center><i> Rates </i></center></h4>
+                            <center><h4><i> Rates </i></h4></center>
                             <div class="row">
                                 <div class="col-md-4 col-xs-12">
                                     <div class="row">
@@ -82,7 +83,7 @@
                                         <center>
                                             <label class="col-md-4 col-md-offset-1" style="padding-top:12px">Service:</label>
                                             <div class="col-md-1">
-                                                <input class="rating" id="formKitchenRate" value="0" type="number" min=0 max=5 step=0.5 data-size="xs" data-show-clear="false" data-show-caption="false">
+                                                <input class="rating" id="formServiceRate" value="0" type="number" min=0 max=5 step=0.5 data-size="xs" data-show-clear="false" data-show-caption="false">
                                             </div>
                                         </center>
                                     </div>
@@ -92,7 +93,7 @@
                                         <center>
                                             <label class="col-md-4 col-md-offset-1" style="padding-top:12px">Interior:</label>
                                             <div class="col-md-1">
-                                                <input class="rating" id="formKitchenRate" value="0" type="number" min=0 max=5 step=0.5 data-size="xs" data-show-clear="false" data-show-caption="false">
+                                                <input class="rating" id="formInteriorRate" value="0" type="number" min=0 max=5 step=0.5 data-size="xs" data-show-clear="false" data-show-caption="false">
                                             </div>
                                         </center>
                                     </div>
@@ -100,12 +101,12 @@
                             </div>
 
                             <hr style="width: 100%; color: black; height: 1px; background-color:black;" />
-                            <h4><center><i> Review </i></center></h4>
+                            <center><h4><i> Review </i></h4></center>
                             <textarea class="form-control" id="formReview" maxlength="500" style="resize:none" rows="5" placeholder="Review"></textarea>
                             <span class="help-block" style="text-align: right"></span>
 
                             <hr style="width: 100%; color: black; height: 1px; background-color:black;" />
-                            <h4><center><i> Gallery </i></center></h4>
+                            <center><h4><i> Gallery </i></h4></center>
                             <div class="col-md-10 col-md-offset-1">
                                 <form enctype="multipart/form-data" method="POST">
                                     <div class="form-group">
@@ -119,7 +120,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-primary" id="addRestaurant"> Save changes</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -140,7 +141,7 @@
                                     Old password:
                                 </label>
                                 <div class="col-md-9">
-                                    <input class="form-control" id="formOldPassword" maxlength="80" type="text" />
+                                    <input class="form-control" id="formOldPassword" placeholder="Password" name="password" maxlength="50" type="password" />
                                 </div>
                             </div>
                             <br />
@@ -151,7 +152,7 @@
                                     New password:
                                 </label>
                                 <div class="col-md-9">
-                                    <input class="form-control" id="formNewPassword" maxlength="80" type="text" />
+                                    <input class="form-control" id="formNewPassword" placeholder="Password" name="password" maxlength="50" type="password" />
                                 </div>
                             </div>
                             <br />
@@ -161,7 +162,7 @@
                                     Repeat new password:
                                 </label>
                                 <div class="col-md-9">
-                                    <input class="form-control" id="formNewPasswordRepeat" maxlength="80" type="text" />
+                                    <input class="form-control" id="formNewPasswordConfirm" placeholder="Confirm Password" name="passwordConfirm" maxlength="50" type="password" />
                                 </div>
                             </div>
                         </div>
@@ -197,7 +198,7 @@
                             <li class="dropdown user-menu pull-right">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <img src="~/Content/Images/Admin/avatar.png" class="user-image" alt="User Image">
-                                    <span class="hidden-xs">admin</span>
+                                    <span class="hidden-xs"></span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li> <a href="#" onClick="changePassword()">Change password</a> </li>
@@ -209,7 +210,6 @@
                 </div>
             </nav>
         </div>
-        </nav>
     </div>
 
 
@@ -249,7 +249,7 @@
                                 <div class="panel-body">
                                     <input class="form-control" placeholder="Restaurant name" name="restName" id="restName" maxlength="50" type="text">
                                     <br>
-                                    <button class="btn btn-md btn-primary btn-block" id="add">  Add »</button>
+                                    <button class="btn btn-md btn-primary btn-block" id="add"> Add »</button>
                                 </div>
                             </div>
                         </div>
