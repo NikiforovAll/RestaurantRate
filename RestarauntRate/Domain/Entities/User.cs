@@ -26,8 +26,6 @@ namespace Domain.Entities
         [Index(IsUnique = true)]
         public string Email { get; set; }
         public DateTime RegisterDate { get; set; }
-        public int NewRegistered { get; set; }
-        public int NewEvents { get; set; } 
         public UserRole Role { get; set; }
         public enum UserRole
         {
