@@ -15,10 +15,10 @@ namespace DB_work
         {
             using (var db = new EFDbContext())
             {
-                var user = new User() { UserName = "testname", Password = "testpass", Email = "7245932@gmail.com", Role = User.UserRole.Inactive, RegisterDate = DateTime.Now };
-                var user1 = new User() { UserName = "admin", Password = "secret", Email = "ruslan.avsenin@gmail.com", Role = User.UserRole.Admin, RegisterDate = DateTime.Now };
-                db.Users.Add(user);
-                db.Users.Add(user1);
+               // var user = new User() { UserName = "testname", Password = "testpass", Email = "7245932@gmail.com", Role = User.UserRole.Inactive, RegisterDate = DateTime.Now };
+               // var user1 = new User() { UserName = "admin", Password = "secret", Email = "ruslan.avsenin@gmail.com", Role = User.UserRole.Admin, RegisterDate = DateTime.Now };
+               // db.Users.Add(user);
+               // db.Users.Add(user1);
                 //var rest = new Restaraunt() { MaintenanceRate = 30, InteriorRate = 30, KitchenRate = 40, AddedDate = DateTime.Now, RestarauntType = Restaraunt.RestType.Cafe };
                 //var image = new Image() { ImageMimeType = "123", ImageData = null };
                 //var restLangs = new RestarauntLang() { Country = "test", Address = "test", Locality = "test", Name = "test", Region = "test", Review = "test" };
@@ -38,7 +38,7 @@ namespace DB_work
                     // User u = db.Users.Where(usr => usr.UserID == 2).First();
                     //   u.Role = User.UserRole.Moderator;
                     //test.SaveUser(u);
-                    db.SaveChanges();
+                   // db.SaveChanges();
                    
                         //   User user = context.Users.Where(usr => usr.Email == "ruslan.avsenin@gmail.com").First();
                         // Console.WriteLine(user.UserName + " " + user.Password + " " + user.Role);

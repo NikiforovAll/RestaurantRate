@@ -199,9 +199,9 @@ function addToPanel(item) {
     var stars = "<div>";
     for (var j = 0; j < 5; j++) {
         if (j < item.stars) {
-            stars += "<span><img style =\"width:20px\"; src =\"~/Content/Images/Customer/starIcon.png\">" + "</span>";
+            stars += "<span><img style =\"width:20px\"; src = '/Content/Images/Customer/starIcon.png'>" + "</span>";
         } else {
-            stars += "<span><img style =\"width:20px\"; src =\"~/Content/Images/Customer/starIcon-empty.gif\">" + "</span>";
+            stars += "<span><img style =\"width:20px\"; src = '/Content/Images/Customer/starIcon-empty.gif'>" + "</span>";
         }
     }
     stars += " </div>";

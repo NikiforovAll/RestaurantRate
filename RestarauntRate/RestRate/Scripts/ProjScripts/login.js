@@ -68,8 +68,8 @@ function (event) {
     else {
         jQuery.ajaxSettings.traditional = true;
         $.ajax({
-            url: "@Url.Action(\"Login\", \"Account\")",
             type: "POST",
+            url: "@Url.Action(\"Login\", \"Account\")",
             data: JSON.stringify({"UserName": user, "Password": pass}),
             contentType: "application/json; charset=utf-8",
             dataType: 'json',
