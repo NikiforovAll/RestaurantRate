@@ -25,7 +25,7 @@ namespace Domain.Entities
         [RegularExpression("[1-9][0-9]", ErrorMessage = "Invalid rate value.")]
         public int InteriorRate { get; set; }
         public DateTime AddedDate { get; set; }
-        public GeoCoordinate GeoCoordinate { get; set; }      
+        public GeoCoordinate GeoCoordinate { get; set; }    
         public virtual List<RestarauntLang> RestLangs { get; set; }
         public virtual List<Image> Images { get; set; }
         public virtual List<Comment> Comment { get; set; }

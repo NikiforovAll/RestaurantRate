@@ -6,13 +6,12 @@ function changePassword() {
 // Send post data to controller to change password
 $("#changePassword").click(function () {
     var oldPass = $('#formOldPassword').val();
-    var newPass = $('#formNewPassword').val();
+    var newPass = $('#formNewPassword').val(); 
     var newPassConfirm = $('#formNewPasswordConfirm').val();
-   /* if (newPass != newPassConfirm) {
+    if (newPass != newPassConfirm) {
         informationWindow('Changing error!', "Password confirmation mismatch.\nPlease repeat you new password again.", { 'pass': '', 'confirm': '' });
-    }*/
-    //else {
-    {
+    }
+    else {   
         $.ajax({
             url: "/Admin/ChangePassword",
             type: "POST",
@@ -41,6 +40,60 @@ $("#changePassword").click(function () {
         });
     }
 });
+
+// Adding Restaraunt start
+$("#addRestaurant").click(function () {
+    var restName = $('#formRestName').val();
+    var restAddress = $('#formRestAddr').val();
+    var restLocation = $('#formRestCity').val();
+    var restRegion = $('#formRestRegion').val();
+    var restCountry = $('#formRestCountry').val();
+    var restKitchenRate = $('#formKitchenRate').val();
+    var restServicerate = $('#formServiceRate').val();
+    var restInteriorRate = $('#formInteriorRate').val();
+    var restReview = $('#formReview').val();
+    var restImageMimeType = $('#photosInput').val(); // get mimeType('#photosInput')
+    var restImageData = $('#photosInput').val();    // get imageData('#photosInput')
+     if ((restName == '') || (restAddress == '') || (restLocation == '') || (restRegion == '') || (restCountry == '')) {
+         informationWindow('Changing error!', "Adding error.\nPlease fill all the fields.", {
+             'restName': restName, 'restAddress': restAddress, 'restLocation': restLocation,
+             'restRegion': restRegion, 'restCountry': restCountry
+         });
+     }
+     else {
+        $.ajax({
+            url: "/Admin/AddRestaurant",
+            type: "POST",
+            data: JSON.stringify({
+                "RestarauntData": { "KitchenRate": restKitchenRate, "MaintenanceRate": restServicerate, "InteriorRate": restInteriorRate },
+                "RestaurantLangData": { "Name": restName, "Address": restAddress, "Locality": restLocation, "Region": restRegion, "Country": restCountry, "Review": restReview },
+                "ImageData": { "ImageMimeType": restImageMimeType, "ImageData": restImageData }
+            }),
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            beforeSend: function () {
+                $("#changePassword").prepend("<i class='fa fa-spinner fa-spin' id='spiner'></i> ");
+                $(".btn, input").prop("disabled", true);
+            },
+            success: function (answer) {
+                if (answer['result'] == 'success') {
+                    $(".btn, input").prop("disabled", false);
+                    informationWindow('Adding was successful!', answer['message']);
+                }
+                else {
+                    $(".btn, input").prop("disabled", false);
+                    informationWindow('Adding failed!', answer['message']);
+                }
+            },
+            error: function () {
+                $(".btn, input").prop("disabled", false);
+                informationWindow('Adding failed!', 'Unknown error!\nMaybe DB is not working now. Please, try again later.');
+            },
+            timeout: 10000
+        });
+    }
+});
+// Addint Restaraunt end
 
 // Show modal form to add new restaurant
 $("#add").click(function () {
@@ -81,18 +134,18 @@ $(function () {
             <div class='row form-group'>\
                 <label class='control-label col-md-3'>City:</label>\
                 <div class='col-md-9'>\
-                    <input class='form-control' placeholder='City' id='formRestCity' maxlength='80' type='text' value='Odessa' />\
+                    <input class='form-control' placeholder='City' id='formRestLocation' maxlength='80' type='text' value='Odessa city' />\
                 </div>\
             </div>\
             <div class='row form-group'>\
                 <label class='control-label col-md-3'>Region:</label>\
                 <div class='col-md-9'>\
-                    <input class='form-control' placeholder='Region' id='formRestCity' maxlength='80' type='text' value='Odessa' />\
+                    <input class='form-control' placeholder='Region' id='formRestRegion' maxlength='80' type='text' value='Odessa region' />\
                 </div>\
             </div>\<div class='row form-group'>\
                 <label class='control-label col-md-3'>Country:</label>\
                 <div class='col-md-9'>\
-                    <input class='form-control' placeholder='Country' id='formRestCity' maxlength='80' type='text' value='Ukraine' />\
+                    <input class='form-control' placeholder='Country' id='formRestCountry' maxlength='80' type='text' value='Ukraine' />\
                 </div>\
             </div>\
            </div>\

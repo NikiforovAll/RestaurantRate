@@ -40,6 +40,25 @@ namespace RestRate.Controllers
             return RedirectToAction("Login", "Account");
         }
         [HttpPost]
+        public ActionResult AddRestaurant(RestaurantData data)
+        {
+            if (!data.Equals(null))
+            {
+                try
+                {
+                    restRepository.SaveRestaraunt(data.RestarauntData);
+                    restLangRepository.SaveRestarauntLang(data.RestaurantLangData);
+                    // imageRepository.SaveImage(data.ImageData); parse image data
+                    return Json(new { result = "success", message = "Restaurant was successfully added." });
+                }
+                catch
+                {
+                    return Json(new { result = "error", message = "Some troubles was happend with database." });
+                }
+            }
+            return Json(new { result = "JSON IS NULL" });
+        }
+        [HttpPost]
         public ActionResult ChangePassword(ChangePasswordData data)
         {
             if (!data.Equals(null))

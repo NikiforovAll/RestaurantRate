@@ -40,7 +40,6 @@ E:\Ruslan\Web\Projects\RestRate\RestarauntRate\RestRate\obj\Debug\RestRate.cspro
 E:\Ruslan\Web\Projects\RestRate\RestarauntRate\RestRate\obj\Debug\RestRate.dll
 E:\Ruslan\Web\Projects\RestRate\RestarauntRate\RestRate\obj\Debug\RestRate.pdb
 E:\Ruslan\Web\Projects\RestRate\RestarauntRate\RestRate\bin\Domain.dll
-E:\Ruslan\Web\Projects\RestRate\RestarauntRate\RestRate\bin\System.Device.Portable.dll
 E:\Ruslan\Web\Projects\RestRate\RestarauntRate\RestRate\bin\Domain.pdb
 C:\PROject\v2\rest-rate\RestarauntRate\RestRate\bin\roslyn\csc.exe
 C:\PROject\v2\rest-rate\RestarauntRate\RestRate\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
