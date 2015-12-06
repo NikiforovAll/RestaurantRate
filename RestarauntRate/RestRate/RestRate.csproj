@@ -229,8 +229,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="App_Data\RestarauntImages\" />
     <Folder Include="Content\Admin\" />
+    <Folder Include="Content\Images\RestaurantImages\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

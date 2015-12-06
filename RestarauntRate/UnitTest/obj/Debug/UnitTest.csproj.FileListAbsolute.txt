@@ -18,7 +18,6 @@ E:\Ruslan\Web\Projects\RestRate\RestarauntRate\UnitTest\bin\Debug\Moq.dll
 E:\Ruslan\Web\Projects\RestRate\RestarauntRate\UnitTest\bin\Debug\Ninject.dll
 E:\Ruslan\Web\Projects\RestRate\RestarauntRate\UnitTest\bin\Debug\RestRate.dll
 E:\Ruslan\Web\Projects\RestRate\RestarauntRate\UnitTest\bin\Debug\System.Web.Mvc.dll
-E:\Ruslan\Web\Projects\RestRate\RestarauntRate\UnitTest\bin\Debug\System.Device.Portable.dll
 E:\Ruslan\Web\Projects\RestRate\RestarauntRate\UnitTest\bin\Debug\EntityFramework.dll
 E:\Ruslan\Web\Projects\RestRate\RestarauntRate\UnitTest\bin\Debug\System.Web.Razor.dll
 E:\Ruslan\Web\Projects\RestRate\RestarauntRate\UnitTest\bin\Debug\System.Web.WebPages.Razor.dll

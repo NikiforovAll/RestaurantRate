@@ -17,19 +17,15 @@ namespace Domain.Entities
         public int LanguageID { get; set; }
         [Required]
         [StringLength(50)]
-        //   [RegularExpression("^[а-яА-ЯёЁa-zA-Z0-9]+$", ErrorMessage = "Invalid restaraunt name.")]
         public string Name { get; set; }
         [Required]
         [StringLength(50)]
-       // [RegularExpression("^[а-яА-ЯёЁa-zA-Z0-9]+$", ErrorMessage = "Invalid country name.")]
         public string Country { get; set; }
         [Required]
         [StringLength(50)]
-        //[RegularExpression("^[а-яА-ЯёЁa-zA-Z0-9]+$", ErrorMessage = "Invalid region name.")]
         public string Region { get; set; }
         [Required]
         [StringLength(50)]
-        //[RegularExpression("^[а-яА-ЯёЁa-zA-Z0-9]+$", ErrorMessage = "Invalid locality name.")]
         public string Locality { get; set; }
         [Required]
         [StringLength(50)]

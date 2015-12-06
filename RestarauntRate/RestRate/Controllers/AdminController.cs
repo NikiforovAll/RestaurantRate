@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using Domain.Concrete;
 using RestRate.ModelView;
 
 namespace RestRate.Controllers
@@ -42,13 +43,40 @@ namespace RestRate.Controllers
         [HttpPost]
         public ActionResult AddRestaurant(RestaurantData data)
         {
+            
             if (!data.Equals(null))
             {
                 try
-                {
+                {                                      
                     restRepository.SaveRestaraunt(data.RestarauntData);
+                    data.RestaurantLangData.RestarauntID = data.RestarauntData.RestarauntID;
                     restLangRepository.SaveRestarauntLang(data.RestaurantLangData);
-                    // imageRepository.SaveImage(data.ImageData); parse image data
+                    /* HttpPostedFileBase MyFile = null;
+            int Number = Request.Files.Count;
+            Restaraunt tmp;
+            string ForSaving = Server.MapPath("~/Content/Images/RestaurantImages");
+            using (var context = new EFDbContext())
+            {
+                tmp = context.Restaraunts.Where(rest => rest.RestarauntID == 1).First();
+
+                if (Number != 0)
+                {
+                    for (int i = 0; i < Number; i++)
+                    {
+
+                        MyFile = Request.Files[i];
+                        string FileName = "Restaraunt" + 0 + "Image" + i + System.IO.Path.GetExtension(MyFile.FileName);
+                        string url = System.IO.Path.Combine(ForSaving, FileName);
+                        Image New = new Image() { Url = url };
+                        New.RestarauntID = 0;                        
+                        tmp.Images.Add(New);      
+                        restRepository.SaveRestaraunt(tmp);
+                        MyFile.SaveAs(url);
+                    }
+                }
+            }
+            */
+                    //imageRepository.SaveImage()
                     return Json(new { result = "success", message = "Restaurant was successfully added." });
                 }
                 catch
@@ -57,6 +85,35 @@ namespace RestRate.Controllers
                 }
             }
             return Json(new { result = "JSON IS NULL" });
+        }
+        [HttpPost]
+        public ActionResult UploadFile()
+        {
+            HttpPostedFileBase MyFile = null;
+            int Number = Request.Files.Count;
+            Restaraunt tmp;
+            string ForSaving = Server.MapPath("~/Content/Images/RestaurantImages");
+            using (var context = new EFDbContext())
+            {
+                tmp = context.Restaraunts.Where(rest => rest.RestarauntID == 1).First();
+
+                if (Number != 0)
+                {
+                    for (int i = 0; i < Number; i++)
+                    {
+
+                        MyFile = Request.Files[i];
+                        string FileName = "Restaraunt" + 0 + "Image" + i + System.IO.Path.GetExtension(MyFile.FileName);
+                        string url = System.IO.Path.Combine(ForSaving, FileName);
+                        Image New = new Image() { Url = url };
+                        New.RestarauntID = 0;                        
+                        tmp.Images.Add(New);      
+                        restRepository.SaveRestaraunt(tmp);
+                        MyFile.SaveAs(url);
+                    }
+                }
+            }
+            return null;
         }
         [HttpPost]
         public ActionResult ChangePassword(ChangePasswordData data)

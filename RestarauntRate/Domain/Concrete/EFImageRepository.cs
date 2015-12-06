@@ -26,8 +26,8 @@ namespace Domain.Concrete
                 Image dbEntry = context.Images.Find(image.ImageID);
                 if (dbEntry != null)
                 {
-                    dbEntry.ImageData = image.ImageData;
-                    dbEntry.ImageMimeType = image.ImageMimeType;
+                    dbEntry.Url = image.Url;
+                    dbEntry.RestarauntID = image.RestarauntID;
                 }
             }
             context.SaveChanges();

@@ -52,8 +52,7 @@ $("#addRestaurant").click(function () {
     var restServicerate = $('#formServiceRate').val();
     var restInteriorRate = $('#formInteriorRate').val();
     var restReview = $('#formReview').val();
-    var restImageMimeType = $('#photosInput').val(); // get mimeType('#photosInput')
-    var restImageData = $('#photosInput').val();    // get imageData('#photosInput')
+    var restUrl = $('#photosInput').val();
      if ((restName == '') || (restAddress == '') || (restLocation == '') || (restRegion == '') || (restCountry == '')) {
          informationWindow('Changing error!', "Adding error.\nPlease fill all the fields.", {
              'restName': restName, 'restAddress': restAddress, 'restLocation': restLocation,
@@ -67,7 +66,7 @@ $("#addRestaurant").click(function () {
             data: JSON.stringify({
                 "RestarauntData": { "KitchenRate": restKitchenRate, "MaintenanceRate": restServicerate, "InteriorRate": restInteriorRate },
                 "RestaurantLangData": { "Name": restName, "Address": restAddress, "Locality": restLocation, "Region": restRegion, "Country": restCountry, "Review": restReview },
-                "ImageData": { "ImageMimeType": restImageMimeType, "ImageData": restImageData }
+                "ImageData": {"Url": restUrl }
             }),
             contentType: "application/json; charset=utf-8",
             dataType: 'json',
@@ -94,7 +93,14 @@ $("#addRestaurant").click(function () {
     }
 });
 // Addint Restaraunt end
-
+$("#photosInput").fileinput({
+    uploadUrl: "/Admin/UploadFile", // you must set a valid URL here else you will get an error
+    allowedFileExtensions: ['jpg', 'png', 'jpeg'],
+    overwriteInitial: false,
+    maxFileSize: 2000,
+    maxFilesNum: 10,
+    maxFileCount: 10,
+});
 // Show modal form to add new restaurant
 $("#add").click(function () {
     if ($('#restName').val() == '') {
@@ -167,22 +173,13 @@ jQuery(document).ready(function ($) {
     $('#formReview').keyup(updateCountdown);
 });
 
-$("#photosInput").fileinput({
-    uploadUrl: '/admin/picture_upload.php', // you must set a valid URL here else you will get an error
-    allowedFileExtensions: ['jpg', 'png', 'jpeg'],
-    overwriteInitial: false,
-    maxFileSize: 2000,
-    maxFilesNum: 10,
-    maxFileCount: 10,
-});
-
 var calculate = function () {
     var padding = ($(document).height() - $('.panel').outerHeight()) / 2;
     var min_padding = $('.navbar').outerHeight();
     if (padding < min_padding) {
         padding = min_padding + 5
     }
-    return padding
+    return padding;
 }
 
 $(window).resize(function () {

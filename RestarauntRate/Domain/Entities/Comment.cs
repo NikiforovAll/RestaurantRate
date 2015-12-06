@@ -12,9 +12,7 @@ namespace Domain.Entities
     public class Comment
     {
         [Key]
-        [HiddenInput(DisplayValue = false)]
         public int CommentID { get; set; }
-        [HiddenInput(DisplayValue = false)]
         public int RestarauntID { get; set; }
         [Required]
         [StringLength(20)]

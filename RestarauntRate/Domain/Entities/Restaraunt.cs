@@ -16,16 +16,19 @@ namespace Domain.Entities
         [Required]
         public RestType RestarauntType { get; set; }
         [Required]
-        [RegularExpression("[1-9][0-9]", ErrorMessage = "Invalid rate value.")]
+        [RegularExpression("[0-5]", ErrorMessage = "Invalid rate value.")]
         public int KitchenRate { get; set; }
         [Required]
-        [RegularExpression("[1-9][0-9]", ErrorMessage = "Invalid rate value.")]
+        [RegularExpression("[0-5]", ErrorMessage = "Invalid rate value.")]
         public int MaintenanceRate { get; set; }
         [Required]
-        [RegularExpression("[1-9][0-9]", ErrorMessage = "Invalid rate value.")]
+        [RegularExpression("[0-5]", ErrorMessage = "Invalid rate value.")]
         public int InteriorRate { get; set; }
         public DateTime AddedDate { get; set; }
-        public GeoCoordinate GeoCoordinate { get; set; }    
+        [Required]
+        public string Longitude { get; set; }
+        [Required]
+        public string Latitude { get; set; }
         public virtual List<RestarauntLang> RestLangs { get; set; }
         public virtual List<Image> Images { get; set; }
         public virtual List<Comment> Comment { get; set; }

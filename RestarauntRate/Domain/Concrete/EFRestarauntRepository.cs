@@ -29,9 +29,11 @@ namespace Domain.Concrete
                     dbEntry.InteriorRate = restaraunt.InteriorRate;
                     dbEntry.KitchenRate = restaraunt.KitchenRate;
                     dbEntry.MaintenanceRate = restaraunt.MaintenanceRate;
-                    dbEntry.AddedDate = DateTime.Now;
+                    dbEntry.AddedDate = restaraunt.AddedDate;
                     dbEntry.RestarauntType = restaraunt.RestarauntType;
-                    dbEntry.GeoCoordinate = restaraunt.GeoCoordinate;
+                    dbEntry.Longitude = restaraunt.Longitude;
+                    dbEntry.Latitude = restaraunt.Latitude;
+                    dbEntry.Images = restaraunt.Images;
                 }
             }
             context.SaveChanges();

@@ -12,9 +12,7 @@ namespace Domain.Entities
     public class Language
     {
         [Key]
-        [HiddenInput(DisplayValue = false)]
         public int LanguageID { get; set; }
-        [HiddenInput(DisplayValue = false)]
         [StringLength(3)]
         [Index(IsUnique = true)]
         public string Code { get; set; }

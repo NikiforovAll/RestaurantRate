@@ -27,7 +27,8 @@ namespace Domain.Concrete
                 if (dbEntry != null)
                 {
                     dbEntry.UserEventDate = userEvent.UserEventDate;
-                    dbEntry.UserEventDescription = userEvent.UserEventDescription;                
+                    dbEntry.UserEventDescription = userEvent.UserEventDescription;
+                    dbEntry.UserID = userEvent.UserID;        
                 }
             }
             context.SaveChanges();

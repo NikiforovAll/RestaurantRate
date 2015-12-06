@@ -29,6 +29,7 @@ namespace Domain.Concrete
                     dbEntry.Name = comment.Name;
                     dbEntry.AddedDate = DateTime.Now;
                     dbEntry.Review = comment.Review;
+                    dbEntry.RestarauntID = comment.RestarauntID;
                 }
             }
             context.SaveChanges();

@@ -10,7 +10,6 @@ namespace RestRate.ModelView
     {
         public Restaraunt RestarauntData { get; set; }
         public RestarauntLang RestaurantLangData { get; set; }
-        public Image ImageData { get; set; }
     }
     public class RestaurantList
     {

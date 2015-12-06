@@ -32,6 +32,7 @@ namespace Domain.Concrete
                     dbEntry.Country = restarauntLang.Country;
                     dbEntry.Address = restarauntLang.Address;
                     dbEntry.Review = restarauntLang.Review;
+                    dbEntry.RestarauntID = restarauntLang.RestarauntID;
                 }
             }
             context.SaveChanges();
