@@ -42,7 +42,6 @@ namespace RestRate.Controllers
                     DateTime.Now,
                     DateTime.Now.AddMinutes(30),
                     false,
-                    data.UserName,
                     FormsAuthentication.FormsCookiePath
                     );
                     Response.Cookies.Add
@@ -53,6 +52,7 @@ namespace RestRate.Controllers
                             FormsAuthentication.Encrypt(ticket)
                         )
                     );
+                    Response.Cookies.Add(new HttpCookie("username", data.UserName));
                     var cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
                     var ticketInfo = FormsAuthentication.Decrypt(cookie.Value);
                     return Json(new { result = "success" });
