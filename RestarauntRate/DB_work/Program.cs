@@ -15,13 +15,13 @@ namespace DB_work
         {
             using (var db = new EFDbContext())
             {
-               // var user = new User() { UserName = "proverka", Password = "proverka", Email = "test@gmail.com", Role = User.UserRole.Inactive, RegisterDate = DateTime.Now };
-                //var user1 = new User() { UserName = "admin", Password = "secret", Email = "ruslan.avsenin@gmail.com", Role = User.UserRole.Admin, RegisterDate = DateTime.Now };
-                //var user2 = new User() { UserName = "Elena_Tinkovan", Password = "1111", Email = "tioraelena@gmail.com", Role = User.UserRole.Moderator, RegisterDate = DateTime.Now };
+                var user = new User() { UserName = "proverka", Password = "proverka", Email = "test@gmail.com", Role = User.UserRole.Inactive, RegisterDate = DateTime.Now };
+                var user1 = new User() { UserName = "admin", Password = "secret", Email = "ruslan.avsenin@gmail.com", Role = User.UserRole.Admin, RegisterDate = DateTime.Now };
+                var user2 = new User() { UserName = "Elena_Tinkovan", Password = "1111", Email = "tioraelena@gmail.com", Role = User.UserRole.Moderator, RegisterDate = DateTime.Now };
 
-                //db.Users.Add(user);
-                //db.Users.Add(user1);
-                //db.Users.Add(user2);
+                db.Users.Add(user);
+                db.Users.Add(user1);
+                db.Users.Add(user2);
                 //var rest = new Restaraunt() { MaintenanceRate = 1, InteriorRate = 3, KitchenRate = 4, AddedDate = DateTime.Now, RestarauntType = Restaraunt.RestType.Cafe, Latitude = "1", Longitude = "2" };
                 //db.Restaraunts.Add(rest);
                 //var image = new Image() { ImageMimeType = "123", ImageData = null };
@@ -46,9 +46,9 @@ namespace DB_work
                     // db.SaveChanges();
                     //User usr = db.Users.Where(user => user.Email == "tioraelena@gmail.com").First();
                     //usr.Role = User.UserRole.Moderator;
-                    Image tmp = db.Images.Where(img => img.ImageID == 12).First();
+                 //   Image tmp = db.Images.Where(img => img.ImageID == 12).First();
                    // Image tmp1 = db.Images.Where(img => img.ImageID == 5).First();
-                    db.Images.Remove(tmp);
+                  //  db.Images.Remove(tmp);
                    // db.Images.Remove(tmp1);
                     db.SaveChanges();
                         //   User user = context.Users.Where(usr => usr.Email == "ruslan.avsenin@gmail.com").First();
