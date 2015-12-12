@@ -15,16 +15,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <script src="~/Scripts/jquery-2.1.4.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Scripts/bootstrap-dialog.min.js"></script>
     <script src="~/Scripts/star-rating.min.js"></script>
-    <script src="~/Scripts/fileinput.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/fileinput.js" type="text/javascript"></script>
+    <script src="~/Scripts/typeahead.jquery.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/handlebars.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/bloodhound.min.js" type="text/javascript"></script>
+    <!--<script src="~/Scripts/jQuery.FileUpload/jquery.fileupload.js" type="text/javascript"></script>
+    <script src="~/Scripts/jQuery.FileUpload/jquery.iframe-transport.js" type="text/javascript"></script>
+    <script src="~/Scripts/jQuery.FileUpload/jquery.fileupload-ui.js" type="text/javascript"></script>-->
 
     <link href="~/Content/bootstrap.min.css" rel="stylesheet">
     <link href="~/Content/font-awesome.min.css" rel="stylesheet">
     <link href="~/Content/bootstrap-dialog.min.css" rel="stylesheet">
     <link href="~/Content/star-rating.css" rel="stylesheet">
+    <link href="~/Content/jquery-ui/jquery-ui.css" rel="stylesheet">
     <link href="~/Content/bootstrap-fileinput/css/fileinput.min.css" rel="stylesheet">
+    <!--<link href="~/Content/jQuery.FileUpload/css/jquery.fileupload.css" rel="stylesheet" />-->
 
     <link href="~/Content/Login/style.css" rel="stylesheet">
 </head>
@@ -108,9 +117,9 @@
                             <hr style="width: 100%; color: black; height: 1px; background-color:black;" />
                             <center><h4><i> Gallery </i></h4></center>
                             <div class="col-md-10 col-md-offset-1">
-                                <form enctype="multipart/form-data" method="POST">
+                                <form enctype="multipart/form-data" method="POST" id="imagesUpload">
                                     <div class="form-group">
-                                        <input id="photosInput" type="file" multiple class="file" name="galery-input[]">
+                                        <input id="photosInput" type="file" multiple="multiple" class="file-loading" accept="image/*" name="files">
                                     </div>
                                 </form>
                             </div>
@@ -227,14 +236,39 @@
                                     </h3>
                                 </div>
                                 <div class="panel-body">
-                                    <div class="ui-widget">
-                                        <select id="combobox">
-                                            <option value="">Choose a restaurant to edit</option>
-                                            <option value="">Select or write down</option>
-                                            <option value="jquery">jQuery</option>
-                                            <option value="rest">Restaurant1</option>
-                                            <option value="restaurant">Restaurant2</option>
-                                        </select>
+                                    <!--select id="combobox" style="display: none;">
+                                        <option value="">Select one...</option>
+                                        <option value="ActionScript">ActionScript</option>
+                                        <option value="AppleScript">AppleScript</option>
+                                        <option value="Asp">Asp</option>
+                                        <option value="BASIC">BASIC</option>
+                                        <option value="C">C</option>
+                                        <option value="C++">C++</option>
+                                        <option value="Clojure">Clojure</option>
+                                        <option value="COBOL">COBOL</option>
+                                        <option value="ColdFusion">ColdFusion</option>
+                                        <option value="Erlang">Erlang</option>
+                                        <option value="Fortran">Fortran</option>
+                                        <option value="Groovy">Groovy</option>
+                                        <option value="Haskell">Haskell</option>
+                                        <option value="Java">Java</option>
+                                        <option value="JavaScript">JavaScript</option>
+                                        <option value="Lisp">Lisp</option>
+                                        <option value="Perl">Perl</option>
+                                        <option value="PHP">PHP</option>
+                                        <option value="Python">Python</option>
+                                        <option value="Ruby">Ruby</option>
+                                        <option value="Scala">Scala</option>
+                                        <option value="Scheme">Scheme</option>
+                                    </!--select-->
+                                    <div class="custom-combobox">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="scrollable-dropdown-menu">
+                                                    <input class="typeahead" id="editRestName" type="text" placeholder="Enter restaurant name" />
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -262,6 +296,7 @@
     <footer>
         <script src="~/Scripts/ProjScripts/admin-panel.js"></script>
         <script src="~/Scripts/ProjScripts/shareFunctions.js"></script>
+        <script src="~/Scripts/ProjScripts/autocomplete.js"></script>
     </footer>
 </body>
 </html>
