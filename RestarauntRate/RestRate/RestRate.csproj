@@ -117,6 +117,10 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Customer\jquery.mCustomScrollbar.css" />
     <Content Include="Content\Customer\main.css" />
+    <Content Include="Content\default-skin\default-skin.css" />
+    <Content Include="Content\default-skin\default-skin.png" />
+    <Content Include="Content\default-skin\default-skin.svg" />
+    <Content Include="Content\default-skin\preloader.gif" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\Images\Admin\avatar.png" />
@@ -141,6 +145,7 @@
     <Content Include="Content\Login\assets\3dcube\Overlay.min.css" />
     <Content Include="Content\Login\assets\3dcube\Overlay.min.js" />
     <Content Include="Content\Login\style.css" />
+    <Content Include="Content\photoswipe.css" />
     <Content Include="Content\Menu\sky-mega-menu.css" />
     <Content Include="Content\star-rating.css" />
     <Content Include="Content\star-rating.min.css" />
@@ -175,12 +180,16 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\ProjScripts\photoswipe-ui-default.min.js" />
     <Content Include="Scripts\ProjScripts\admin-panel.js" />
     <Content Include="Scripts\ProjScripts\login.js" />
+    <Content Include="Scripts\ProjScripts\photoswipe.min.js" />
     <Content Include="Scripts\ProjScripts\register.js" />
     <Content Include="Scripts\ProjScripts\shareFunctions.js" />
+    <Content Include="Scripts\ProjScripts\Work_with_gallery.js" />
     <Content Include="Scripts\ProjScripts\work_with_map.js" />
     <Content Include="Scripts\ProjScripts\work_with_panel.js" />
+    <Content Include="Scripts\ProjScripts\work_with_starsRating.js" />
     <Content Include="Scripts\star-rating.js" />
     <Content Include="Scripts\star-rating.min.js" />
     <Content Include="Web.config" />

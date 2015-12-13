@@ -7,7 +7,8 @@
 
 #map {
     position: relative;
-    z-index: 0;
+    z-index: 5;
+    margin-bottom: 0px;
 }
 
 footer {
@@ -39,27 +40,58 @@ footer {
     border-radius: 6px;
 }
 
+html {
+    font-size: 12pt;
+}
+/* Large desktops and laptops */
+@media (min-width: 1200px) {
+     html{font-size:40px}
+}
 
+/* Landscape tablets and medium desktops */
+@media (min-width: 992px) and (max-width: 1199px) {
+     html{font-size:40px}
+}
+
+/* Portrait tablets and small desktops */
+@media (min-width: 768px) and (max-width: 991px) {
+
+}
+
+/* Landscape phones and portrait tablets */
+@media (max-width: 767px) {
+    html{font-size:10px}
+}
+
+/* Portrait phones and smaller */
+@media (max-width: 480px) {
+    html{font-size:5px}
+}
 .mainpanel {
     position: absolute;
     z-index: 99;
     margin: 1%;
-    width: 25%;
+    /*width:100px;*/
+    width: 30%;
     border-radius: 2px;
+
 }
 
+.mainpanel >.container {
+}
 
 .panelheader {
     padding: 0px;
-    font-size: 20pt;
+    font-size: 1.5em;
     color: #9F9067;
     background-color: rgb(55, 47, 45);
     border-radius: 10px;
+    z-index: 10;
 }
 
 .settingsPanel {
     display: inline-block;
-    width: 45px;
+    /*width: 45px;*/
     float: right;
     margin-right: 10px;
 }
@@ -77,20 +109,17 @@ footer {
 .settingsButt {
     background: none;
     border: none;
-    -webkit-box-shadow: none;
-    -ms-box-shadow: none;
+    /*-webkit-box-shadow: none;*/
+    /*-ms-box-shadow: none;*/
     box-shadow: none;
-    margin-top: 5px;
+    /*margin-top: 5px;*/
 }
 
 #cogwheel {
     width: 40px;
 }
 
-    #cogwheel:hover {
-        width: 45px;
-    }
-
+    
 .settingsButt:hover {
     margin-right: 3px;
     margin-top: 2px;
@@ -102,7 +131,7 @@ footer {
 }
 
 .panel-item {
-    font-size: 12pt;
+    font-size: 1.2em;
     border-bottom: 2px solid;
     font-weight: bold;
     font-family: Arial;
@@ -121,7 +150,7 @@ footer {
     }
 
     .panel-item > div {
-        margin-left: 8%;
+        margin-left: 6%;
     }
 
     .panel-item span {
@@ -129,7 +158,7 @@ footer {
     }
 
 .panel-item-w > div:last-child {
-    font-size: 9pt;
+    font-size: 0.8em;
 }
 
 .panel-item-w > div {
@@ -147,7 +176,7 @@ footer {
 .panel-item-w {
     margin-left: 2%;
     background-color: white;
-    font-size: 12pt;
+    font-size: 1.15em;
     border-bottom: 2px solid;
     font-weight: bold;
     font-family: Arial;
@@ -158,11 +187,11 @@ footer {
 .content {
     overflow: auto;
     position: relative;
-    padding: 10px;
+    padding: 2vh;
     /*background: #333;*/
-    width: 750px;
+    width:100%;
     max-width: 105%;
-    height: 600px;
+    height: 80vh;
     /*height: 100%;*/
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -175,10 +204,11 @@ footer {
     padding: 1px;
     margin-top: 10px;
     /*background: #333;*/
-    width: 40%;
+    /*width: 40%;*/
     /*left: 20%;*/
-    max-width: 105%;
-    height: 600px;
+    /*max-width: 105%;*/
+    height: 80vh;
+    z-index: 0
 
     /*height: 100%;*/
     /*-webkit-box-sizing: border-box;*/
@@ -189,51 +219,78 @@ footer {
 #review {
     position: absolute;
     z-index: 99;
-    left: 20.5%;
+    /*left: 20.5%;*/
     top: 5px;
     display: none;
-    border: 1px solid black;
     /*background-color: rgba(55, 47, 45, 0.85);*/
     /*padding: 0px;*/
 }
 /*Select all headears*/
 
-#reviewRating > div {
+#reviewHeader {
     background-color: rgba(55, 47, 45, 0.85);
     color: rgb(202, 173, 126);
-    font-size: 15pt;
-    /*height: 50px;*/
+    font-size: 1.5em;
+    /*height: 50px;*/ 
     padding: 10px;
     border-radius: 10px;
     padding-left:5%;
 }
+#reviewHeader button {
+
+    background-color: rgba(159, 144, 120,0.3);
+    float: right;
+    margin-right: 3%;
+    margin-top: 3px;
+    width: 45px;
+    font-size: 10pt;
+    border: 2px solid rgb(82, 56, 13);
+}
 #reviewRating > div:last-child {
-    margin-top: 10px;
+    margin-top: 1vh;
     background-color: rgba(55, 47, 45, 0.4);
 }
-/*TODO point rating right on the picture*/
+
+.Row
+{
+    display: table;
+    width: 100%; /*Optional*/
+    table-layout: fixed; /*Optional*/
+    border-spacing: 10px; /*Optional*/
+}
+.Column
+{
+    display: table-cell;
+}
+.Column >img {
+    margin-left: 4.5vh;
+}
+#reviewRating div div {
+    margin-left: 2.7vh;
+}
+
 #stars1 {
-    position: absolute;
+    /*position: absolute;
     left: 25%;
     font-size: 11pt;
     top: 12.8%;
-    color: black;
+    color: black;*/
 
 }
 #stars2 {
-    position: absolute;
+    /*position: absolute;
     left: 54.5%;
     font-size: 11pt;
     top: 12.8%;
-    color: black;
+    color: black;*/
 
 }
 #stars3 {
-    position: absolute;
+    /*position: absolute;
     left: 84.1%;
     font-size: 11pt;
     top: 12.8%;
-    color: black;
+    color: black;*/
 
 }
 
@@ -247,22 +304,22 @@ footer {
     /*background-color: rgba(55, 47, 45, 0.85);*/
 }
 
+#reviewRating {
+    /*background-color:rgba(55, 47, 45, 0.85);*/
+}
+#reviewRating  div{
+    border-radius: 10px;
+    
+}
 #reviewRating *:not(div) {
     /*display: inline;*/
-    width: 70px;
+    width: 50%;
     margin-top: 10px;
+    border-radius: 10px;
     /*padding: 5px;*/
 }
 
-#reviewRating button {
 
-    background-color: rgba(159, 144, 120,0.4);
-    float: right;
-    margin-right: 5%;
-    margin-top: 3px;
-    width: 30px;
-    font-size: 10pt;
-}
 #reviewBody {
     margin-top: 20px;
 }
@@ -290,7 +347,7 @@ footer {
 }
 
 
-#reviewGallery > div {
+#reviewGallery >div:first-child {
     background-color: rgba(55, 47, 45, 0.85);
      color: rgb(202, 173, 126);
     background-color: rgba(55, 47, 45, 0.85);
@@ -299,6 +356,57 @@ footer {
     padding: 10px;
     padding-left: 30px;
     border-radius: 10px;
+}
+.my-gallery {
+    margin-top: 2vh;
+    background-color:rgba(255, 255, 255,0.8);
+    border-radius: 10px;
+}
+.gallery-Img>img {
+    width: 170px;
+    /*padding-left: 10px;*/
+    margin: 0px; 
+}
+.gallery-Img>img:hover {
+    border: 3px solid rgb(162, 45, 16);
+     cursor: pointer;
+     cursor: hand;
+}
+.my-gallery > .Row {
+    /*margin-top: 10px;*/
+}
+.gallery-Img {
+    width: 50%;
+    margin: 0px;
+    padding-top: 6px;
+    padding-left: 4.5vh;
+}
+#reviewShare >div:first-child {
+      background-color: rgba(55, 47, 45, 0.85);
+     color: rgb(202, 173, 126);
+    background-color: rgba(55, 47, 45, 0.85);
+    font-size: 15pt;
+    height: 50px;
+    padding: 10px;
+    padding-left: 30px;
+    border-radius: 10px;
+    margin-top: 10px; 
+    margin-bottom:10px 
+}
+#reviewShare {
+     background-color:rgba(255, 255, 255,0.8);
+      margin-top: 2vh;
+    background-color:rgba(255, 255, 255,0.8);
+    border-radius: 10px;
+}
+#reviewShare>.Row>.Column {
+    height:  4vh;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+a[name="fb_share"] > img {
+    width: 30px;
+    padding-bottom: 10px;
 }
 
 /*#reviewRating img:nth-child(odd)  {*/
@@ -349,10 +457,10 @@ footer {
 
 .showReview {
     float: right;
-    background-color: rgba(159, 144, 120,0.4);
+    /*background-color: rgba(159, 144, 120,0.4);*/
     border-radius: 3px;
     border: 1px solid #798386;
-    width: 10%;
+    /*width: 10%;*/
     position: relative;
     top: -50px;
     font-size: 12pt;

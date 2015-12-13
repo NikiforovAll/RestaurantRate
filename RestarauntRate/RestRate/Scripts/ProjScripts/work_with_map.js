@@ -19,7 +19,6 @@ $(document).ready(function () {
 });
 
 // initiation
-//TODO independent map initialization bug:if user refused - map didnt show up 
 //TODO marshal markers of restaurants
 
 function initGMap() {
@@ -28,6 +27,8 @@ function initGMap() {
         zoom: startZoom,
         minZoom: 13,
         maxZoom: 19,
+        draggable:true,
+
         streetViewControl: false,
         mapTypeControlOptions: {
             mapTypeIds: ['coordinate']
@@ -71,11 +72,32 @@ function initMap() {
     //    console.log( coord.lng()+ " " +coord.lat());
     //});
 }
-
+function initRestMarker(markerType, coords,ID) {
+    var imgStr = '/Content/Images/Customer/';
+    if (markerType === 1) {
+        imgStr += 'r.png';
+    }
+   var  markerImage = {
+        url: imgStr,
+        scaledSize: new google.maps.Size(50, 40)
+    };
+    var marker = new google.maps.Marker({
+        position: coords,
+        map: map,
+        icon: markerImage
+    });
+    var contentString = "#" + ID+"<br>" + "<b>Sup</b>?";
+    var infowindow = new google.maps.InfoWindow({
+        content: contentString
+    });
+    marker.addListener('click', function() {
+        infowindow.open(map, marker);
+    });
+}
 function initMarker() {
 
-    markerImage = {
-        url: '/Content/Images/Customer/marker.png',
+   var  markerImage = {
+        url: '/Content/Images/Customer/pin56.png',
         scaledSize: new google.maps.Size(60, 60)
     };
     marker = new google.maps.Marker({
@@ -135,6 +157,7 @@ function updateLocation() {
 //  
 function switchDraggable() {
     //console.log("switched");
+   
     isDragging = !isDragging;
     //if (isDragging) {
     //    $(".reviewInfo button").trigger();
@@ -147,11 +170,11 @@ function switchDraggable() {
         nearbyMarkerSearch(minRad);
     }
     else {
-        marker.setDraggable(true);
         $("#review").slideUp();
         //$("#" + draggButton).css("background-color", "green");
         marker.animation = google.maps.Animation.BOUNCE;
-
+        marker.setDraggable(true);
+        
 
     }
 

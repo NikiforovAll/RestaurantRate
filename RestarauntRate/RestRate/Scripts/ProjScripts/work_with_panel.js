@@ -19,7 +19,6 @@ var panel;
 var prevItem;
 var availabletypes = ["restaurant", "bar", "cafe"];
 
-//TODO implement scrollbar to review panel 
 function panelInit() {
 
     panel = $(".mainpanel");
@@ -42,6 +41,30 @@ function panelInit() {
             enable: true
         }
     });
+    for (var j = 1; j <= 3; j++) {
+        initStarRating("#input-id" + j);
+    }
+
+
+   var testitems= [
+        { src: 'https://farm3.staticflickr.com/2567/5697107145_3c27ff3cd1_m.jpg', width: 300, height: 300 },
+        { src: "https://farm2.staticflickr.com/1043/5186867718_06b2e9e551_m.jpg", width: 300, height: 300 },
+         { src: "https://vexingpoint.files.wordpress.com/2015/03/flying-tiger-wallpapers.jpg", width: 500, height: 400 }
+    ];
+   populateGallery(testitems);
+    //TODO URL cohesion 
+    $("#shareContent").append(VK.Share.button({
+        title: "TestTitle",
+        //url:"google.com",
+        image: galleryItems[0].src,
+        description:"Some description of current restaurant"
+    }, {
+        type:"round",
+        text: "Share!"
+
+    }));
+    //initGallery();
+
     //$(".reviewInfo").mCustomScrollbar({
     //    theme: "rounded-dots-dark",
     //    scrollInertia: 100,
@@ -49,7 +72,6 @@ function panelInit() {
     //        enable: true
     //    }
     //});
-   
    
     
    
@@ -119,8 +141,11 @@ function nearbyMarkerSearch(r) {
             clearPanel();
             for (var i = 0; i < results.length; i++) {
                 var request = { reference: results[i].reference };
+                        initRestMarker(1, results[i].geometry.location, i);
+
                 service.getDetails(request, function (details, status) {
                     if (status === google.maps.places.PlacesServiceStatus.OK) {
+
                         var tmpItem = {
                             Name: details.name,
                             stars: (details.rating === undefined) ? 0 : details.rating,
@@ -129,6 +154,7 @@ function nearbyMarkerSearch(r) {
                         };
                         restaurants.push(tmpItem);
                         addToPanel(tmpItem);
+                        
                     }
                    
                 });
