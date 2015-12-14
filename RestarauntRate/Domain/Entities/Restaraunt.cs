@@ -16,13 +16,13 @@ namespace Domain.Entities
         [Required]
         public RestType RestarauntType { get; set; }
         [Required]
-        [RegularExpression("[0-5]", ErrorMessage = "Invalid rate value.")]
+        //[RegularExpression("[0-5]", ErrorMessage = "Invalid rate value.")]
         public int KitchenRate { get; set; }
         [Required]
-        [RegularExpression("[0-5]", ErrorMessage = "Invalid rate value.")]
+       // [RegularExpression("[0-5]", ErrorMessage = "Invalid rate value.")]
         public int MaintenanceRate { get; set; }
         [Required]
-        [RegularExpression("[0-5]", ErrorMessage = "Invalid rate value.")]
+      //  [RegularExpression("[0-5]", ErrorMessage = "Invalid rate value.")]
         public int InteriorRate { get; set; }
         public DateTime AddedDate { get; set; }
         [Required]

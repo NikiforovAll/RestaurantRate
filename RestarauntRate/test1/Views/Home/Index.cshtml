@@ -1,0 +1,26 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+
+    <script src="~/jquery-2.1.4.min.js"></script>
+
+</head>
+<body>
+    <form method="post" enctype="multipart/form-data">
+        <label>Upload Images:</label>
+        <input type="file" multiple="multiple" name="file1" id="File1" accept="image/*" />
+        <hr />  <input type="submit" id="Save" value="Upload Images" />
+    </form>
+    <progress></progress>
+   @* <footer>
+        <script src="~/test.js"></script>
+    </footer>*@
+</body>
+</html>

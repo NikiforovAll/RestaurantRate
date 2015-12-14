@@ -33,6 +33,7 @@ namespace Domain.Concrete
                     dbEntry.Address = restarauntLang.Address;
                     dbEntry.Review = restarauntLang.Review;
                     dbEntry.RestarauntID = restarauntLang.RestarauntID;
+                    dbEntry.LanguageID = restarauntLang.LanguageID;
                 }
             }
             context.SaveChanges();

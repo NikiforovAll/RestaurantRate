@@ -61,7 +61,6 @@ C:\C#\RestRate\RestarauntRate\Domain\bin\Debug\System.Web.WebPages.Deployment.xm
 C:\C#\RestRate\RestarauntRate\Domain\obj\Debug\Domain.csprojResolveAssemblyReference.cache
 C:\C#\RestRate\RestarauntRate\Domain\obj\Debug\Domain.dll
 C:\C#\RestRate\RestarauntRate\Domain\obj\Debug\Domain.pdb
-C:\C#\rest-rate\RestarauntRate\Domain\obj\Debug\Domain.dll
 C:\C#\rest-rate\RestarauntRate\Domain\bin\Debug\Domain.dll.config
 C:\C#\rest-rate\RestarauntRate\Domain\bin\Debug\Domain.dll
 C:\C#\rest-rate\RestarauntRate\Domain\bin\Debug\Domain.pdb
@@ -71,4 +70,5 @@ C:\C#\rest-rate\RestarauntRate\Domain\bin\Debug\System.Web.Mvc.dll
 C:\C#\rest-rate\RestarauntRate\Domain\bin\Debug\EntityFramework.xml
 C:\C#\rest-rate\RestarauntRate\Domain\bin\Debug\EntityFramework.SqlServer.xml
 C:\C#\rest-rate\RestarauntRate\Domain\bin\Debug\System.Web.Mvc.xml
+C:\C#\rest-rate\RestarauntRate\Domain\obj\Debug\Domain.dll
 C:\C#\rest-rate\RestarauntRate\Domain\obj\Debug\Domain.pdb

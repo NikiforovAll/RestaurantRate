@@ -98,6 +98,7 @@ C:\C#\rest-rate\RestarauntRate\UnitTest\bin\Debug\Moq.dll
 C:\C#\rest-rate\RestarauntRate\UnitTest\bin\Debug\Ninject.dll
 C:\C#\rest-rate\RestarauntRate\UnitTest\bin\Debug\RestRate.dll
 C:\C#\rest-rate\RestarauntRate\UnitTest\bin\Debug\EntityFramework.dll
+C:\C#\rest-rate\RestarauntRate\UnitTest\bin\Debug\Domain.pdb
 C:\C#\rest-rate\RestarauntRate\UnitTest\bin\Debug\RestRate.pdb
 C:\C#\rest-rate\RestarauntRate\UnitTest\bin\Debug\Moq.xml
 C:\C#\rest-rate\RestarauntRate\UnitTest\bin\Debug\Ninject.xml

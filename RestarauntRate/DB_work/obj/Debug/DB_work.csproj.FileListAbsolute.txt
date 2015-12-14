@@ -103,6 +103,7 @@ C:\C#\rest-rate\RestarauntRate\DB_work\bin\Debug\System.Web.WebPages.Razor.dll
 C:\C#\rest-rate\RestarauntRate\DB_work\bin\Debug\System.Web.WebPages.dll
 C:\C#\rest-rate\RestarauntRate\DB_work\bin\Debug\Microsoft.Web.Infrastructure.dll
 C:\C#\rest-rate\RestarauntRate\DB_work\bin\Debug\System.Web.WebPages.Deployment.dll
+C:\C#\rest-rate\RestarauntRate\DB_work\bin\Debug\Domain.pdb
 C:\C#\rest-rate\RestarauntRate\DB_work\bin\Debug\RestRate.pdb
 C:\C#\rest-rate\RestarauntRate\DB_work\bin\Debug\EntityFramework.xml
 C:\C#\rest-rate\RestarauntRate\DB_work\bin\Debug\EntityFramework.SqlServer.xml

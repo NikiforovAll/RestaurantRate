@@ -14,6 +14,6 @@ namespace Domain.Concrete
         public IQueryable<Language> Languages
         {
             get { return context.Languages; }
-        }
+        }       
     }
 }

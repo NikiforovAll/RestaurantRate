@@ -10,7 +10,7 @@ namespace Domain.Abstract
     public interface IRestarauntRepository
     {
         IQueryable<Restaraunt> Restaraunts { get; }
-        void SaveRestaraunt(Restaraunt restaraunt);
+        void SaveRestaraunt(Restaraunt restaraunt/*, RestarauntLang restLang = null, Image image = null, Comment comment = null*/);
         Restaraunt DeleteRestaraunt(int restarauntID);
     }
 }

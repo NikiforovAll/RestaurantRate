@@ -18,6 +18,7 @@ namespace Domain.Entities
         [Index(IsUnique = true)]
         public string UserName { get; set; }
         [Required]
+       // [DataType(DataType.Password)]
         [StringLength(30)]
         public string Password { get; set; }
         [Required]

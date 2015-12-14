@@ -15,10 +15,13 @@ namespace Domain.Concrete
         {
             get { return context.Restaraunts; }
         }
-        public void SaveRestaraunt(Restaraunt restaraunt)
+        public void SaveRestaraunt(Restaraunt restaraunt/*, RestarauntLang restLang = null, Image image = null, Comment comment = null*/)
         {
             if (restaraunt.RestarauntID == 0)
             {
+             //   restaraunt.RestLangs.Add(restLang);
+               // restaraunt.Images.Add(image);
+                //restaraunt.Comment.Add(comment);
                 context.Restaraunts.Add(restaraunt);
             }
             else
@@ -29,11 +32,9 @@ namespace Domain.Concrete
                     dbEntry.InteriorRate = restaraunt.InteriorRate;
                     dbEntry.KitchenRate = restaraunt.KitchenRate;
                     dbEntry.MaintenanceRate = restaraunt.MaintenanceRate;
-                    dbEntry.AddedDate = restaraunt.AddedDate;
                     dbEntry.RestarauntType = restaraunt.RestarauntType;
                     dbEntry.Longitude = restaraunt.Longitude;
                     dbEntry.Latitude = restaraunt.Latitude;
-                    dbEntry.Images = restaraunt.Images;
                 }
             }
             context.SaveChanges();
