@@ -18,7 +18,7 @@ var panel;
 //var state = { color: "rgba(55, 47, 45,0.4)", marginLeft: "0%" }
 var prevItem;
 var availabletypes = ["restaurant", "bar", "cafe"];
-
+var reviewItem;
 function panelInit() {
 
     panel = $(".mainpanel");
@@ -55,7 +55,7 @@ function panelInit() {
     //TODO URL cohesion 
     $("#shareContent").append(VK.Share.button({
         title: "TestTitle",
-        //url:"google.com",
+        url:"http://rest-rate.azurewebsites.net",
         image: galleryItems[0].src,
         description:"Some description of current restaurant"
     }, {
@@ -104,9 +104,12 @@ function toggleReview(source) {
             
             //changing content stub
             console.log($(source.target).closest(".panel-item-w").attr("id"));
+
             $("#review").slideDown();
-        
-       
+
+           
+
+
         } else {
             $("#review").slideUp();
         }

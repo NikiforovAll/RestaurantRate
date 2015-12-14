@@ -246,9 +246,10 @@ html {
     font-size: 10pt;
     border: 2px solid rgb(82, 56, 13);
 }
+/*Header rating background */
 #reviewRating > div:last-child {
     margin-top: 1vh;
-    background-color: rgba(55, 47, 45, 0.4);
+    background-color: rgba(55, 47, 45, 0.75);
 }
 
 .Row
@@ -266,32 +267,7 @@ html {
     margin-left: 4.5vh;
 }
 #reviewRating div div {
-    margin-left: 2.7vh;
-}
-
-#stars1 {
-    /*position: absolute;
-    left: 25%;
-    font-size: 11pt;
-    top: 12.8%;
-    color: black;*/
-
-}
-#stars2 {
-    /*position: absolute;
-    left: 54.5%;
-    font-size: 11pt;
-    top: 12.8%;
-    color: black;*/
-
-}
-#stars3 {
-    /*position: absolute;
-    left: 84.1%;
-    font-size: 11pt;
-    top: 12.8%;
-    color: black;*/
-
+    /*margin-left: 2.7vh;*/
 }
 
 
@@ -313,12 +289,18 @@ html {
 }
 #reviewRating *:not(div) {
     /*display: inline;*/
-    width: 50%;
+    width: 45%;
     margin-top: 10px;
     border-radius: 10px;
     /*padding: 5px;*/
 }
-
+#reviewRating >.Row>.Column img {
+    align-content: center;
+}
+#reviewRating >.Row>.Column>*:last-child{
+    align-content: center;
+    margin-left: 1vh;
+}
 
 #reviewBody {
     margin-top: 20px;
@@ -330,6 +312,7 @@ html {
     height: 50px;
     padding: 10px;
     padding-left: 20px;
+    margin-bottom: 1vh;
     border-radius: 10px;
 }
 #reviewBody > p{
@@ -394,15 +377,19 @@ html {
     margin-bottom:10px 
 }
 #reviewShare {
-     background-color:rgba(255, 255, 255,0.8);
-      margin-top: 2vh;
-    background-color:rgba(255, 255, 255,0.8);
+    margin-top: 1vh;
     border-radius: 10px;
+    background-color:rgba(255, 255, 255,0.8);
+}
+#reviewShare>.Row {
+    /*width: 50%;
+    float: right;*/
 }
 #reviewShare>.Row>.Column {
     height:  4vh;
     padding-left: 10%;
     padding-right: 10%;
+    float: right;
 }
 a[name="fb_share"] > img {
     width: 30px;

@@ -4,34 +4,35 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Rest-Rate</title>
-    <link href="~/Content/Customer/main.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    @* photoSwipe section *@
+
+    <script src="~/Scripts/jquery-2.1.4.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/star-rating.min.js"></script>
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet">
+    <link href="~/Content/star-rating.css" rel="stylesheet">
     <link rel="stylesheet" href="~/Content/photoswipe.css" />
     <link rel="stylesheet" href="~/Content/default-skin/default-skin.css" />
-    <link rel="stylesheet" href="~/Content/font-awesome.css">
-    <link rel="stylesheet" href="~/Content/Menu/sky-mega-menu.css">
-    <script src="~/Scripts/modernizr-2.8.3.js"></script>
-    <script src="~/Scripts/jquery-2.1.4.min.js"></script>
-    @*TODO dowload, tmp CDN solution*@
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <link href="~/Content/Customer/main.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/ProjScripts/work_with_map.js"></script>
     <script src="~/Scripts/ProjScripts/work_with_panel.js"></script>
     <script src="~/Scripts/ProjScripts/work_with_starsRating.js"></script>
     <script src="~/Scripts/ProjScripts/Work_with_gallery.js"></script>
-    <script src="~/Scripts/star-rating.min.js" type="text/javascript"></script>
+
+
+    <script src="~/Scripts/ProjScripts/photoswipe.min.js"></script>
+    <script src="~/Scripts/ProjScripts/photoswipe-ui-default.min.js"></script>
+    <script type="text/javascript" src="http://vk.com/js/api/share.js?90" charset="windows-1251"></script>
     <script src="~/Scripts/jquery.mCustomScrollbar.concat.min.js"></script>
     <link rel="stylesheet" href="~/Content/Customer/jquery.mCustomScrollbar.css" />
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6qMb55_T65pEOrrZ2duf5JMR_KWQtyMY&libraries=places">
-
+    
     </script>
-    <script src="~/Scripts/ProjScripts/photoswipe.min.js"></script>
-    <script src="~/Scripts/ProjScripts/photoswipe-ui-default.min.js"></script>
-    @* Share scripts *@
-    <script type="text/javascript" src="http://vk.com/js/api/share.js?90" charset="windows-1251"></script>
+
 </head>
 <body>
-    <!-- #region test-->
     <div class=" mainpanel ">
         @* /TODO resolve Overlay BUG *@
         @*<div class="container">*@
@@ -69,21 +70,24 @@
                 </div>
                 <div class="content1">
                     <div id="reviewRating">
-
+                     
+                        
                         <div class="Row">
                             <div class="Column">
-                                <img src="~/Content/Images/Customer/food.svg" />
+                                <img src="~/Content/Images/Customer/food.svg"/>
                                 <input id="input-id1">
+                                @*<input class="rating" value="0" type="number" min="0" max="5" data-symbol="*" data-size="xs">*@
                             </div>
                             <div class="Column">
-                                <img src="~/Content/Images/Customer/interior.svg" />
+                                <img src="~/Content/Images/Customer/interior.svg"/>
                                 <input id="input-id2">
                             </div>
                             <div class="Column">
-                                <img src="~/Content/Images/Customer/service.svg" />
+                                <img src="~/Content/Images/Customer/service.svg"/>
                                 <input id="input-id3">
                             </div>
                         </div>
+                        
 
                     </div>
 
@@ -203,8 +207,10 @@
         </div>
 
     </div>
-    <button id="draggableButton" class="btn active">SET POSITION</button>
-    <div id="map"></div>
+<button id="draggableButton" class="btn active">SET POSITION</button>
+
+
+<div id="map"></div>
     <footer>&copy; @DateTime.Now.Year - Alpha Team</footer>
     <div class="container body-content">
         @RenderBody()

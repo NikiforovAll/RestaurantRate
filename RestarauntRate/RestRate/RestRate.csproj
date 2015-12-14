@@ -168,6 +168,7 @@
     <Content Include="Scripts\fileinput_locale_th.js" />
     <Content Include="Scripts\fileinput_locale_uk.js" />
     <Content Include="Scripts\fileinput_locale_zh.js" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
