@@ -140,6 +140,7 @@
     <Content Include="Content\Images\Customer\star.png" />
     <Content Include="Content\Images\Customer\starIcon-empty.gif" />
     <Content Include="Content\Images\Customer\starIcon.png" />
+    <Content Include="Content\Images\Customer\pin56.png" />
     <Content Include="Content\Login\assets\3dcube\Overlay.css" />
     <Content Include="Content\Login\assets\3dcube\Overlay.js" />
     <Content Include="Content\Login\assets\3dcube\Overlay.min.css" />
