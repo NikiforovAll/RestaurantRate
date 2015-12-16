@@ -64,7 +64,7 @@ namespace RestRate.Controllers
                         NewRestaraunt.AddedDate = DateTime.Now;
                         NewRestaraunt.Latitude = "2";
                         NewRestaraunt.Longitude = "3";
-                        NewRestaraunt.RestarauntType = RestType.Bar;
+                        NewRestaraunt.RestarauntType = Restaraunt.RestType.Bar;
 
                         restRepository.SaveRestaraunt(NewRestaraunt);
 

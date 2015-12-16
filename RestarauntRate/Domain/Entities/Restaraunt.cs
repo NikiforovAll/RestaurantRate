@@ -8,12 +8,6 @@ using System.Device.Location;
 
 namespace Domain.Entities
 {
-    public enum RestType
-    {
-        Cafe,
-        Bar,
-        Restaraunt
-    }
     public class Restaraunt
     {
         [Key]
@@ -42,6 +36,12 @@ namespace Domain.Entities
             this.Comment = new List<Comment>();
             this.Images = new List<Image>();
             this.RestLangs = new List<RestarauntLang>();
+        }
+        public enum RestType
+        {
+            Cafe,
+            Bar,
+            Restaraunt
         }
     }
 }

@@ -29,7 +29,7 @@ namespace RestRate.ModelView
         public double InteriorRate { get; set; }
         public string Longitude { get; set; }
         public string Latitude { get; set; }
-        public RestType RestarauntType { get; set; }
+        public Restaraunt.RestType RestarauntType { get; set; }
         public string Review { get; set; }
         public List<Image> Images { get; set; }
     }
