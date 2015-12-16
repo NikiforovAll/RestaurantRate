@@ -215,5 +215,3 @@ D:\Ruslan\Web\RestRate\rest-rate\RestarauntRate\RestRate\bin\System.Web.Mvc.xml
 D:\Ruslan\Web\RestRate\rest-rate\RestarauntRate\RestRate\obj\Debug\RestRate.csprojResolveAssemblyReference.cache
 D:\Ruslan\Web\RestRate\rest-rate\RestarauntRate\RestRate\obj\Debug\RestRate.dll
 D:\Ruslan\Web\RestRate\rest-rate\RestarauntRate\RestRate\obj\Debug\RestRate.pdb
-D:\Ruslan\Web\RestRate\rest-rate\RestarauntRate\RestRate\bin\Newtonsoft.Json.dll
-D:\Ruslan\Web\RestRate\rest-rate\RestarauntRate\RestRate\bin\Newtonsoft.Json.xml

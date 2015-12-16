@@ -9,7 +9,6 @@ using System.Web.Security;
 using Domain.Concrete;
 using RestRate.ModelView;
 using System.Data.Entity.Validation;
-using Newtonsoft.Json.Converters;
 
 namespace RestRate.Controllers
 {
