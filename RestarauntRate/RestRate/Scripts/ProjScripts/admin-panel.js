@@ -58,43 +58,34 @@ $("#addRestaurant").click(function () {
              'restRegion': restRegion, 'restCountry': restCountry
          });
      }
-     else {
-         /*$('#photosInput').fileinput({
-             uploadExtraData: JSON.stringify({
-                 'RestarauntData': { "KitchenRate": restKitchenRate, "MaintenanceRate": restServicerate, "InteriorRate": restInteriorRate },
-                 'RestaurantLangData': { "Name": restName, "Address": restAddress, "Locality": restLocation, "Region": restRegion, "Country": restCountry, "Review": restReview }
-             })
-         });*/
-            /* uploadExtraData: function () {
-                 return {
-                     "lol": $('#formRestName').val()
-                 };
-             }
-         });*/
-         $('#photosInput').fileinput('upload');
-    /*    $.ajax({
+     else{
+        $.ajax({
             url: "/Admin/AddRestaurant",
             type: "POST",
-            data: JSON.stringify({
-                "RestarauntData": { "KitchenRate": restKitchenRate, "MaintenanceRate": restServicerate, "InteriorRate": restInteriorRate },
-                "RestaurantLangData": { "Name": restName, "Address": restAddress, "Locality": restLocation, "Region": restRegion, "Country": restCountry, "Review": restReview }
-            }),
+            data: JSON.stringify(
+                {
+                    'RestarauntData': { "KitchenRate": restKitchenRate, "MaintenanceRate": restServicerate, "InteriorRate": restInteriorRate },
+                    'RestaurantLangData': { "Name": restName, "Address": restAddress, "Locality": restLocation, "Region": restRegion, "Country": restCountry, "Review": restReview }
+                }
+            ),
             contentType: "application/json; charset=utf-8",
             dataType: 'json',
             beforeSend: function () {
-                $("#changePassword").prepend("<i class='fa fa-spinner fa-spin' id='spiner'></i> ");
+                $("#addRestaurant").prepend("<i class='fa fa-spinner fa-spin' id='spiner'></i> ");
                 $(".btn, input").prop("disabled", true);
             },
             success: function (answer) {
                 if (answer['result'] == 'success') {
-                   // $("<input id='restaurantId' value=" + answer['id'] + " />").appendTo('#imagesUpload');
-                    $('#photosInput').fileinput('upload');
-                    $(".btn, input").prop("disabled", false);
-                 //   informationWindow('Adding was successful!', answer['message']);
+                    $("<input name='id' value=" + answer['id'] + " style='display:none' />").appendTo('#imagesUpload');
+                    console.log(answer['id']);
+                    document.cookie = "id" + "=" + answer['id'] + "; "; // TODO coockie выдавать на ~60 секунд
+                    setTimeout($('#photosInput').fileinput('upload'), 2000);
+                    $(".btn, input").prop("disabled", false);   
+                    informationWindow('Adding was successful!', 'Restaraunt was added successfully!');
                 }
                 else {
                     $(".btn, input").prop("disabled", false);
-                    informationWindow('Adding failed!', answer['message']);
+                    informationWindow('Adding failed!', 'Restaurant adding was failed.');
                 }
             },
             error: function () {
@@ -102,12 +93,13 @@ $("#addRestaurant").click(function () {
                 informationWindow('Adding failed!', 'Unknown error!\nMaybe DB is not working now. Please, try again later.');
             },
             timeout: 10000
-        })*/
+        })
     }
 });
 
 // Show modal form to add new restaurant
 $("#add").click(function () {
+    console.log(getCookie('username'));
     if ($('#restName').val() == '') {
         informationWindow('Adding error!', 'Restaurant name field is empty! Please, enter a restaurant name before clicking "Add »"!', { 'restName': '' });
     }
@@ -117,11 +109,6 @@ $("#add").click(function () {
         $("#myModal").modal({ backdrop: "static" });
     }
 });
-
-// Send post data to controller to add new restaurant
-//$('#addRestaurant').click(function () {
-//    
-//});
 
 // Update countdown to show how mush symbols left
 function updateCountdown() {
@@ -176,6 +163,22 @@ jQuery(document).ready(function ($) {
     updateCountdown();
     $('#formReview').change(updateCountdown);
     $('#formReview').keyup(updateCountdown);
+    //$.ajax({
+    //    // url: "/Admin/GetRestaraunts",
+    //    url: "/Admin/GetRestarauntInfo",
+    //    data: JSON.stringify({'id' : 56 }),
+    //    type: "POST",       
+    //    contentType: "application/json; charset=utf-8",
+    //    dataType: 'json',        
+    //    success: function (answer) {
+    //        console.log(answer);
+    //    },
+    //    error: function () {
+            
+    //        console.log(':(');
+    //    },
+    //    timeout: 10000
+    //});
 });
 
 var calculate = function () {
@@ -198,44 +201,40 @@ $(document).ready(function () {
     $('.vertical-offset').css({
         top: calculate()
     });
-    var cookies = document.cookie.split(';');
-    var user = cookies[1].split('=')[1];
-    $(".dropdown-toggle .hidden-xs").text(user);
+    $(".dropdown-toggle .hidden-xs").text(getCookie('username'));
 });
 
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1);
+        if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+    }
+    return "";
+}
 
 //TODO сделать невозможным отправку на сервер файлов не имеющих нужное расширение.
 // Addint Restaraunt end
-    $("#photosInput").fileinput({
-        uploadUrl: "/Admin/AddRestaurant",
-        /*uploadExtraData: function () {
-            return {
-                extradata: JSON.stringify({ "KitchenRate": $('#formKitchenRate').val(), "MaintenanceRate": $('#formServiceRate').val() })
-            };
-        },*/
-        uploadExtraData: function() {
-            return {
-                extradata: JSON.stringify({
-                    'RestarauntInfo': {
-                        'RestarauntData': { "KitchenRate": $('#formKitchenRate').val(), "MaintenanceRate": $('#formServiceRate').val(), "InteriorRate": $('#formInteriorRate').val() },
-                        'RestaurantLangData': { "Name": $('#formRestName').val(), "Address": $('#formRestAddr').val(), "Locality": $('#formRestLocation').val(), "Region": $('#formRestRegion').val(), "Country": $('#formRestCountry').val(), "Review": $('#formReview').val() }
-                    }
-                })};
-            },
-        allowedFileExtensions: ['jpg', 'png', 'jpeg'],
-        uploadAsync: false,
-        showUpload: false,
-        showRemove: false,
-        overwriteInitial: true,
-        dropZoneEnabled: false,
-        allowedFileTypes: ["image"],
-        allowedPreviewTypes: ["image"],
-        elErrorContainer: "#errorBlock",
-        layoutTemplates: {
-            actionUpload: ''
-        },
-        maxFileSize: 5000,
-        maxFileCount: 10,
-    });/*.on("filebatchselected", function (event, files) {
-   $('#photosInput').fileinput('upload');
-});*/
+$("#photosInput").fileinput({
+    uploadUrl: "/Admin/Index",
+    allowedFileExtensions: ['jpg', 'png', 'jpeg'],
+    uploadAsync: false,
+    showUpload: false,
+    showRemove: false,
+    overwriteInitial: true,
+    dropZoneEnabled: false,
+    allowedFileTypes: ["image"],
+    allowedPreviewTypes: ["image"],
+    elErrorContainer: "#errorBlock",
+    layoutTemplates: {
+        actionUpload: ''
+    },
+    maxFileSize: 5000,
+    maxFileCount: 10
+});
+//    });.on("filebatchselected", function (event, files) {
+//   $('#photosInput').fileinput('upload');
+//});
+

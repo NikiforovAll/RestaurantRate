@@ -8,28 +8,29 @@ namespace RestRate.ModelView
 {
     public class RestaurantData
     {
-        public RestarauntInfo extradata { get; set; }
-        public IEnumerable<HttpPostedFileBase> files { get; set; }
+        public Restaraunt RestarauntData { get; set; }
+        public RestarauntLang RestaurantLangData { get; set; }
     }
-    public class Megalol
-    {
-        public int KitchenRate { get; set; }
-        public int MaintenanceRate { get; set; }
-    }
-    public class RestarauntInfo
-    {
-          public Restaraunt RestarauntData { get; set; }
-          public RestarauntLang RestaurantLangData { get; set; }
-    }
-    public class ImageData
+    public class RestIDNameAddress
     {
         public int RestarauntID { get; set; }
-        public IEnumerable<HttpPostedFileBase> files { get; set; }
+        public string Name { get; set; }
+        public string Address { get; set; }
     }
-    public class RestaurantList
+    public class RestarauntAllData
     {
-        public List<Restaraunt> RestarauntList { get; set; }
-        public List<RestarauntLang> RestarauntLangList { get; set; }
-        public List<Image> ImageList { get; set; }
+        public string Name { get; set; }
+        public string Address { get; set; }
+        public string Country { get; set; }
+        public string Region { get; set; }
+        public string Locality { get; set; }
+        public double KitchenRate { get; set; }
+        public double MaintenanceRate { get; set; }
+        public double InteriorRate { get; set; }
+        public string Longitude { get; set; }
+        public string Latitude { get; set; }
+        public RestType RestarauntType { get; set; }
+        public string Review { get; set; }
+        public List<Image> Images { get; set; }
     }
 }

@@ -48,5 +48,18 @@ namespace Domain.Concrete
             }
             return dbEntry;
         }
+        public List<RestarauntLang> GetAll()
+        {
+            List<RestarauntLang> result = new List<RestarauntLang>();
+            foreach(var rl in context.RestarauntLangs)
+            {
+                result.Add(rl);
+            }
+            return result;
+        }
+        public RestarauntLang GetRestarauntLangByID(int restarauntID)
+        {
+            return context.RestarauntLangs.Where(restLang => restLang.RestarauntID == restarauntID).First();
+        }
     }
 }

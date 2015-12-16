@@ -80,9 +80,6 @@ function (event) {
             success: function (answer) {
                 if (answer['result'] == 'success') {
                     $("#login, input, .restoreLink").prop("disabled", false);
-                    document.cookie = "username=" + user;
-                    var x = document.cookie;
-                    console.log(x);
                     window.location.href = "/Admin/Index";
                 }
                 else {

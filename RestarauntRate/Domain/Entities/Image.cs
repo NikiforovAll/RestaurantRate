@@ -15,6 +15,7 @@ namespace Domain.Entities
         [Key]
         public int ImageID { get; set; }
         public int RestarauntID { get; set; }
+        public string Name { get; set; }
         [Column(TypeName = "varchar(MAX)")]
         public string Url { get; set; }
         public Restaraunt Restaraunt { get; set; }

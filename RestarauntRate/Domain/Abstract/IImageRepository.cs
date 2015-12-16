@@ -12,5 +12,6 @@ namespace Domain.Abstract
         IQueryable<Image> Images { get; }
         void SaveImage(Image image);
         Image DeleteImage(int imageID);
+        List<Image> GetRestarauntImages(int restarauntID);
     }
 }

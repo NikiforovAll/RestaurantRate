@@ -12,5 +12,7 @@ namespace Domain.Abstract
         IQueryable<RestarauntLang> RestarauntLangs { get; }
         void SaveRestarauntLang(RestarauntLang restarauntLang);
         RestarauntLang DeleteRestarauntLang(int restarauntLangID);
+        List<RestarauntLang> GetAll();
+        RestarauntLang GetRestarauntLangByID(int restarauntID);
     }
 }

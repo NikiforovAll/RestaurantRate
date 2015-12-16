@@ -8,7 +8,12 @@ using System.Device.Location;
 
 namespace Domain.Entities
 {
-
+    public enum RestType
+    {
+        Cafe,
+        Bar,
+        Restaraunt
+    }
     public class Restaraunt
     {
         [Key]
@@ -17,13 +22,13 @@ namespace Domain.Entities
         public RestType RestarauntType { get; set; }
         [Required]
         //[RegularExpression("[0-5]", ErrorMessage = "Invalid rate value.")]
-        public int KitchenRate { get; set; }
+        public float KitchenRate { get; set; }
         [Required]
        // [RegularExpression("[0-5]", ErrorMessage = "Invalid rate value.")]
-        public int MaintenanceRate { get; set; }
+        public float MaintenanceRate { get; set; }
         [Required]
       //  [RegularExpression("[0-5]", ErrorMessage = "Invalid rate value.")]
-        public int InteriorRate { get; set; }
+        public float InteriorRate { get; set; }
         public DateTime AddedDate { get; set; }
         [Required]
         public string Longitude { get; set; }
@@ -37,12 +42,6 @@ namespace Domain.Entities
             this.Comment = new List<Comment>();
             this.Images = new List<Image>();
             this.RestLangs = new List<RestarauntLang>();
-        }
-        public enum RestType
-        {
-            Cafe,
-            Bar,
-            Restaraunt
         }
     }
 }

@@ -10,5 +10,7 @@ namespace Domain.Abstract
     public interface ILanguageRepository
     {
         IQueryable<Language> Languages { get; }
+        void SaveLanguages(Language languages);
+        Language DeleteLanguages(int languagesID);
     }
 }

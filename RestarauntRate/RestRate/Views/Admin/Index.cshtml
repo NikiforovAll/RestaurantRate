@@ -15,25 +15,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <script src="~/Scripts/jquery-2.1.4.min.js"></script>
-    <script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Scripts/bootstrap-dialog.min.js"></script>
     <script src="~/Scripts/star-rating.min.js"></script>
     <script src="~/Scripts/fileinput.js" type="text/javascript"></script>
-    <script src="~/Scripts/typeahead.jquery.min.js" type="text/javascript"></script>
-    <script src="~/Scripts/handlebars.min.js" type="text/javascript"></script>
-    <script src="~/Scripts/bloodhound.min.js" type="text/javascript"></script>
-    <!--<script src="~/Scripts/jQuery.FileUpload/jquery.fileupload.js" type="text/javascript"></script>
-    <script src="~/Scripts/jQuery.FileUpload/jquery.iframe-transport.js" type="text/javascript"></script>
-    <script src="~/Scripts/jQuery.FileUpload/jquery.fileupload-ui.js" type="text/javascript"></script>-->
+
 
     <link href="~/Content/bootstrap.min.css" rel="stylesheet">
     <link href="~/Content/font-awesome.min.css" rel="stylesheet">
     <link href="~/Content/bootstrap-dialog.min.css" rel="stylesheet">
     <link href="~/Content/star-rating.css" rel="stylesheet">
-    <link href="~/Content/jquery-ui/jquery-ui.css" rel="stylesheet">
     <link href="~/Content/bootstrap-fileinput/css/fileinput.min.css" rel="stylesheet">
-    <!--<link href="~/Content/jQuery.FileUpload/css/jquery.fileupload.css" rel="stylesheet" />-->
 
     <link href="~/Content/Login/style.css" rel="stylesheet">
 </head>
@@ -117,7 +109,7 @@
                             <hr style="width: 100%; color: black; height: 1px; background-color:black;" />
                             <center><h4><i> Gallery </i></h4></center>
                             <div class="col-md-10 col-md-offset-1">
-                                <form enctype="multipart/form-data" method="POST" id="imagesUpload">
+                                <form enctype="multipart/form-data"  action="/Admin/Index" method="POST" id="imagesUpload">
                                     <div class="form-group">
                                         <input id="photosInput" type="file" multiple="multiple" class="file-loading" accept="image/*" name="files">
                                     </div>
@@ -296,7 +288,6 @@
     <footer>
         <script src="~/Scripts/ProjScripts/admin-panel.js"></script>
         <script src="~/Scripts/ProjScripts/shareFunctions.js"></script>
-        <script src="~/Scripts/ProjScripts/autocomplete.js"></script>
     </footer>
 </body>
 </html>

@@ -12,5 +12,6 @@ namespace Domain.Abstract
         IQueryable<Restaraunt> Restaraunts { get; }
         void SaveRestaraunt(Restaraunt restaraunt/*, RestarauntLang restLang = null, Image image = null, Comment comment = null*/);
         Restaraunt DeleteRestaraunt(int restarauntID);
+        Restaraunt GetRestarauntByID(int restarauntID);
     }
 }

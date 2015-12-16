@@ -42,5 +42,17 @@ namespace Domain.Concrete
             }
             return dbEntry;
         }
+        public List<Image> GetRestarauntImages(int restarauntID)
+        {
+            List<Image> result = new List<Image>();
+            foreach(var image in context.Images)
+            {
+                if(image.RestarauntID == restarauntID)
+                {
+                    result.Add(image);
+                }
+            }
+            return result;
+        }
     }
 }

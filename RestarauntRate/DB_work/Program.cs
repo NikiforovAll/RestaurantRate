@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Domain.Entities;
 using Domain.Concrete;
+using System.Web.Mvc;
 using System.Drawing;
 
 namespace DB_work
@@ -21,70 +22,82 @@ namespace DB_work
         {
             using (var db = new EFDbContext())
             {
-                //   var user = new User() { UserName = "proverka", Password = "proverka", Email = "test@gmail.com", Role = User.UserRole.Inactive, RegisterDate = DateTime.Now };
-                // var user1 = new User() { UserName = "admin", Password = "secret", Email = "ruslan.avsenin@gmail.com", Role = User.UserRole.Admin, RegisterDate = DateTime.Now };
-                //var user2 = new User() { UserName = "Elena_Tinkovan", Password = "1111", Email = "tioraelena@gmail.com", Role = User.UserRole.Moderator, RegisterDate = DateTime.Now };
-               
+                   var user = new User() { UserName = "proverka", Password = "proverka", Email = "ruslan.avsenin@gmail.com", Role = User.UserRole.Inactive, RegisterDate = DateTime.Now };
+                 var user1 = new User() { UserName = "admin", Password = "secret", Email = "test@gmail.com", Role = User.UserRole.Admin, RegisterDate = DateTime.Now };
+                var user2 = new User() { UserName = "Elena_Tinkovan", Password = "1111", Email = "tioraelena@gmail.com", Role = User.UserRole.Moderator, RegisterDate = DateTime.Now };
 
-                //db.Users.Add(user);
-                //db.Users.Add(user1);
-                //db.Users.Add(user2);
-               // var rest = new Restaraunt() { MaintenanceRate = 1, InteriorRate = 3, KitchenRate = 4, AddedDate = DateTime.Now, RestarauntType = Restaraunt.RestType.Cafe, Latitude = "1", Longitude = "2" };
-               // db.Restaraunts.Add(rest);
+
+                db.Users.Add(user);
+                db.Users.Add(user1);
+                db.Users.Add(user2);
+                //var rest = new Restaraunt() { MaintenanceRate = 1, InteriorRate = 3, KitchenRate = 4, AddedDate = DateTime.Now, RestarauntType = Restaraunt.RestType.Cafe, Latitude = "1", Longitude = "2" };
+                // db.Restaraunts.Add(rest);
                 //var image = new Image() { ImageMimeType = "123", ImageData = null };
-               // var restLangs = new RestarauntLang() { Country = "rusTest", Address = "rusTest", Locality = "rusTest", Name = "rusTest", Region = "rusTest", Review = "rusTest" };
+                //var restLangs = new RestarauntLang() { Country = "rusTest0", Address = "rusTest0", Locality = "rusTest0", Name = "rusTest0", Region = "rusTest0", Review = "rusTest0" };
+                //Language Test = db.Languages.Where(t => t.LanguageID == 1).First();
+                //restLangs.LanguageID = Test.LanguageID;
                 //restLangs.LanguageID = 6;
                 //rest.RestLangs.Add(restLangs);
                 //db.Restaraunts.Add(rest);
-            //    var restLangs1 = new RestarauntLang() { Country = "engTest", Address = "engTest", Locality = "engTest", Name = "engTest", Region = "engTest", Review = "engTest" };
-             //   var language = new Language() { Name = "russian", Code = "rus" };
-           //     var language1 = new Language() { Name = "english", Code = "eng" };
+                //    var restLangs1 = new RestarauntLang() { Country = "engTest", Address = "engTest", Locality = "engTest", Name = "engTest", Region = "engTest", Review = "engTest" };
+                  var language = new Language() { Name = "russian", Code = "rus" };
+                  var language1 = new Language() { Name = "english", Code = "eng" };
                 //var comment = new Comment() { Name = "bla bla", RestarauntID = 1, AddedDate = DateTime.Now, Review = "cool" };
                 //var comment1 = new Comment() { Name = "gav gav", RestarauntID = 1, AddedDate = DateTime.Now, Review = "nice" };
-              /*  rest.RestLangs.Add(restLangs);
-                rest.RestLangs.Add(restLangs1);
-                language.RestLangs.Add(restLangs);
-                language1.RestLangs.Add(restLangs1);
-                db.Restaraunts.Add(rest);
-                db.Languages.Add(language);
-                db.Languages.Add(language1);  */
-                
-                                      
+                //  rest.RestLangs.Add(restLangs);
+                // rest.RestLangs.Add(restLangs1);
+                // language.RestLangs.Add(restLangs);
+                //language1.RestLangs.Add(restLangs1);
+                //db.Restaraunts.Add(rest);
+                   db.Languages.Add(language);
+                  db.Languages.Add(language1);  
+
+
                 try
                 {
                     //     EFUserRepository test = new EFUserRepository();
-                     var lol = db.Restaraunts.Where(rest => rest.RestarauntID == 18).First();
-                    var lol2 = db.Restaraunts.Where(rest => rest.RestarauntID == 19).First();
-                    var lol1 = db.Restaraunts.Where(rest => rest.RestarauntID == 20).First();
-                    db.Restaraunts.Remove(lol);
-                    db.Restaraunts.Remove(lol1);
-                    db.Restaraunts.Remove(lol2);
+                    //  var lol = db.Restaraunts.Where(rest => rest.RestarauntID == 2).First();
+                    // var lol2 = db.Restaraunts.Where(rest => rest.RestarauntID == 1).First();
+                    //   var lol1 = db.Restaraunts.Where(rest => rest.RestarauntID == 20).First();
+                    //db.Restaraunts.Remove(lol);
+                    // db.Restaraunts.Remove(lol1);
+                    //db.Restaraunts.Remove(lol2);
+
                     //  var lang = db.Languages.Where(l => l.LanguageID == 1).First();
                     // db.Languages.Remove(lang);
-                    // User u = db.Users.Where(usr => usr.UserID == 7).First();
-                    // u.Role = User.UserRole.Moderator;
+                    //   User u = db.Users.Where(usr => usr.UserID == 2).First();
+                    // u.Role = User.UserRole.Admin;
                     //test.SaveUser(u);
+                    //foreach(var obj in db.Restaraunts)
+                    //{
+                    //    db.Restaraunts.Remove(obj);
+                    //}
+                    //foreach (var obj in db.Images)
+                    //{
+                    //    db.Images.Remove(obj);
+                    //}
                     db.SaveChanges();
+                    
                     //User usr = db.Users.Where(user => user.Email == "tioraelena@gmail.com").First();
                     //usr.Role = User.UserRole.Moderator;
-                   // foreach(Image img in db.Images)
-                  /*  {
-                        db.Images.Remove(img);
-                    }*/
+                    // foreach(Image img in db.Images)
+                    /*  {
+                          db.Images.Remove(img);
+                      }*/
                     // Console.WriteLine(DateTime.Now.ToFileTime());
-                   /* var files = System.IO.Directory.GetFiles(@"E:\Ruslan\Web\Projects\RestRate\RestarauntRate\DB_work\start");
-                    int count = 0;
-                    foreach (var file in files)
-                    {
-                        Bitmap tempBmp = new Bitmap(file);
-                        Bitmap bmp = new Bitmap(tempBmp, 807, 605);
+                    /* var files = System.IO.Directory.GetFiles(@"E:\Ruslan\Web\Projects\RestRate\RestarauntRate\DB_work\start");
+                     int count = 0;
+                     foreach (var file in files)
+                     {
+                         Bitmap tempBmp = new Bitmap(file);
+                         Bitmap bmp = new Bitmap(tempBmp, 807, 605);
 
-                        bmp.Save(
-                        @"E:\Ruslan\Web\Projects\RestRate\RestarauntRate\DB_work\res\" + count + ".jpg",
-                        System.Drawing.Imaging.ImageFormat.Jpeg);
-                        count++;
+                         bmp.Save(
+                         @"E:\Ruslan\Web\Projects\RestRate\RestarauntRate\DB_work\res\" + count + ".jpg",
+                         System.Drawing.Imaging.ImageFormat.Jpeg);
+                         count++;
 
-                    }                  */
+                     }                  */
                     //Image tmp = db.Images.Where(img => img.ImageID == 5).First();
                     //Image tmp1 = db.Images.Where(img => img.ImageID == 6).First();
                     // db.SaveChanges();

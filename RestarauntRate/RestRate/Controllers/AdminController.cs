@@ -9,7 +9,7 @@ using System.Web.Security;
 using Domain.Concrete;
 using RestRate.ModelView;
 using System.Data.Entity.Validation;
-using System.Diagnostics;
+using Newtonsoft.Json.Converters;
 
 namespace RestRate.Controllers
 {
@@ -36,148 +36,132 @@ namespace RestRate.Controllers
         public ViewResult Index()
         {
             return View();
-        }       
+        }
         public RedirectToRouteResult Logout()
         {
             var cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
             var ticketInfo = FormsAuthentication.Decrypt(cookie.Value);
             FormsAuthentication.SignOut();
+            string[] cookies = Request.Cookies.AllKeys;
+            foreach (string c in cookies)
+            {
+                Response.Cookies.Remove(c);
+            }
             return RedirectToAction("Login", "Account");
         }
-        List<Image> Images = new List<Image>();
         [HttpPost]
         public ActionResult AddRestaurant(RestaurantData data)
         {
-            var tmp = Images;
             if (!data.Equals(null))
             {
                 try
                 {
-                    /* using (var context = new EFDbContext())
-                     {
-
-                         Restaraunt NewRestaraunt = data.RestarauntData;
-                         RestarauntLang NewRestLang = data.RestaurantLangData;
-
-                         Language Test = context.Languages.Where(t => t.LanguageID == 7).First();
-
-                         NewRestaraunt.AddedDate = DateTime.Now;
-                         NewRestaraunt.Latitude = "2";
-                         NewRestaraunt.Longitude = "3";
-                         NewRestaraunt.RestarauntType = Restaraunt.RestType.Bar;
-
-                         restRepository.SaveRestaraunt(NewRestaraunt);
-
-                         NewRestLang.LanguageID = 7;
-                         NewRestLang.RestarauntID = NewRestaraunt.RestarauntID;
-
-                         restLangRepository.SaveRestarauntLang(NewRestLang);
-
-
-                         return Json(new { result = "success", id = NewRestaraunt.RestarauntID });
-                     }*/
-                    return null;
-                    /* HttpPostedFileBase MyFile = null;
-                int Number = Request.Files.Count;
-                Restaraunt tmp;
-                string ForSaving = Server.MapPath("~/Content/Images/RestaurantImages");
-                using (var context = new EFDbContext())
-                {
-
-                    if (Number != 0)
+                    using (var context = new EFDbContext())
                     {
-                        for (int i = 0; i < Number; i++)
-                        {
 
-                            MyFile = Request.Files[i];
-                            string FileName = "Restaraunt" + 0 + "Image" + i + System.IO.Path.GetExtension(MyFile.FileName);
-                            string url = System.IO.Path.Combine(ForSaving, FileName);
-                            Image New = new Image() { Url = url };
-                            New.RestarauntID = 0;                          
-                            NewRestaraunt.Images.Add(New);   
-                            restRepository.SaveRestaraunt(tmp);
-                            MyFile.SaveAs(url);
-                        }
+                        Restaraunt NewRestaraunt = data.RestarauntData;
+                        RestarauntLang NewRestLang = data.RestaurantLangData;
+
+                        NewRestaraunt.AddedDate = DateTime.Now;
+                        NewRestaraunt.Latitude = "2";
+                        NewRestaraunt.Longitude = "3";
+                        NewRestaraunt.RestarauntType = RestType.Bar;
+
+                        restRepository.SaveRestaraunt(NewRestaraunt);
+
+                        NewRestLang.LanguageID = 1;
+                        NewRestLang.RestarauntID = NewRestaraunt.RestarauntID;
+
+                        restLangRepository.SaveRestarauntLang(NewRestLang);
+
+
+                        return Json(new { result = "success", id = NewRestaraunt.RestarauntID });
                     }
-                }
-                */
                 }
                 catch (DbEntityValidationException dbEx)
                 {
-                    foreach (var validationErrors in dbEx.EntityValidationErrors)
-                    {
-                        foreach (var validationError in validationErrors.ValidationErrors)
-                        {
-                            Trace.TraceInformation("Property: {0} Error: {1}",
-                                                    validationError.PropertyName,
-                                                    validationError.ErrorMessage);
-                        }
-                    }
                     return Json(new { result = "error", message = "Ooooooops! Some troubles was happened with DB." });
                 }
             }
             return Json(new { result = "error", message = "JSON IS NULL" });
         }
 
+        // Save all images as .jpg
+        // Create thumbnails to all images as <image_name>_small.jpg
+        // Change path which write in db to relative
         [HttpPost]
-        public ActionResult Index(IEnumerable<HttpPostedFileBase> files)//ImageData data)
+        public ActionResult Index(IEnumerable<HttpPostedFileBase> files) 
         {
-           // int RestarauntID = data.RestarauntID;
+            var id = Convert.ToInt32(Request.Cookies["id"].Value);
+            Restaraunt Restaraunt = restRepository.GetRestarauntByID(id);
             var res = new List<HttpPostedFileBase>();
-            foreach (var file in files)//data.files)
+            int counter = 0;
+            foreach (var file in files)
             {
-                if (file.ContentLength < 0)
-                {
-                    continue;
-                }
-                res.Add(file);
-                // do something with the file
+                string FolderName = "Restaraunt" + id;
+                string Folder = Server.MapPath("~/Content/Images/RestaurantImages/");
+                string pathString = System.IO.Path.Combine(Folder, FolderName);
+                System.IO.Directory.CreateDirectory(pathString);
+                string FileName = counter + System.IO.Path.GetExtension(file.FileName);
+                string ForSaving = Server.MapPath("~/Content/Images/RestaurantImages/" + FolderName + "/");
+                string Url = System.IO.Path.Combine(ForSaving, FileName);
+                counter++;
+                Image New = new Image() { Url = Url };
+                New.RestarauntID = id;
+                imageRepository.SaveImage(New);
+                file.SaveAs(Url);
             }
             return null;
         }
-
         [HttpPost]
-        public ActionResult UploadFile(IEnumerable<HttpFileCollectionBase> files)
+        public JsonResult GetRestaraunts()
         {
-            var a = Request.Files;
-            // TimeStamp
-            long ticks = DateTime.UtcNow.Ticks - DateTime.Parse("01/01/1970 00:00:00").Ticks;
-            ticks /= 10000000; //Convert windows ticks to seconds
-            var timestamp = ticks.ToString();
-            //
-            HttpPostedFileBase MyFile = Request.Files[0];
+            List<RestarauntLang> RestarauntLangList = restLangRepository.GetAll();
+            List<RestIDNameAddress> RestIDNameAddress = new List<RestIDNameAddress>();
+            RestIDNameAddress tmp;
+            foreach (var rl in RestarauntLangList)
+            {
+                tmp = new RestIDNameAddress();
+                tmp.Address = rl.Address;
+                tmp.RestarauntID = rl.RestarauntID;
+                tmp.Name = rl.Name;
+                RestIDNameAddress.Add(tmp);
+            }
+            return Json(new { result = RestIDNameAddress } );
+        }
+        [HttpPost]
+        public ActionResult GetRestarauntInfo(string id)
+        {
+            try
+            {
+                int ID = Convert.ToInt32(id);
+                if (!id.Equals(null))
+                {
+                    Restaraunt Restaraunt = restRepository.GetRestarauntByID(ID);
+                    RestarauntLang RestarauntLang = restLangRepository.GetRestarauntLangByID(ID);
+                    RestarauntAllData result = new RestarauntAllData();
+                    result.Address = RestarauntLang.Address;
+                    result.Country = RestarauntLang.Country;
+                    result.Locality = RestarauntLang.Locality;
+                    result.Region = RestarauntLang.Region;
+                    result.Review = RestarauntLang.Review;
+                    result.Name = RestarauntLang.Name;
+                    result.Longitude = Restaraunt.Longitude;
+                    result.Latitude = Restaraunt.Latitude;
+                    result.KitchenRate = Restaraunt.KitchenRate;
+                    result.InteriorRate = Restaraunt.InteriorRate;
+                    result.MaintenanceRate = Restaraunt.MaintenanceRate;
+                    result.RestarauntType = Restaraunt.RestarauntType;
+                    result.Images = imageRepository.GetRestarauntImages(ID);
 
-            string FileName = 0 + timestamp + System.IO.Path.GetExtension(MyFile.FileName);
-
-
-            string ForSaving = Server.MapPath("~/Content/Images/RestaurantImages/"+0);
-            string Url = System.IO.Path.Combine(ForSaving, FileName);
-            Image New = new Image() { Url = Url };
-            Images.Add(New);
-
-            /* Restaraunt tmp;
-             string ForSaving = Server.MapPath("~/Content/Images/RestaurantImages");
-             using (var context = new EFDbContext())
-             {
-                 tmp = context.Restaraunts.Where(rest => rest.RestarauntID == 1).First();
-
-                 if (Number != 0)
-                 {
-                     for (int i = 0; i < Number; i++)
-                     {
-
-                         MyFile = Request.Files[i];
-                         string FileName = "Restaraunt" + 0 + "Image" + i + System.IO.Path.GetExtension(MyFile.FileName);
-                         string url = System.IO.Path.Combine(ForSaving, FileName);
-                         Image New = new Image() { Url = url };
-                         New.RestarauntID = 0;                        
-                         tmp.Images.Add(New);      
-                         restRepository.SaveRestaraunt(tmp);
-                         MyFile.SaveAs(url);
-                     }
-                 }
-             }*/
-            return null;
+                    return Json(new { result = result });
+                }
+                return Json(new { result = "ERROR" });
+            }
+            catch
+            {
+                return Json(new { result = "NoN" });
+            }
         }
         [HttpPost]
         public ActionResult ChangePassword(ChangePasswordData data)
@@ -204,7 +188,7 @@ namespace RestRate.Controllers
         {
             User tmp = userRepository.Users.Where(usr => usr.UserName == username).First();
 
-            if(tmp.Password.Equals(password))
+            if (tmp.Password.Equals(password))
             {
                 return true;
             }

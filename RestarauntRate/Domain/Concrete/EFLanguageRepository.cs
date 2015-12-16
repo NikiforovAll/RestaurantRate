@@ -14,6 +14,33 @@ namespace Domain.Concrete
         public IQueryable<Language> Languages
         {
             get { return context.Languages; }
-        }       
+        }
+        public void SaveLanguages(Language languages)
+        {
+            if (languages.LanguageID == 0)
+            {
+                context.Languages.Add(languages);
+            }
+            else
+            {
+                Language dbEntry = context.Languages.Find(languages.LanguageID);
+                if (dbEntry != null)
+                {
+                    dbEntry.Name = languages.Name;
+                    dbEntry.Code = languages.Code;
+                }
+            }
+            context.SaveChanges();
+        }
+        public Language DeleteLanguages(int languagesID)
+        {
+            Language dbEntry = context.Languages.Find(languagesID);
+            if (dbEntry != null)
+            {
+                context.Languages.Remove(dbEntry);
+                context.SaveChanges();
+            }
+            return dbEntry;
+        }
     }
 }
