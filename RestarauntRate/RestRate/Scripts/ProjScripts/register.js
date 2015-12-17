@@ -17,8 +17,14 @@ function (event) {
     else if (!validateEmail(email)) {
         informationWindow('Register error.', "Invalid input!\nPlease, check that all the symbols in the fields are correct.", { 'email': '' });
     }
+    else if (!validateUser(user)){
+        informationWindow('Register error.', "Invalid input!\nPlease, check that all the symbols in the fields are correct.", { 'user': '' });
+    }
     else if (pass != passConfirm) {
-        informationWindow('Register error.', "Invalid input!\nPlease, enter exactly the same password.", { 'pass': '' });
+        informationWindow('Register error.', "Invalid input!\nPlease, enter exactly the same password.", { 'pass': '', 'confirm': '' });
+    }
+    else if (!validatePass(pass)) {
+        informationWindow('Register error.', "Invalid input!\nPlease, check that all the symbols in the fields are correct.", { 'pass': '', 'confirm': '' });
     }
     else {
         $.ajax({

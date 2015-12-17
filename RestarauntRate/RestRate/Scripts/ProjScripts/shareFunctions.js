@@ -20,8 +20,12 @@ function informationWindow(title, message, fields) {
                         $('input[name="username"]').addClass("incorrect_data")
                         $('input[name="username"]').focus();
                     }
+                    if (fields['confirm'] == '') {
+                        $('input[name="passwordConfirm"]').addClass("incorrect_data")
+                        $('input[name="passwordConfirm"]').focus();
+                    }
                     if (fields['pass'] == '') {
-                        $('input[type="password"]').addClass("incorrect_data")
+                        $('input[name="password"]').addClass("incorrect_data")
                         $('input[name="password"]').focus();
                     }
                     if (fields['email'] == '') {
@@ -44,8 +48,8 @@ function informationWindow(title, message, fields) {
                     else if (fields['user'] == '' && fields['pass'] == '') {
                         $('input[name="username"]').focus();
                     }
-                    $("#spiner").detach();
                 }
+                $("#spiner").detach();
             }
         }]
     });
@@ -55,6 +59,18 @@ function informationWindow(title, message, fields) {
 function validateEmail(email) {
     var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
     return re.test(email);
+}
+
+// Username validation
+function validateUser(name) {
+    var re = /^[a-zA-Z0-9.\-_$@*!]{1,32}$/i;
+    return re.test(name);
+}
+
+// Password validation
+function validatePass(pass) {
+    var re = /^[a-zA-Z0-9.\-_$@*!]{6,32}$/i;
+    return re.test(pass);
 }
 
 // Deattach class "Incorrect data" from empty or changed input fields

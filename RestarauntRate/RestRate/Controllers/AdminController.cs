@@ -8,6 +8,9 @@ using System.Web.Mvc;
 using System.Web.Security;
 using Domain.Concrete;
 using RestRate.ModelView;
+using System.IO;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.Data.Entity.Validation;
 
 namespace RestRate.Controllers
@@ -77,7 +80,7 @@ namespace RestRate.Controllers
                         return Json(new { result = "success", id = NewRestaraunt.RestarauntID });
                     }
                 }
-                catch (DbEntityValidationException dbEx)
+                catch 
                 {
                     return Json(new { result = "error", message = "Ooooooops! Some troubles was happened with DB." });
                 }
@@ -85,8 +88,6 @@ namespace RestRate.Controllers
             return Json(new { result = "error", message = "JSON IS NULL" });
         }
 
-        // Save all images as .jpg
-        // Create thumbnails to all images as <image_name>_small.jpg
         // Change path which write in db to relative
         [HttpPost]
         public ActionResult Index(IEnumerable<HttpPostedFileBase> files) 
@@ -94,21 +95,35 @@ namespace RestRate.Controllers
             var id = Convert.ToInt32(Request.Cookies["id"].Value);
             Restaraunt Restaraunt = restRepository.GetRestarauntByID(id);
             var res = new List<HttpPostedFileBase>();
+            // set path and foldername
+            string FolderName = "Restaraunt" + id;
+            string Folder = Server.MapPath("~/Content/Images/RestaurantImages/");
+            string pathString = System.IO.Path.Combine(Folder, FolderName);
+            System.IO.Directory.CreateDirectory(pathString);
+            string ForSaving = Server.MapPath("~/Content/Images/RestaurantImages/" + FolderName + "/");
+            //
+
             int counter = 0;
             foreach (var file in files)
             {
-                string FolderName = "Restaraunt" + id;
-                string Folder = Server.MapPath("~/Content/Images/RestaurantImages/");
-                string pathString = System.IO.Path.Combine(Folder, FolderName);
-                System.IO.Directory.CreateDirectory(pathString);
-                string FileName = counter + System.IO.Path.GetExtension(file.FileName);
-                string ForSaving = Server.MapPath("~/Content/Images/RestaurantImages/" + FolderName + "/");
+                System.Drawing.Image imageObject = new Bitmap(file.InputStream);
+
+                string FileName = counter + ".jpg";
+                string ThumbnailFileName = "small_" + counter + ".jpg";
+
                 string Url = System.IO.Path.Combine(ForSaving, FileName);
+                string ThumbnailUrl = System.IO.Path.Combine(ForSaving, ThumbnailFileName);
                 counter++;
-                Image New = new Image() { Url = Url };
+
+                // adding url to DB
+                Domain.Entities.Image New = new Domain.Entities.Image() { Url = Url };
                 New.RestarauntID = id;
                 imageRepository.SaveImage(New);
-                file.SaveAs(Url);
+                //
+
+                imageObject.Save(Url, System.Drawing.Imaging.ImageFormat.Jpeg);
+                GetThumbnail(imageObject, 200, 200).Save(ThumbnailUrl, System.Drawing.Imaging.ImageFormat.Jpeg);
+
             }
             return null;
         }
@@ -194,6 +209,30 @@ namespace RestRate.Controllers
             else
             {
                 return false;
+            }
+        }
+        private Bitmap GetThumbnail(System.Drawing.Image OldImage, int NewHeight, int NewWidth)
+        {
+            var bitmap = new Bitmap(NewHeight, NewWidth);
+            try
+            {
+
+                using (Graphics g = Graphics.FromImage(bitmap))
+                {
+                    g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                    g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+                    g.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+                    g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                    g.DrawImage(OldImage,
+                        new Rectangle(0, 0, NewWidth, NewHeight),
+                        new Rectangle(0, 0, OldImage.Width, OldImage.Height), GraphicsUnit.Pixel);
+                }
+                  return bitmap;
+            }
+            catch
+            { 
+                if (bitmap != null) bitmap.Dispose();
+                throw new Exception("Thumbnailing was failed.");
             }
         }
     }

@@ -99,7 +99,6 @@ $("#addRestaurant").click(function () {
 
 // Show modal form to add new restaurant
 $("#add").click(function () {
-    console.log(getCookie('username'));
     if ($('#restName').val() == '') {
         informationWindow('Adding error!', 'Restaurant name field is empty! Please, enter a restaurant name before clicking "Add »"!', { 'restName': '' });
     }
@@ -128,32 +127,12 @@ function openMap() {
 $(function () {
     $(document).on('click', '.btn-add', function (e) {
         $(this).removeClass('btn-add btn-success').addClass('btn-remove btn-danger').html('<span class="glyphicon glyphicon-minus"></span>');
-        $("<div class='additionalAddress' style='display:none'>\
-            <div class='row form-group'>\
-                <label class='control-label col-md-3'>City:</label>\
-                <div class='col-md-9'>\
-                    <input class='form-control' placeholder='Locality' id='formRestLocation' maxlength='80' type='text' value='Odessa city' />\
-                </div>\
-            </div>\
-            <div class='row form-group'>\
-                <label class='control-label col-md-3'>Region:</label>\
-                <div class='col-md-9'>\
-                    <input class='form-control' placeholder='Region' id='formRestRegion' maxlength='80' type='text' value='Odessa region' />\
-                </div>\
-            </div>\<div class='row form-group'>\
-                <label class='control-label col-md-3'>Country:</label>\
-                <div class='col-md-9'>\
-                    <input class='form-control' placeholder='Country' id='formRestCountry' maxlength='80' type='text' value='Ukraine' />\
-                </div>\
-            </div>\
-           </div>\
-        ").insertAfter("#addressRestaurant");
         $(".additionalAddress").slideDown(1000);
 
     }).on('click', '.btn-remove', function (e) {
         $(this).removeClass('btn-remove btn-danger').addClass('btn-add btn-success').html('<span class="glyphicon glyphicon-plus"></span>');
         $(".additionalAddress").slideUp(1000, function () {
-            $('.additionalAddress').remove();
+            $('.additionalAddress').hide();
         });
     });
 });
@@ -236,5 +215,6 @@ $("#photosInput").fileinput({
 });
 //    });.on("filebatchselected", function (event, files) {
 //   $('#photosInput').fileinput('upload');
+//}).on("fileuploaded", function (event, files) {
+//    $('#photosInput').fileinput('upload');
 //});
-

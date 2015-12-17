@@ -74,10 +74,6 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -105,6 +101,9 @@
     <Reference Include="Microsoft.Web.Infrastructure">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-dialog.min.css" />
@@ -118,10 +117,6 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Customer\jquery.mCustomScrollbar.css" />
     <Content Include="Content\Customer\main.css" />
-    <Content Include="Content\default-skin\default-skin.css" />
-    <Content Include="Content\default-skin\default-skin.png" />
-    <Content Include="Content\default-skin\default-skin.svg" />
-    <Content Include="Content\default-skin\preloader.gif" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\Images\Admin\avatar.png" />
@@ -142,6 +137,7 @@
     <Content Include="Content\Images\Customer\starIcon-empty.gif" />
     <Content Include="Content\Images\Customer\starIcon.png" />
     <Content Include="Content\Images\Customer\pin56.png" />
+    <Content Include="Content\jquery.typeahead.css" />
     <Content Include="Content\Login\assets\3dcube\Overlay.css" />
     <Content Include="Content\Login\assets\3dcube\Overlay.js" />
     <Content Include="Content\Login\assets\3dcube\Overlay.min.css" />
@@ -174,10 +170,9 @@
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
-    <Content Include="Scripts\jquery-ui-1.11.4.js" />
-    <Content Include="Scripts\jquery-ui-1.11.4.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.mCustomScrollbar.concat.min.js" />
+    <Content Include="Scripts\jquery.typeahead.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -185,6 +180,7 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\ProjScripts\photoswipe-ui-default.min.js" />
     <Content Include="Scripts\ProjScripts\admin-panel.js" />
+    <Content Include="Scripts\ProjScripts\autocomplete.js" />
     <Content Include="Scripts\ProjScripts\login.js" />
     <Content Include="Scripts\ProjScripts\photoswipe.min.js" />
     <Content Include="Scripts\ProjScripts\register.js" />
