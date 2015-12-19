@@ -14,8 +14,6 @@ $(document).ready(function () {
     initLocation();
     sleep(1000);
     //initMap();
-
-
 });
 
 // initiation

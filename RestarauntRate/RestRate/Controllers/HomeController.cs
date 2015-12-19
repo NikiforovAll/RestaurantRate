@@ -48,24 +48,31 @@ namespace RestRate.Controllers
                 List<RestarauntLang> RestarauntLangList = restLangRepository.GetAll(LanguageID);
                 List<Restaraunt> RestarauntList = restRepository.GetAll();
                 List<RestIDNameFullAddressRates> RestIDNameFullAddressRates = new List<RestIDNameFullAddressRates>();
-                RestIDNameFullAddressRates tmp;
+                RestIDNameFullAddressRates FullObject;
+                RestIDNameFullAddress PartOfObject;
                 // повышаем производительность поскольку с учетом выбора конкретного языка
                 // мн -во RestarauntList[i] будет прямо соответсвовать RestarauntLangList[i].
                 // Быть осторожным с удалением. Нельзя давать возможность удалить RestarauntLangList[i] 
                 // для какого то конкретного языка. Если удалять, то удалять только RestarauntList[i] и все RestarauntLangList[i] 
                 for (int i = 0; i < RestarauntList.Count; i++) 
                 {
-                    tmp = new RestIDNameFullAddressRates();
-                    tmp.InteriorRate = RestarauntList[i].InteriorRate;
-                    tmp.KitchenRate = RestarauntList[i].KitchenRate;
-                    tmp.MaintenanceRate = RestarauntList[i].MaintenanceRate;
-                    tmp.RestIDNameFullAddress.Address = RestarauntLangList[i].Address;
-                    tmp.RestIDNameFullAddress.RestarauntID = RestarauntList[i].RestarauntID;
-                    tmp.RestIDNameFullAddress.Name = RestarauntLangList[i].Name;
-                    tmp.RestIDNameFullAddress.Country = RestarauntLangList[i].Country;
-                    tmp.RestIDNameFullAddress.Locality = RestarauntLangList[i].Locality;
-                    tmp.RestIDNameFullAddress.Region = RestarauntLangList[i].Region;
-                    RestIDNameFullAddressRates.Add(tmp);
+                    PartOfObject = new RestIDNameFullAddress()
+                    {
+                        Address = RestarauntLangList[i].Address,
+                        RestarauntID = RestarauntList[i].RestarauntID,
+                        Name = RestarauntLangList[i].Name,
+                        Country = RestarauntLangList[i].Country,
+                        Locality = RestarauntLangList[i].Locality,
+                        Region = RestarauntLangList[i].Region
+                    };
+                    FullObject = new RestIDNameFullAddressRates()
+                    {
+                        InteriorRate = RestarauntList[i].InteriorRate,
+                        KitchenRate = RestarauntList[i].KitchenRate,
+                        MaintenanceRate = RestarauntList[i].MaintenanceRate,
+                        RestaurantIDNameFullAddress = PartOfObject                       
+                    };
+                    RestIDNameFullAddressRates.Add(FullObject);
                 }
                 return Json(new { result = RestIDNameFullAddressRates });
             }
@@ -91,18 +98,26 @@ namespace RestRate.Controllers
                 }
                 List<RestarauntLang> RestarauntLangList = restLangRepository.GetAllWithinRadius(RestarauntIDArray, LanguageID);
                 List<RestIDNameFullAddressRates> RestIDNameFullAddressRates = new List<RestIDNameFullAddressRates>();
-                RestIDNameFullAddressRates tmp;
+                RestIDNameFullAddressRates FullObject;
+                RestIDNameFullAddress PartOfObject;
                 for (int i = 0; i < RestarauntList.Count; i++)
                 {
-                    tmp = new RestIDNameFullAddressRates();
-                    tmp.InteriorRate = RestarauntList[i].InteriorRate;
-                    tmp.KitchenRate = RestarauntList[i].KitchenRate;
-                    tmp.MaintenanceRate = RestarauntList[i].MaintenanceRate;
-                    tmp.RestIDNameFullAddress.Region = RestarauntLangList[i].Region;
-                    tmp.RestIDNameFullAddress.Name = RestarauntLangList[i].Name;
-                    tmp.RestIDNameFullAddress.Country = RestarauntLangList[i].Country;
-                    tmp.RestIDNameFullAddress.Locality = RestarauntLangList[i].Locality;
-                    RestIDNameFullAddressRates.Add(tmp);
+                    PartOfObject = new RestIDNameFullAddress()
+                    {
+                        Address = RestarauntLangList[i].Address,
+                        RestarauntID = RestarauntList[i].RestarauntID,
+                        Name = RestarauntLangList[i].Name,
+                        Country = RestarauntLangList[i].Country,
+                        Locality = RestarauntLangList[i].Locality,
+                        Region = RestarauntLangList[i].Region
+                    };
+                    FullObject = new RestIDNameFullAddressRates()
+                    {
+                        InteriorRate = RestarauntList[i].InteriorRate,
+                        KitchenRate = RestarauntList[i].KitchenRate,
+                        MaintenanceRate = RestarauntList[i].MaintenanceRate,
+                        RestaurantIDNameFullAddress = PartOfObject
+                    };
                 }
                 return Json(new { result = RestIDNameFullAddressRates });
             }
@@ -128,7 +143,10 @@ namespace RestRate.Controllers
                         {
                             if (image.Url[i].Equals('\\'))
                             {
-                                image.Url = image.Url.Remove(i + 1) + "small_" + tmp;
+                                string NameAndExtension = new string(tmp.ToCharArray().Reverse().ToArray()); // gpj.<image_name> to <image_name>.jpg
+                                image.Url = image.Url.Remove(i + 1) + "small_" + NameAndExtension;
+                                tmp = string.Empty;
+                                break;
                             }
                             else
                             {
