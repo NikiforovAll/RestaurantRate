@@ -8,14 +8,13 @@ var draggButton = "draggableButton";
 var coordinates = { lat: 46.480679, lng: 30.755164 };
 var dragState = false;
 var isDragging = false;
-var test = 1;
+var markers = [];
+var infoWindowRest;
 //entry point
 $(document).ready(function () {
     initLocation();
     sleep(1000);
     //initMap();
-
-
 });
 
 // initiation
@@ -27,7 +26,7 @@ function initGMap() {
         zoom: startZoom,
         minZoom: 13,
         maxZoom: 19,
-        draggable:true,
+        draggable: true,
 
         streetViewControl: false,
         mapTypeControlOptions: {
@@ -72,12 +71,12 @@ function initMap() {
     //    console.log( coord.lng()+ " " +coord.lat());
     //});
 }
-function initRestMarker(markerType, coords,ID) {
+function initRestMarker(markerType, coords, ID, text) {
     var imgStr = '/Content/Images/Customer/';
     if (markerType === 1) {
         imgStr += 'r.png';
     }
-   var  markerImage = {
+    var markerImage = {
         url: imgStr,
         scaledSize: new google.maps.Size(50, 40)
     };
@@ -86,17 +85,32 @@ function initRestMarker(markerType, coords,ID) {
         map: map,
         icon: markerImage
     });
-    var contentString = "#" + ID+"<br>" + "<b>Sup</b>?";
+    marker.set('ID', ID);
+    var contentString = "#" + ID + "<br>" + "<b>Sup</b>?";
     var infowindow = new google.maps.InfoWindow({
-        content: contentString
+        content: "<div style=\"color:rgb(247, 234, 0);font-style: italic bold;padding:3px;font-size:1.5em\">" + text + "<div>"
     });
-    marker.addListener('click', function() {
-        infowindow.open(map, marker);
+    marker.set('infoWindow', infowindow);
+    marker.addListener('click', function () {
+
+        if(infoWindowRest)
+            infoWindowRest.close();
+        infoWindowRest = this["infoWindow"] ;
+        activeRest.marker.setAnimation(null);
+        //infoWindows.push({ ID: ID, infowidnow:infowindow.open(map, marker) });
+         infowindow.open(map, marker);
+        updateReview(ID);
+        $("#review").slideDown();
     });
+    markers.push(marker);
+};
+
+
+function selectMarker() {
 }
 function initMarker() {
 
-   var  markerImage = {
+    var markerImage = {
         url: '/Content/Images/Customer/pin56.png',
         scaledSize: new google.maps.Size(60, 60)
     };
@@ -134,7 +148,7 @@ function initLocation() {
             timeout: 5000,
             maximumAge: 0
         });
-    } 
+    }
     initMap();
 }
 
@@ -156,7 +170,7 @@ function updateLocation() {
 //  
 function switchDraggable() {
     //console.log("switched");
-   
+
     isDragging = !isDragging;
     //if (isDragging) {
     //    $(".reviewInfo button").trigger();
@@ -165,15 +179,19 @@ function switchDraggable() {
         marker.setDraggable(false);
         //$("#" + draggButton).css("background-color", "#900");
         marker.setAnimation(null);
-       
-        nearbyMarkerSearch(minRad);
+
+        //nearbyMarkerSearch(minRad);
     }
     else {
         $("#review").slideUp();
         //$("#" + draggButton).css("background-color", "green");
+        activeRest.marker.setAnimation(null);
+        if (infoWindowRest) {
+            infoWindowRest.close();
+        }
         marker.animation = google.maps.Animation.BOUNCE;
         marker.setDraggable(true);
-        
+
 
     }
 

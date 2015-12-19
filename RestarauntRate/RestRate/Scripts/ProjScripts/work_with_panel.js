@@ -1,19 +1,20 @@
 ﻿var restaurants = []; //temporary restaurants 
 var testRest = [
-    { Name: "Test0", adress: "TestAdress0", stars: 1, ID: "1" },
-    { Name: "Test1", adress: "TestAdress1", stars: 2, ID: "2" },
-    { Name: "Test2", adress: "TestAdress2", stars: 3, ID: "3" },
-    { Name: "Test3", adress: "TestAdress3", stars: 4, ID: "4" },
-    { Name: "Test4", adress: "TestAdress4", stars: 5, ID: "5" },
-    { Name: "Test5", adress: "TestAdress5", stars: 1, ID: "6" },
-    { Name: "Test6", adress: "TestAdress6", stars: 2, ID: "7" },
-    { Name: "Test7", adress: "TestAdress7", stars: 3, ID: "8" },
-    { Name: "Test8", adress: "TestAdress8", stars: 4, ID: "9" },
-    { Name: "Test9", adress: "TestAdress8", stars: 5, ID: "10" }
+    { Name: "Test0", address: "TestAdress0", stars: 1, ID: "1" },
+    { Name: "Test1", address: "TestAdress1", stars: 2, ID: "2" },
+    { Name: "Test2", address: "TestAdress2", stars: 3, ID: "3" },
+    { Name: "Test3", address: "TestAdress3", stars: 4, ID: "4" },
+    { Name: "Test4", address: "TestAdress4", stars: 5, ID: "5" },
+    { Name: "Test5", address: "TestAdress5", stars: 1, ID: "6" },
+    { Name: "Test6", address: "TestAdress6", stars: 2, ID: "7" },
+    { Name: "Test7", address: "TestAdress7", stars: 3, ID: "8" },
+    { Name: "Test8", address: "TestAdress8", stars: 4, ID: "9" },
+    { Name: "Test9", address: "TestAdress8", stars: 5, ID: "10" }
 ];
 var minRad = 700;
 var maxRad = 2000;
 var panel;
+var activeRest = {marker:null,infoWindow:null};
 //var isItemChanged = false;
 //var state = { color: "rgba(55, 47, 45,0.4)", marginLeft: "0%" }
 var prevItem;
@@ -26,7 +27,7 @@ function panelInit() {
     //nearbyMarkerSearch(minRad);
 
     // Scroll init
-  
+
     $(".content").mCustomScrollbar({
         theme: "rounded-dots-dark",
         scrollInertia: 100,
@@ -46,23 +47,14 @@ function panelInit() {
     }
 
     getAllRestaurants();
-   var testitems= [
-         'https://farm3.staticflickr.com/2567/5697107145_3c27ff3cd1_m.jpg',
-         "https://farm2.staticflickr.com/1043/5186867718_06b2e9e551_m.jpg" ,
-          "https://vexingpoint.files.wordpress.com/2015/03/flying-tiger-wallpapers.jpg"
-    ];
-   populateGallery(testitems);
+    //var testitems = [
+    //      'https://farm3.staticflickr.com/2567/5697107145_3c27ff3cd1_m.jpg',
+    //      "https://farm2.staticflickr.com/1043/5186867718_06b2e9e551_m.jpg",
+    //       "https://vexingpoint.files.wordpress.com/2015/03/flying-tiger-wallpapers.jpg"
+    //];
+    //populateGallery(testitems);
     //TODO URL cohesion 
-    $("#shareContent").append(VK.Share.button({
-        title: "TestTitle",
-        url:"http://rest-rate.azurewebsites.net",
-        image: galleryItems[0],
-        description:"Some description of current restaurant"
-    }, {
-        type:"round",
-        text: "Share!"
 
-    }));
     //initGallery();
 
     //$(".reviewInfo").mCustomScrollbar({
@@ -72,24 +64,25 @@ function panelInit() {
     //        enable: true
     //    }
     //});
-   
-    
-   
-    $("#orderByRating").click(function () {
-        restaurantsSort();
-        clearPanel();
-        restaurants.forEach(function (el, i) {
-            addToPanel(el,i); 
-        });
-    });
-   
-    $("#getFullList").click(function() {
+
+
+
+    //$("#orderByRating").click(function () {
+    //    restaurantsSort();
+    //    clearPanel();
+    //    restaurants.forEach(function (el, i) {
+    //        addToPanel(el, i);
+    //    });
+    //});
+
+    $("#getFullList").click(function () {
         citySearch();
     });
-   
-   
+
+
     //TODO pick search lang
 };
+
 
 function toggleFunc() {
     $(".showReview").click(toggleReview);
@@ -103,20 +96,29 @@ function toggleReview(source) {
     } else {
         var activeEl = getActivePanelElement();
         if (!!activeEl) {
-            
-            //changing content stub
-            console.log($(source.target).closest(".panel-item-w").attr("id"));
 
+            //changing content stub
+            var tmp = $(source.target).closest(".panel-item-w").attr("id");
+            //console.log(tmp);
+            updateReview(tmp);
             $("#review").slideDown();
+            // infowindow
 
         } else {
             $("#review").slideUp();
+            activeRest.marker.setAnimation(null);
+            infoWindowRest.close();
         }
     }
 }
 
+
+
 function slideDownReview() {
     $("#review").slideUp();
+    activeRest.marker.setAnimation(null);
+    infoWindowRest.close();
+
 }
 
 function citySearch() {
@@ -125,16 +127,16 @@ function citySearch() {
     for (var j = 0; j < 3; j++) {
         restaurants = restaurants.concat(testRest);
     }
-        restaurants.forEach(function(el) {
-            addToPanel(el);
-        });
-    
+    restaurants.forEach(function (el) {
+        addToPanel(el);
+    });
+
 }
 function nearbyMarkerSearch(r) {
     restaurants = [];
     var service = new google.maps.places.PlacesService(map);
     service.nearbySearch({
-        
+
         location: marker.getPosition(),
         radius: r,
         types: availabletypes
@@ -143,7 +145,7 @@ function nearbyMarkerSearch(r) {
             clearPanel();
             for (var i = 0; i < results.length; i++) {
                 var request = { reference: results[i].reference };
-                        initRestMarker(1, results[i].geometry.location, i);
+                initRestMarker(1, results[i].geometry.location, i);
 
                 service.getDetails(request, function (details, status) {
                     if (status === google.maps.places.PlacesServiceStatus.OK) {
@@ -151,44 +153,63 @@ function nearbyMarkerSearch(r) {
                         var tmpItem = {
                             Name: details.name,
                             stars: (details.rating === undefined) ? 0 : details.rating,
-                            adress: details.address_components[1].long_name + ", " + details.address_components[0].long_name,//.replace("вулиця","")
-                            ID:0
+                            address: details.address_components[1].long_name + ", " + details.address_components[0].long_name,//.replace("вулиця","")
+                            ID: 0
                         };
                         restaurants.push(tmpItem);
                         addToPanel(tmpItem);
-                        
+
                     }
-                   
+
                 });
                 //TODO make async sort
-               // restaurantsSort();
+                // restaurantsSort();
             }
         }
     });
 }
+function geocodeAddress(geocoder, address, ID, name) {
 
+    geocoder.geocode({ 'address': address }, function (results, status) {
+        if (status === google.maps.GeocoderStatus.OK) {
+            //console.log(results[0].geometry.location.lat());
+            initRestMarker(1, results[0].geometry.location, ID, name);
+        } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+        }
+    });
+}
 function getAllRestaurants() {
     $.ajax({
         url: "/Home/GetAllRestaurants",
         //data: JSON.stringify({ "Longitude": 46.480679, "Latitude": 30.755164 }),
-        type: "POST",      
+        type: "POST",
         contentType: "application/json; charset=utf-8",
-        dataType: 'json',        
+        dataType: 'json',
         success: function (answer) {
-            console.log(answer); // для того чтобы увидеть JSON, который ты получил
-            answer.forEach(function(el) {
-                var tmp = el.RestIDNameFullAddressRestIDNameFullAddress;
+            //console.log(answer.result); // для того чтобы увидеть JSON, который ты получил
+            var geocoder = new google.maps.Geocoder();
+            var restaurants = answer.result;
+            restaurants = restaurants.sort(function (el1, el2) {
+                //console.log("calling async");
+                return -1.0 * (el1.InteriorRate * 0.3 + el1.KitchenRate * 0.4 + el1.MaintenanceRate * 0.3) +
+                    (el2.InteriorRate * 0.3 + el2.KitchenRate * 0.4 + el2.MaintenanceRate * 0.3);
+            });
+            console.log(restaurants);
+            restaurants.forEach(function (el) {
+                var tmp = el.RestaurantIDNameFullAddress;
+                //console.log(tmp.Name);
                 addToPanel({
-                    stars: (el.InteriorRate + el.KitchenRate + el.MaintenanceRate) / 3.0,
-                    adress: tmp.Address,
-                    name: tmp.Name,
-                    ID:tmp.RestarauntID
-                    
+                    stars: el.InteriorRate * 0.3 + el.KitchenRate * 0.4 + el.MaintenanceRate * 0.3,
+                    address: tmp.Address,
+                    Name: tmp.Name,
+                    ID: tmp.RestarauntID
                 });
+                geocodeAddress(geocoder, tmp.Address, tmp.RestarauntID, tmp.Name);
             });
         },
         error: function () {
-           
+
             console.log('Такие нюансы-романсы.. :(');
         },
         timeout: 10000
@@ -200,29 +221,89 @@ function updateReview(restID) {
 
     $.ajax({
         url: "/Home/GetRestaurantInfo",
-        data: JSON.stringify({ "restarauntID": restID  }),
-        type: "POST",      
+        data: JSON.stringify({ "restarauntID": restID }),
+        type: "POST",
         contentType: "application/json; charset=utf-8",
-        dataType: 'json',        
+        dataType: 'json',
         success: function (answer) {
-            console.log(answer); // для того чтобы увидеть JSON, который ты получил
+            //console.log(answer); // для того чтобы увидеть JSON, который ты получил
+            var tmp = answer.result;
+            console.log(tmp);
+            fillReview(restID, tmp.Name, tmp.KitchenRate, tmp.InteriorRate, tmp.MaintenanceRate, tmp.Review, "", tmp.Images.map(function (el) { return el.Url }));
+            var geocoder = new google.maps.Geocoder();
+            geocoder.geocode({ 'address': tmp.Address }, function (results, status) {
+                if (status === google.maps.GeocoderStatus.OK) {
+                    //console.log(results[0].geometry.location.lat());
+                    map_recenter(results[0].geometry.location, $(window).width() / 3.8, 0);
+                    var activeEl = markers.filter(function (el) {
+                        return (el.get('ID') == restID ? true : false);
+                    })[0];
+                    activeRest.marker = activeEl;
+                    activeEl.setAnimation(google.maps.Animation.BOUNCE);
+                    //google.maps.event.trigger(activeEl, "click");
+                } else {
+                    console.log('Geocode was not successful for the following reason: ' + status);
+                }
+            });
         },
         error: function () {
-           
+
             console.log('Такие нюансы-романсы.. :(');
         },
         timeout: 10000
     });
 }
-function fillReview(foodRate, styleRate, serviceRate,reviewContext,Date,Images) {
-    starChangeValue(foodRate, "unput-id1");
-    starChangeValue(styleRate, "input-id2");
-    starChangeValue(serviceRate, "input-id2");
-    var body = $("#reviewContext").innerHTML = reviewContext;
-    var date = $("#reviewDate").innerHTML = Date;
-    populateGallery();
+
+
+function map_recenter(latlng, offsetx, offsety) {
+    var point1 = map.getProjection().fromLatLngToPoint(
+        (latlng instanceof google.maps.LatLng) ? latlng : map.getCenter()
+    );
+    var point2 = new google.maps.Point(
+        ((typeof (offsetx) == 'number' ? offsetx : 0) / Math.pow(2, map.getZoom())) || 0,
+        ((typeof (offsety) == 'number' ? offsety : 0) / Math.pow(2, map.getZoom())) || 0
+    );
+    map.setCenter(map.getProjection().fromPointToLatLng(new google.maps.Point(
+        point1.x - point2.x,
+        point1.y + point2.y
+    )));
+}
+function fillReview(ID, name, foodRate, styleRate, serviceRate, reviewContext, currDate, Images) {
+    starChangeValue(foodRate + 0.5, "input-id1");
+    starChangeValue(styleRate + 0.5, "input-id2");
+    starChangeValue(serviceRate + 0.5, "input-id3");
+    var body = $("#reviewContext");
+    body.html("<h4>" + name + "</h2>" +"<hr>");
+    if (reviewContext) {
+        body.append(reviewContext);
+    } else {
+        //body.html("");
+    }
+    var strDate = "";
+    if (currDate === "") {
+        var strDate = new Date().toJSON().slice(0, 10);
+    }
+
+    var date = $("#reviewDate").html("Visited on " + strDate);
+    fillShareButton(ID, reviewContext, name, Images[0]);
+    populateGallery(Images);
+
 }
 
+function fillShareButton(ID, desc, name, Image) {
+    $("#shareContent").empty();
+    $("#shareContent").append(VK.Share.button({
+        title: name,
+        url: "http://rest-rate.azurewebsites.net" + "/" + ID,
+        image: Image,
+        description: desc
+    }, {
+        type: "round",
+        text: "Share!"
+
+    }));
+    //TODO implementation for Facebook
+}
 
 
 function togglePanel(e) {
@@ -231,7 +312,7 @@ function togglePanel(e) {
         if (target.length === 0) {
             target = $(e.target).closest(".panel-item-w");
         }
-       
+
         if (target.hasClass('panel-item-w')) {
             removeButton(target);
             //$("#review").slideUp();
@@ -245,7 +326,7 @@ function togglePanel(e) {
             target.addClass('panel-item-w');
             addButton(target);
         }
-       
+
         //if (target.css("background-color") === "rgb(255, 255, 255)") {
         //    target.css("background-color", state.color);
         //    target.css("margin-left", state.marginLeft);
@@ -256,7 +337,7 @@ function togglePanel(e) {
         //    target.css("background-color", "white");
         //    target.css("margin-left", "12%");
         //}
-        
+
         prevItem = target;
     }
 }
@@ -271,12 +352,11 @@ function addButton(item) {
 function removeButton(item) {
     $(".showReview").remove();
 }
-function restaurantsSort()
-{
-     restaurants.sort(function (a, b) {
-                    //console.log("calling async");
-                    return b.stars - a.stars;
-                });
+function restaurantsSort() {
+    restaurants.sort(function (a, b) {
+        //console.log("calling async");
+        return b.stars - a.stars;
+    });
 }
 function clearPanel() {
     $(".panelItems>*").remove();
@@ -291,9 +371,9 @@ function addToPanel(item) {
         }
     }
     stars += " </div>";
-    var adress = "<div>" + item.adress + " </div > ";
+    var address = "<div>" + item.address + " </div > ";
     var name = "<div>" + item.Name + " </div > ";
-    var src = "<div id =\"" +item.ID+ "\" class=\"panel-item\">" + stars + name + adress + "</div>";
+    var src = "<div id =\"" + item.ID + "\" class=\"panel-item\">" + stars + name + address + "</div>";
     var $item = $(src);
     $item.click(togglePanel);
     $(".panelItems").append($item);

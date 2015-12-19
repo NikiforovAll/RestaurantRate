@@ -46,7 +46,7 @@
                 </button>
                 <ul class="dropdown-menu">
                     <li><a href="#">~this is STUB~</a></li>
-                    <li><a id="orderByRating" href="#">Order By Rating</a></li>
+                    @*<li><a id="orderByRating" href="#">Order By Rating</a></li>*@
                     <li><a id="getFullList" href="#">Full List</a></li>
                 </ul>
             </div>
@@ -65,7 +65,7 @@
         <div class="reviewInfo col-md-6 col-xs-3 col-xs-offset-2">
             <div id="review">
                 <div id="reviewHeader">
-                    Rating
+                    Rates
                     <button type="button" onclick="slideDownReview()">X</button>
                 </div>
                 <div class="content1">
@@ -92,10 +92,9 @@
                     </div>
 
                     <div id="reviewBody">
-                        <div>Description</div>
-                        @*<p>
-                            "Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
+                        <div>Resume</div>
+                        @*<p id ="reviewName">
+                          LoremFood
                         </p>*@
                         <p id ="reviewContext">
                             Lorem ipsum dolor sit amet, consectetur adipisicing elit,
@@ -120,7 +119,7 @@
                                 @*TODO bind facebook share status - RAW*@
                                 <a name="fb_share" type="button"
                                    href="http://www.facebook.com/sharer.php?u={$url}&media={$imgPath}&description={$desc}" class="joinFB">
-                                    <img src="https://simplesharebuttons.com/images/somacro/facebook.png" alt="Facebook" />
+                                    <img src="~/Content/Images/Customer/facebook.png" alt="Facebook" />
                                 </a>
                                 @*<a href="http://www.facebook.com/sharer.php?u=https://simplesharebuttons.com" target="_blank">
                         <img src="https://simplesharebuttons.com/images/somacro/facebook.png" alt="Facebook" />

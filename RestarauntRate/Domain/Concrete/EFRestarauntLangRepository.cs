@@ -48,12 +48,15 @@ namespace Domain.Concrete
             }
             return dbEntry;
         }
-        public List<RestarauntLang> GetAll(int languageID)
+        public List<RestarauntLang> GetAll(int languageID) // Обратить внимание, что для работы с languageID пришлось включить MARS в connectionString
         {
             List<RestarauntLang> result = new List<RestarauntLang>();
             foreach(var rl in context.RestarauntLangs)
             {
-                result.Add(context.RestarauntLangs.Where(restLang => restLang.LanguageID == languageID).First());
+                if (rl.LanguageID == languageID)
+                {
+                    result.Add(rl);
+                }
             }
             return result;
         }

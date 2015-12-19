@@ -138,7 +138,7 @@ namespace RestRate.Controllers
             try
             {
                 int LanguageID = 1;
-                List<RestarauntLang> RestarauntLangList = restLangRepository.GetAll(LanguageID);
+                List<RestarauntLang> RestarauntLangList = restLangRepository.GetAll( LanguageID);
                 List<RestIDNameFullAddress> RestIDNameFullAddress = new List<RestIDNameFullAddress>();
                 RestIDNameFullAddress tmp;
                 foreach (var rl in RestarauntLangList)

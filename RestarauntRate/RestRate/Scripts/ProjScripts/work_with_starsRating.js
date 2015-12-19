@@ -1,6 +1,6 @@
 ﻿function initStarRating(strId) {
     var el = $(strId).rating({
-        min: 1, max: 5, step: 1,
+        min: 1, max: 5, step: 0.5,
         size: 'xs',
         readonly:true,
         showClear: false,
@@ -19,6 +19,6 @@
 }
 
 function starChangeValue(val, id) {
-    var el = $(id).rating("update", val);
+    var el = $("#"+id).rating("update", val);
 }
 

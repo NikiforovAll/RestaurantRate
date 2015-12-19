@@ -45,28 +45,36 @@ html {
 }
 /* Large desktops and laptops */
 @media (min-width: 1200px) {
-     html{font-size:40px}
+    html {
+        font-size: 40px;
+    }
 }
 
 /* Landscape tablets and medium desktops */
 @media (min-width: 992px) and (max-width: 1199px) {
-     html{font-size:40px}
+    html {
+        font-size: 40px;
+    }
 }
 
 /* Portrait tablets and small desktops */
 @media (min-width: 768px) and (max-width: 991px) {
-
 }
 
 /* Landscape phones and portrait tablets */
 @media (max-width: 767px) {
-    html{font-size:10px}
+    html {
+        font-size: 10px;
+    }
 }
 
 /* Portrait phones and smaller */
 @media (max-width: 480px) {
-    html{font-size:5px}
+    html {
+        font-size: 5px;
+    }
 }
+
 .mainpanel {
     position: absolute;
     z-index: 99;
@@ -74,11 +82,10 @@ html {
     /*width:100px;*/
     width: 30%;
     border-radius: 2px;
-
 }
 
-.mainpanel >.container {
-}
+    .mainpanel > .container {
+    }
 
 .panelheader {
     padding: 0px;
@@ -119,7 +126,7 @@ html {
     width: 40px;
 }
 
-    
+
 .settingsButt:hover {
     margin-right: 3px;
     margin-top: 2px;
@@ -171,6 +178,7 @@ html {
 
 .panel-item:hover {
     background-color: rgb(157, 144, 123);
+    /*color:rgb(247, 234, 0);*/
 }
 
 .panel-item-w {
@@ -189,7 +197,7 @@ html {
     position: relative;
     padding: 2vh;
     /*background: #333;*/
-    width:100%;
+    width: 100%;
     max-width: 105%;
     height: 80vh;
     /*height: 100%;*/
@@ -208,8 +216,7 @@ html {
     /*left: 20%;*/
     /*max-width: 105%;*/
     height: 80vh;
-    z-index: 0
-
+    z-index: 0;
     /*height: 100%;*/
     /*-webkit-box-sizing: border-box;*/
     /*-moz-box-sizing: border-box;*/
@@ -231,41 +238,42 @@ html {
     background-color: rgba(55, 47, 45, 0.85);
     color: rgb(202, 173, 126);
     font-size: 1.5em;
-    /*height: 50px;*/ 
+    /*height: 50px;*/
     padding: 10px;
     border-radius: 10px;
-    padding-left:5%;
+    padding-left: 5%;
 }
-#reviewHeader button {
 
-    background-color: rgba(159, 144, 120,0.3);
-    float: right;
-    margin-right: 3%;
-    margin-top: 3px;
-    width: 45px;
-    font-size: 10pt;
-    border: 2px solid rgb(82, 56, 13);
-}
+    #reviewHeader button {
+        background-color: rgba(159, 144, 120,0.3);
+        float: right;
+        margin-right: 3%;
+        margin-top: 3px;
+        width: 45px;
+        font-size: 10pt;
+        border: 2px solid rgb(82, 56, 13);
+    }
 /*Header rating background */
 #reviewRating > div:last-child {
     margin-top: 1vh;
     background-color: rgba(55, 47, 45, 0.75);
 }
 
-.Row
-{
+.Row {
     display: table;
     width: 100%; /*Optional*/
     table-layout: fixed; /*Optional*/
     border-spacing: 10px; /*Optional*/
 }
-.Column
-{
+
+.Column {
     display: table-cell;
 }
-.Column >img {
-    margin-left: 4.5vh;
-}
+
+    .Column > img {
+        margin-left: 4.5vh;
+    }
+
 #reviewRating div div {
     /*margin-left: 2.7vh;*/
 }
@@ -283,56 +291,63 @@ html {
 #reviewRating {
     /*background-color:rgba(55, 47, 45, 0.85);*/
 }
-#reviewRating  div{
-    border-radius: 10px;
-    
-}
-#reviewRating *:not(div) {
-    /*display: inline;*/
-    width: 45%;
-    margin-top: 10px;
-    border-radius: 10px;
-    /*padding: 5px;*/
-}
-#reviewRating >.Row>.Column img {
-    align-content: center;
-}
-#reviewRating >.Row>.Column>*:last-child{
-    align-content: center;
-    margin-left: 1vh;
-}
+
+    #reviewRating div {
+        border-radius: 10px;
+    }
+
+    #reviewRating *:not(div) {
+        /*display: inline;*/
+        width: 45%;
+        margin-top: 10px;
+        border-radius: 10px;
+        /*padding: 5px;*/
+    }
+
+    #reviewRating > .Row > .Column img {
+        align-content: center;
+    }
+
+    #reviewRating > .Row > .Column > *:last-child {
+        align-content: center;
+        margin-left: 1vh;
+    }
 
 #reviewBody {
     margin-top: 20px;
 }
-#reviewBody > div {
+
+    #reviewBody > div {
+        color: rgb(202, 173, 126);
+        background-color: rgba(55, 47, 45, 0.85);
+        font-size: 15pt;
+        height: 50px;
+        padding: 10px;
+        padding-left: 20px;
+        margin-bottom: 1vh;
+        border-radius: 10px;
+    }
+
+    #reviewBody > p {
+        font-size: 11pt;
+        padding: 20px;
+        font-weight: bold;
+        background-color: rgba(255, 255, 255,0.9);
+        border-radius: 10px;
+    }
+
+        #reviewBody > p:nth-child(2) {
+            padding-left: 15%;
+        }
+
+        #reviewBody > p:last-child {
+            padding-left: 60%;
+        }
+
+
+#reviewGallery > div:first-child {
+    background-color: rgba(55, 47, 45, 0.85);
     color: rgb(202, 173, 126);
-    background-color: rgba(55, 47, 45, 0.85);
-    font-size: 15pt;
-    height: 50px;
-    padding: 10px;
-    padding-left: 20px;
-    margin-bottom: 1vh;
-    border-radius: 10px;
-}
-#reviewBody > p{
-    font-size: 11pt;
-    padding: 20px;
-    font-weight: bold;
-    background-color: rgba(255, 255, 255,0.9);
-    border-radius: 10px;
-}
-#reviewBody > p:nth-child(2) {
-    padding-left: 15%;
-}
-#reviewBody>p:last-child {
-    padding-left: 50%;
-}
-
-
-#reviewGallery >div:first-child {
-    background-color: rgba(55, 47, 45, 0.85);
-     color: rgb(202, 173, 126);
     background-color: rgba(55, 47, 45, 0.85);
     font-size: 15pt;
     height: 50px;
@@ -340,62 +355,74 @@ html {
     padding-left: 30px;
     border-radius: 10px;
 }
+
 .my-gallery {
     margin-top: 2vh;
-    background-color:rgba(255, 255, 255,0.8);
+    background-color: rgba(255, 255, 255,0.8);
     border-radius: 10px;
 }
-.gallery-Img>img {
+
+.gallery-Img > img {
     width: 170px;
     /*padding-left: 10px;*/
-    margin: 0px; 
+    margin: 0px;
 }
-.gallery-Img>img:hover {
-    border: 3px solid rgb(162, 45, 16);
-     cursor: pointer;
-     cursor: hand;
-}
+
+    .gallery-Img > img:hover {
+        border: 3px solid rgb(162, 45, 16);
+        cursor: pointer;
+        cursor: hand;
+    }
+
 .my-gallery > .Row {
     /*margin-top: 10px;*/
 }
+
 .gallery-Img {
     width: 50%;
     margin: 0px;
     padding-top: 6px;
     padding-left: 4.5vh;
 }
-#reviewShare >div:first-child {
-      background-color: rgba(55, 47, 45, 0.85);
-     color: rgb(202, 173, 126);
+
+#reviewShare > div:first-child {
+    background-color: rgba(55, 47, 45, 0.85);
+    color: rgb(202, 173, 126);
     background-color: rgba(55, 47, 45, 0.85);
     font-size: 15pt;
     height: 50px;
     padding: 10px;
     padding-left: 30px;
     border-radius: 10px;
-    margin-top: 10px; 
-    margin-bottom:10px 
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
+
 #reviewShare {
     margin-top: 1vh;
     border-radius: 10px;
-    background-color:rgba(255, 255, 255,0.8);
-}
-#reviewShare>.Row {
-    /*width: 50%;
-    float: right;*/
-}
-#reviewShare>.Row>.Column {
-    height:  4vh;
-    padding-left: 10%;
-    padding-right: 10%;
-    float: right;
-}
-a[name="fb_share"] > img {
-    width: 30px;
-    padding-bottom: 10px;
+    background-color: rgba(255, 255, 255,0.8);
 }
 
+    #reviewShare > .Row {
+        /*width: 50%;
+    float: right;*/
+    }
+
+        #reviewShare > .Row > .Column {
+            height: 4vh;
+            padding-left: 1%;
+            padding-right: 5%;
+            float: right;
+        }
+
+a[name="fb_share"] > img {
+    width: 34px;
+    /*top: -10px !important;*/
+    /*padding-bottom: 13px;*/
+}
+#reviewShare:last-child {
+}
 /*#reviewRating img:nth-child(odd)  {*/
 /*width: 50px;
     margin-left: 10px;
@@ -466,3 +493,35 @@ a[name="fb_share"] > img {
     
 }*/
 
+/* white background and box outline */
+.gm-style > div:first-child > div + div > div:last-child > div > div:first-child > div {
+    /* we have to use !important because we are overwritng inline styles */
+    /*background-color: transparent !important;*/
+    /*box-shadow: none !important;*/
+    width: auto !important;
+    height: auto !important;
+}
+    /* arrow colour */
+    .gm-style > div:first-child > div + div > div:last-child > div > div:first-child > div > div > div {
+        background-color: transparent !important;
+    }
+/* close button */
+.gm-style > div:first-child > div + div > div:last-child > div > div:last-child {
+    margin-right: 4px;
+    margin-top: 3px;
+    background-color: rgb(55, 47, 45);
+    /*height: 40px !important;*/
+}
+
+.gm-style-iw {
+    /*width: 45px !important;*/
+    /*top: 30px !important;*/
+    /*left: 20px !important;*/
+    /*font-size: 12pt;*/
+    background-color: rgba(55, 47, 45, 0.5);
+    box-shadow: 0 1px 6px rgba(178, 178, 178, 0.6);
+    border: 2px solid rgb(55, 47, 45);
+    border-radius: 10px 10px 50px 10px;
+    padding-left: 3px;
+    /*background: red;*/
+}

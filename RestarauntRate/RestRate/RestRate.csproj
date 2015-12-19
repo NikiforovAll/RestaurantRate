@@ -131,6 +131,7 @@
     <Content Include="Content\Images\Admin\register.png" />
     <Content Include="Content\Images\Customer\arrow1.png" />
     <Content Include="Content\Images\Customer\Cogwheel.png" />
+    <Content Include="Content\Images\Customer\facebook.png" />
     <Content Include="Content\Images\Customer\food.svg" />
     <Content Include="Content\Images\Customer\i.png" />
     <Content Include="Content\Images\Customer\interior.svg" />

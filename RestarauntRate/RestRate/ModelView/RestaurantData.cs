@@ -22,7 +22,7 @@ namespace RestRate.ModelView
     }
     public class RestIDNameFullAddressRates
     {
-        public RestIDNameFullAddress RestIDNameFullAddress { get; set; }
+        public RestIDNameFullAddress RestaurantIDNameFullAddress { get; set; }
         public float KitchenRate { get; set; }
         public float InteriorRate { get; set; }
         public float MaintenanceRate { get; set; }
