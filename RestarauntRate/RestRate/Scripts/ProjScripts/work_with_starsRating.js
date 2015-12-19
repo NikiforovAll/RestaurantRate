@@ -17,3 +17,8 @@
     
     el.rating("update", parseInt(strId.substr(strId.length - 1, 1)) + 2);
 }
+
+function starChangeValue(val, id) {
+    var el = $(id).rating("update", val);
+}
+

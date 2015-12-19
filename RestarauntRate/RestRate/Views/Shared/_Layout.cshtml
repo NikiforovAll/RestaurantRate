@@ -93,11 +93,11 @@
 
                     <div id="reviewBody">
                         <div>Description</div>
-                        <p>
+                        @*<p>
                             "Lorem ipsum dolor sit amet, consectetur adipisicing elit,
                             sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
-                        </p>
-                        <p>
+                        </p>*@
+                        <p id ="reviewContext">
                             Lorem ipsum dolor sit amet, consectetur adipisicing elit,
                             sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
                             quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in
@@ -110,7 +110,25 @@
                             non proident sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
                         </p>
-                        <p>Visited on November 7th</p>
+                        <p id ="reviewDate">Visited on November 7th</p>
+                    </div>
+                    <div id="reviewShare">
+                        <div>Share</div>
+                        <div class="Row">
+                            <div class="Column"><div id="shareContent"></div></div>
+                            <div class="Column">
+                                @*TODO bind facebook share status - RAW*@
+                                <a name="fb_share" type="button"
+                                   href="http://www.facebook.com/sharer.php?u={$url}&media={$imgPath}&description={$desc}" class="joinFB">
+                                    <img src="https://simplesharebuttons.com/images/somacro/facebook.png" alt="Facebook" />
+                                </a>
+                                @*<a href="http://www.facebook.com/sharer.php?u=https://simplesharebuttons.com" target="_blank">
+                        <img src="https://simplesharebuttons.com/images/somacro/facebook.png" alt="Facebook" />
+                    </a>*@
+                            </div>
+                        </div>
+
+
                     </div>
                     @* TODO Gallery fulfillment *@
                     <div id="reviewGallery">
@@ -120,24 +138,7 @@
 
 
                     </div>
-                    <div id="reviewShare">
-                        <div>Share</div>
-                        <div class="Row">
-                            <div class="Column"><div id="shareContent"></div></div>
-                            <div class="Column">
-                                @*TODO bind facebook share status - RAW*@ 
-                                <a name="fb_share" type="button"
-                                   href="http://www.facebook.com/sharer.php?u={$url}&media={$imgPath}&description={$desc}" class="joinFB">
-                                    <img src="https://simplesharebuttons.com/images/somacro/facebook.png" alt="Facebook"/>
-                                </a>
-                                @*<a href="http://www.facebook.com/sharer.php?u=https://simplesharebuttons.com" target="_blank">
-                                    <img src="https://simplesharebuttons.com/images/somacro/facebook.png" alt="Facebook" />
-                                </a>*@
-                            </div>
-                        </div>
-
-
-                    </div>
+                  
 
                 </div>
             </div>

@@ -45,18 +45,18 @@ function panelInit() {
         initStarRating("#input-id" + j);
     }
 
-
+    getAllRestaurants();
    var testitems= [
-        { src: 'https://farm3.staticflickr.com/2567/5697107145_3c27ff3cd1_m.jpg', width: 300, height: 300 },
-        { src: "https://farm2.staticflickr.com/1043/5186867718_06b2e9e551_m.jpg", width: 300, height: 300 },
-         { src: "https://vexingpoint.files.wordpress.com/2015/03/flying-tiger-wallpapers.jpg", width: 500, height: 400 }
+         'https://farm3.staticflickr.com/2567/5697107145_3c27ff3cd1_m.jpg',
+         "https://farm2.staticflickr.com/1043/5186867718_06b2e9e551_m.jpg" ,
+          "https://vexingpoint.files.wordpress.com/2015/03/flying-tiger-wallpapers.jpg"
     ];
    populateGallery(testitems);
     //TODO URL cohesion 
     $("#shareContent").append(VK.Share.button({
         title: "TestTitle",
         url:"http://rest-rate.azurewebsites.net",
-        image: galleryItems[0].src,
+        image: galleryItems[0],
         description:"Some description of current restaurant"
     }, {
         type:"round",
@@ -96,6 +96,8 @@ function toggleFunc() {
 }
 //TODO :add filling logic for review panel;
 //TODO tost for not active revision action; finish review toggle logic 
+
+
 function toggleReview(source) {
     if (isDragging) {
     } else {
@@ -106,9 +108,6 @@ function toggleReview(source) {
             console.log($(source.target).closest(".panel-item-w").attr("id"));
 
             $("#review").slideDown();
-
-           
-
 
         } else {
             $("#review").slideUp();
@@ -167,6 +166,64 @@ function nearbyMarkerSearch(r) {
         }
     });
 }
+
+function getAllRestaurants() {
+    $.ajax({
+        url: "/Home/GetAllRestaurants",
+        //data: JSON.stringify({ "Longitude": 46.480679, "Latitude": 30.755164 }),
+        type: "POST",      
+        contentType: "application/json; charset=utf-8",
+        dataType: 'json',        
+        success: function (answer) {
+            console.log(answer); // для того чтобы увидеть JSON, который ты получил
+            answer.forEach(function(el) {
+                var tmp = el.RestIDNameFullAddressRestIDNameFullAddress;
+                addToPanel({
+                    stars: (el.InteriorRate + el.KitchenRate + el.MaintenanceRate) / 3.0,
+                    adress: tmp.Address,
+                    name: tmp.Name,
+                    ID:tmp.RestarauntID
+                    
+                });
+            });
+        },
+        error: function () {
+           
+            console.log('Такие нюансы-романсы.. :(');
+        },
+        timeout: 10000
+    });
+
+}
+
+function updateReview(restID) {
+
+    $.ajax({
+        url: "/Home/GetRestaurantInfo",
+        data: JSON.stringify({ "restarauntID": restID  }),
+        type: "POST",      
+        contentType: "application/json; charset=utf-8",
+        dataType: 'json',        
+        success: function (answer) {
+            console.log(answer); // для того чтобы увидеть JSON, который ты получил
+        },
+        error: function () {
+           
+            console.log('Такие нюансы-романсы.. :(');
+        },
+        timeout: 10000
+    });
+}
+function fillReview(foodRate, styleRate, serviceRate,reviewContext,Date,Images) {
+    starChangeValue(foodRate, "unput-id1");
+    starChangeValue(styleRate, "input-id2");
+    starChangeValue(serviceRate, "input-id2");
+    var body = $("#reviewContext").innerHTML = reviewContext;
+    var date = $("#reviewDate").innerHTML = Date;
+    populateGallery();
+}
+
+
 
 function togglePanel(e) {
     {

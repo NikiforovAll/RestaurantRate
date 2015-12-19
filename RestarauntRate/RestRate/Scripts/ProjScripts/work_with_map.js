@@ -47,7 +47,7 @@ function initMap() {
     google.maps.event.addListener(map, 'click', function (event) {
         if (!isDragging) {
             //return coordinates 
-            console.log("Map listener: \n" + "Latitude: " + event.latLng.lat() + " " + ", longitude: " + event.latLng.lng());
+            //console.log("Map listener: \n" + "Latitude: " + event.latLng.lat() + " " + ", longitude: " + event.latLng.lng());
             // return adress
             var locName;
             var geocoder = new google.maps.Geocoder;
@@ -127,7 +127,7 @@ function initLocation() {
             };
             marker.setPosition(coordinates);
             setMapPosition();
-            nearbyMarkerSearch(minRad);
+            //nearbyMarkerSearch(minRad);
             //initMap();
         }, showAlert, {
             enableHighAccuracy: true,
@@ -138,7 +138,6 @@ function initLocation() {
     initMap();
 }
 
-// TODO create a func that updates position (call updateLocation) depending  on frequency 
 // fetch position depending on your true geoLoc 
 function updateLocation() {
 
@@ -184,7 +183,7 @@ function setMapPosition() {
     //map.setCenter(marker.getPosition());
     //more  smoother 
     map.panTo(marker.getPosition());
-
+    //getAllRestaurants();
     // nearbyMarkerSearch();
     //initPanel();
 }

@@ -96,3 +96,4 @@ C:\Users\chikhray\Documents\PROjects\rest-rate\RestarauntRate\Domain\bin\Debug\S
 C:\Users\chikhray\Documents\PROjects\rest-rate\RestarauntRate\Domain\obj\Debug\Domain.csprojResolveAssemblyReference.cache
 C:\Users\chikhray\Documents\PROjects\rest-rate\RestarauntRate\Domain\obj\Debug\Domain.dll
 C:\Users\chikhray\Documents\PROjects\rest-rate\RestarauntRate\Domain\obj\Debug\Domain.pdb
+C:\C#\rest-rate\RestarauntRate\Domain\obj\Debug\Domain.csprojResolveAssemblyReference.cache

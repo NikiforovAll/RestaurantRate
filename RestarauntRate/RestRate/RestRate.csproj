@@ -117,6 +117,10 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Customer\jquery.mCustomScrollbar.css" />
     <Content Include="Content\Customer\main.css" />
+    <Content Include="Content\default-skin\default-skin.css" />
+    <Content Include="Content\default-skin\default-skin.png" />
+    <Content Include="Content\default-skin\default-skin.svg" />
+    <Content Include="Content\default-skin\preloader.gif" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\Images\Admin\avatar.png" />

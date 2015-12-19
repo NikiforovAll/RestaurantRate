@@ -1,4 +1,4 @@
-﻿
+﻿var tmp;
 var galleryItems = [];
 
 function initGallery(i) {
@@ -10,24 +10,44 @@ function initGallery(i) {
     var options = {
         // optionName: 'option value'
         // for example:
-        index: i // start at first slide
+        index: 0 // start at first slide
     };
-
+    
+    // tmp1 = galleryItems.slice(0, i);
+    // tmp2 = galleryItems.slice(i+1, galleryItems.length);
+    var tmp = galleryItems;
+    console.log(i);
+    for (var j = 0; j < galleryItems.length -i-1; j++) {
+        tmp = shiftRight(tmp);
+    }
     // Initializes and opens PhotoSwipe
-    var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, galleryItems, options);
+    var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default,tmp, options);
     //gallery.goTo(i);
     gallery.init();
 }
 
-
+function shiftRight(arr) {
+    var temp = new Array();
+    temp.push(arr[arr.length - 1]);
+    for (var i = 0; i <= arr.length - 2; i++) temp.push(arr[i]);
+    return temp;
+}
 
 function populateGallery(links) {
+    galleryItems = [];
+    $(".my-gallery").empty();
     for (var j = 0; j < links.length; j++) {
-        galleryItems.push({
-            src: links[j].src,
-            w: links[j].width,
-            h: links[j].height
-        });
+        var img = new Image();
+        img.onload= function ()
+        {
+            galleryItems.push({
+                src: this.src,
+                w: this.width,
+                h: this.height
+            });
+        };
+        img.src = links[j];
+      
     }
     var row = "";
     var row_el;
@@ -40,7 +60,7 @@ function populateGallery(links) {
         }
         var val = $("<div class=\"Column gallery-Img\"></div>").appendTo(row_el);
 
-        var val1 = $("<img src=\"" + links[i].src + "\"" + " itemprop=\"thumbnail\" alt=\"Image description\" />");
+        var val1 = $("<img src=\"" + links[i] + "\"" + " itemprop=\"thumbnail\" alt=\"Image description\" />");
         val1.attr("id", "gimg"+i);
         val1.click(function(source) {
             var tmp = $(source.target).attr("id").replace("gimg", "");
