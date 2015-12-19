@@ -11,9 +11,37 @@ var isDragging = false;
 var test = 1;
 //entry point
 $(document).ready(function () {
+
+    $.ajax({
+        url: "/Home/GetAllRestaurants",
+        //data: JSON.stringify({ "Longitude": 46.480679, "Latitude": 30.755164 }), 
+        type: "POST",
+        contentType: "application/json; charset=utf-8",
+        dataType: 'json',
+        success: function (answer) {
+            console.log(answer); // для того чтобы увидеть JSON, который ты получил 
+            answer.forEach(function (el) {
+                var tmp = el.RestIDNameFullAddressRestIDNameFullAddress;
+                addToPanel({
+                    stars: (el.InteriorRate + el.KitchenRate + el.MaintenanceRate) / 3.0,
+                    adress: tmp.Address,
+                    name: tmp.Name,
+                    ID: tmp.RestarauntID
+
+                });
+            });
+        },
+        error: function () {
+
+            console.log('Такие нюансы-романсы.. :(');
+        },
+        timeout: 10000
+    });
+
     initLocation();
     sleep(1000);
     //initMap();
+
 });
 
 // initiation

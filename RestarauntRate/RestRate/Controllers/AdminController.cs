@@ -138,18 +138,20 @@ namespace RestRate.Controllers
             try
             {
                 int LanguageID = 1;
-                List<RestarauntLang> RestarauntLangList = restLangRepository.GetAll( LanguageID);
+                List<RestarauntLang> RestarauntLangList = restLangRepository.GetAll(LanguageID);
                 List<RestIDNameFullAddress> RestIDNameFullAddress = new List<RestIDNameFullAddress>();
                 RestIDNameFullAddress tmp;
                 foreach (var rl in RestarauntLangList)
                 {
-                    tmp = new RestIDNameFullAddress();
-                    tmp.Address = rl.Address;
-                    tmp.RestarauntID = rl.RestarauntID;
-                    tmp.Locality = rl.Locality;
-                    tmp.Region = rl.Region;
-                    tmp.Country = rl.Country;
-                    tmp.Name = rl.Name;
+                    tmp = new RestIDNameFullAddress()
+                    {
+                        Address = rl.Address,
+                        RestarauntID = rl.RestarauntID,
+                        Locality = rl.Locality,
+                        Region = rl.Region,
+                        Country = rl.Country,
+                        Name = rl.Name
+                    };
                     RestIDNameFullAddress.Add(tmp);
                 }
                 return Json(new { result = RestIDNameFullAddress });
