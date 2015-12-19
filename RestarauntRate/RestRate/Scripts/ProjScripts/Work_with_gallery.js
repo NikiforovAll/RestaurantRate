@@ -16,8 +16,7 @@ function initGallery(i) {
     // tmp1 = galleryItems.slice(0, i);
     // tmp2 = galleryItems.slice(i+1, galleryItems.length);
     var tmp = galleryItems;
-    console.log(i);
-    for (var j = 0; j < galleryItems.length -i-1; j++) {
+    for (var j = 0; j < galleryItems.length - i-1; j++) {
         tmp = shiftRight(tmp);
     }
     // Initializes and opens PhotoSwipe
