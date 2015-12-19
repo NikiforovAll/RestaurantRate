@@ -11,6 +11,7 @@ using RestRate.ModelView;
 using System.IO;
 using System.Drawing;
 using System.Drawing.Imaging;
+using RestRate.Infrastructure.Abstract;
 using System.Data.Entity.Validation;
 
 namespace RestRate.Controllers
@@ -24,8 +25,11 @@ namespace RestRate.Controllers
         private IRestarauntLangRepository restLangRepository;
         private IUserRepository userRepository;
         private ILanguageRepository langRepository;
+        private IWorkWithDBProvider workWithDBProvider;
+        
         public AdminController(IRestarauntRepository restRepository, IRestarauntLangRepository restLangRepository,
-                                ICommentRepository commentRepository, IImageRepository imageRepository, IUserRepository userRepository, ILanguageRepository langRepository)
+                                ICommentRepository commentRepository, IImageRepository imageRepository, IUserRepository userRepository,
+                                ILanguageRepository langRepository, IWorkWithDBProvider workWithDBProvider)
         {
             this.restRepository = restRepository;
             this.restLangRepository = restLangRepository;
@@ -33,6 +37,7 @@ namespace RestRate.Controllers
             this.imageRepository = imageRepository;
             this.userRepository = userRepository;
             this.langRepository = langRepository;
+            this.workWithDBProvider = workWithDBProvider;
         }
         // GET: Admin
         public ViewResult Index()
@@ -116,7 +121,7 @@ namespace RestRate.Controllers
                 counter++;
 
                 // adding url to DB
-                Domain.Entities.Image New = new Domain.Entities.Image() { Url = Url };
+                Domain.Entities.Image New = new Domain.Entities.Image() { Url = Url, Name = FileName };
                 New.RestarauntID = id;
                 imageRepository.SaveImage(New);
                 //
@@ -130,51 +135,47 @@ namespace RestRate.Controllers
         [HttpPost]
         public JsonResult GetRestaraunts()
         {
-            List<RestarauntLang> RestarauntLangList = restLangRepository.GetAll();
-            List<RestIDNameAddress> RestIDNameAddress = new List<RestIDNameAddress>();
-            RestIDNameAddress tmp;
-            foreach (var rl in RestarauntLangList)
-            {
-                tmp = new RestIDNameAddress();
-                tmp.Address = rl.Address;
-                tmp.RestarauntID = rl.RestarauntID;
-                tmp.Name = rl.Name;
-                RestIDNameAddress.Add(tmp);
-            }
-            return Json(new { result = RestIDNameAddress } );
-        }
-        [HttpPost]
-        public ActionResult GetRestarauntInfo(string id)
-        {
             try
             {
-                int ID = Convert.ToInt32(id);
-                if (!id.Equals(null))
+                int LanguageID = 1;
+                List<RestarauntLang> RestarauntLangList = restLangRepository.GetAll(LanguageID);
+                List<RestIDNameFullAddress> RestIDNameFullAddress = new List<RestIDNameFullAddress>();
+                RestIDNameFullAddress tmp;
+                foreach (var rl in RestarauntLangList)
                 {
-                    Restaraunt Restaraunt = restRepository.GetRestarauntByID(ID);
-                    RestarauntLang RestarauntLang = restLangRepository.GetRestarauntLangByID(ID);
-                    RestarauntAllData result = new RestarauntAllData();
-                    result.Address = RestarauntLang.Address;
-                    result.Country = RestarauntLang.Country;
-                    result.Locality = RestarauntLang.Locality;
-                    result.Region = RestarauntLang.Region;
-                    result.Review = RestarauntLang.Review;
-                    result.Name = RestarauntLang.Name;
-                    result.Longitude = Restaraunt.Longitude;
-                    result.Latitude = Restaraunt.Latitude;
-                    result.KitchenRate = Restaraunt.KitchenRate;
-                    result.InteriorRate = Restaraunt.InteriorRate;
-                    result.MaintenanceRate = Restaraunt.MaintenanceRate;
-                    result.RestarauntType = Restaraunt.RestarauntType;
-                    result.Images = imageRepository.GetRestarauntImages(ID);
-
-                    return Json(new { result = result });
+                    tmp = new RestIDNameFullAddress();
+                    tmp.Address = rl.Address;
+                    tmp.RestarauntID = rl.RestarauntID;
+                    tmp.Locality = rl.Locality;
+                    tmp.Region = rl.Region;
+                    tmp.Country = rl.Country;
+                    tmp.Name = rl.Name;
+                    RestIDNameFullAddress.Add(tmp);
                 }
-                return Json(new { result = "ERROR" });
+                return Json(new { result = RestIDNameFullAddress });
             }
             catch
             {
-                return Json(new { result = "NoN" });
+                return Json(new { result = "Oooops! Something wrong with DB connection." });
+            }
+        }
+        [HttpPost]
+        public ActionResult GetRestarauntInfo(int restarauntID) 
+        {
+            try
+            {
+                if (!restarauntID.Equals(null))
+                {
+                    Restaraunt Restaraunt = restRepository.GetRestarauntByID(restarauntID);
+                    RestarauntLang RestarauntLang = restLangRepository.GetRestarauntLangByID(restarauntID);
+                    RestarauntAllData result = workWithDBProvider.CreateRestarauntAllData(Restaraunt, RestarauntLang);
+                    return Json(new { result = result });
+                }
+                return Json(new { result = "JSON is null" });
+            }
+            catch
+            {
+                return Json(new { result = "NaN" });
             }
         }
         [HttpPost]

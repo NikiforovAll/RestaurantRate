@@ -41,17 +41,9 @@ namespace RestRate.Infrastructure
             ninjectKernel.Bind<IRestarauntRepository>().To<EFRestarauntRepository>();
             ninjectKernel.Bind<ILanguageRepository>().To<EFLanguageRepository>();
             ninjectKernel.Bind<IUserRepository>().To<EFUserRepository>();
-            /*EmailSettings emailSettings = new EmailSettings
-            {
-                WriteAsFile = bool.Parse(ConfigurationManager
-                .AppSettings["Email.WriteAsFile"] ?? "false")
-            };
-            ninjectKernel.Bind<IOrderProcessor>()
-            .To<EmailOrderProcessor>()
-            .WithConstructorArgument("settings", emailSettings);
-            */
+            ninjectKernel.Bind<IUserEventRepository>().To<EFUserEventRepository>();
             ninjectKernel.Bind<IAuthProvider>().To<FormsAuthProvider>();             // for authentication
-
+            ninjectKernel.Bind<IWorkWithDBProvider>().To<FormsWorkWithDBProvider>(); // for working with DB
         }
     }
 }

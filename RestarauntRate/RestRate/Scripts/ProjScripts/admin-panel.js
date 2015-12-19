@@ -145,7 +145,7 @@ jQuery(document).ready(function ($) {
     //$.ajax({
     //    // url: "/Admin/GetRestaraunts",
     //    url: "/Admin/GetRestarauntInfo",
-    //    data: JSON.stringify({'id' : 56 }),
+    //    data: JSON.stringify({'id' : 12 }),
     //    type: "POST",       
     //    contentType: "application/json; charset=utf-8",
     //    dataType: 'json',        

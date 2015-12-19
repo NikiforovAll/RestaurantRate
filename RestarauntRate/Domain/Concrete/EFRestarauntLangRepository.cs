@@ -48,18 +48,33 @@ namespace Domain.Concrete
             }
             return dbEntry;
         }
-        public List<RestarauntLang> GetAll()
+        public List<RestarauntLang> GetAll(int languageID)
         {
             List<RestarauntLang> result = new List<RestarauntLang>();
             foreach(var rl in context.RestarauntLangs)
             {
-                result.Add(rl);
+                result.Add(context.RestarauntLangs.Where(restLang => restLang.LanguageID == languageID).First());
             }
             return result;
         }
-        public RestarauntLang GetRestarauntLangByID(int restarauntID)
+        public RestarauntLang GetRestarauntLangByID(int restarauntID) 
         {
             return context.RestarauntLangs.Where(restLang => restLang.RestarauntID == restarauntID).First();
+        }
+        public List<RestarauntLang> GetAllWithinRadius(int[] restarauntID, int languageID)// подумать над тем как можно оптимизировать
+        {
+            List<RestarauntLang> result = new List<RestarauntLang>();
+            foreach (var rl in context.RestarauntLangs)
+            {
+                for (int i = 0; i < restarauntID.Length; i++)
+                {
+                    if ((rl.RestarauntID == restarauntID[i]) && (rl.LanguageID == languageID))
+                    {
+                        result.Add(rl);
+                    }
+                }
+            }
+            return result;
         }
     }
 }

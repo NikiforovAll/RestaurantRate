@@ -34,8 +34,8 @@ namespace DB_work
                 //rest.RestLangs.Add(restLangs);
                 //db.Restaraunts.Add(rest);
                 //    var restLangs1 = new RestarauntLang() { Country = "engTest", Address = "engTest", Locality = "engTest", Name = "engTest", Region = "engTest", Review = "engTest" };
-                  //var language = new Language() { Name = "russian", Code = "rus" };
-                  //var language1 = new Language() { Name = "english", Code = "eng" };
+                //var language = new Language() { Name = "russian", Code = "rus" };
+                //var language1 = new Language() { Name = "english", Code = "eng" };
                 //var comment = new Comment() { Name = "bla bla", RestarauntID = 1, AddedDate = DateTime.Now, Review = "cool" };
                 //var comment1 = new Comment() { Name = "gav gav", RestarauntID = 1, AddedDate = DateTime.Now, Review = "nice" };
                 //  rest.RestLangs.Add(restLangs);
@@ -43,8 +43,8 @@ namespace DB_work
                 // language.RestLangs.Add(restLangs);
                 //language1.RestLangs.Add(restLangs1);
                 //db.Restaraunts.Add(rest);
-                  // db.Languages.Add(language);
-                  //db.Languages.Add(language1);  
+                // db.Languages.Add(language);
+                //db.Languages.Add(language1);  
 
 
                 try
@@ -74,8 +74,7 @@ namespace DB_work
                     //{
                     //    db.RestarauntLangs.Remove(obj);
                     //}
-                    db.SaveChanges();
-                    
+                    // db.SaveChanges();
                     //User usr = db.Users.Where(user => user.Email == "tioraelena@gmail.com").First();
                     //usr.Role = User.UserRole.Moderator;
                     // foreach(Image img in db.Images)

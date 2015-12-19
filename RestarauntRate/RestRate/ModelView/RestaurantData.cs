@@ -11,11 +11,21 @@ namespace RestRate.ModelView
         public Restaraunt RestarauntData { get; set; }
         public RestarauntLang RestaurantLangData { get; set; }
     }
-    public class RestIDNameAddress
+    public class RestIDNameFullAddress
     {
         public int RestarauntID { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
+        public string Locality { get; set; }
+        public string Region { get; set; }
+        public string Country { get; set; }
+    }
+    public class RestIDNameFullAddressRates
+    {
+        public RestIDNameFullAddress RestIDNameFullAddress { get; set; }
+        public float KitchenRate { get; set; }
+        public float InteriorRate { get; set; }
+        public float MaintenanceRate { get; set; }
     }
     public class RestarauntAllData
     {
@@ -32,5 +42,10 @@ namespace RestRate.ModelView
         public Restaraunt.RestType RestarauntType { get; set; }
         public string Review { get; set; }
         public List<Image> Images { get; set; }
+    }
+    public class GeoCoordinates
+    {
+        public string Longitude { get; set; }
+        public string Latitude { get; set; }
     }
 }

@@ -56,5 +56,27 @@ namespace Domain.Concrete
         {
             return context.Restaraunts.Where(rest => rest.RestarauntID == restarauntID).First();
         }
+        public List<Restaraunt> GetAll()
+        {
+            List<Restaraunt> result = new List<Restaraunt>();
+            foreach (var rest in context.Restaraunts)
+            {
+                result.Add(rest);
+            }
+            return result;
+        }
+        public List<Restaraunt> GetAllWithinRadius(double latitude, double longtitude, double radius)
+        {
+            List<Restaraunt> result = new List<Restaraunt>();
+            foreach (var rest in context.Restaraunts)
+            {
+                if ((Math.Pow((Convert.ToDouble(rest.Longitude) - Convert.ToDouble(longtitude)), 2) +
+                   Math.Pow((Convert.ToDouble(rest.Latitude) - Convert.ToDouble(latitude)), 2)) <= Math.Pow(radius, 2))
+                {
+                    result.Add(rest);
+                }
+            }
+            return result;
+        }
     }
 }
