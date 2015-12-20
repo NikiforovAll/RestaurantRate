@@ -13,31 +13,31 @@ var infoWindowRest;
 //entry point
 $(document).ready(function () {
 
-    $.ajax({
-        url: "/Home/GetAllRestaurants",
-        //data: JSON.stringify({ "Longitude": 46.480679, "Latitude": 30.755164 }), 
-        type: "POST",
-        contentType: "application/json; charset=utf-8",
-        dataType: 'json',
-        success: function (answer) {
-            console.log(answer); // для того чтобы увидеть JSON, который ты получил 
-            answer.forEach(function (el) {
-                var tmp = el.RestIDNameFullAddressRestIDNameFullAddress;
-                addToPanel({
-                    stars: (el.InteriorRate + el.KitchenRate + el.MaintenanceRate) / 3.0,
-                    adress: tmp.Address,
-                    name: tmp.Name,
-                    ID: tmp.RestarauntID
+    //$.ajax({
+    //    url: "/Home/GetAllRestaurants",
+    //    //data: JSON.stringify({ "Longitude": 46.480679, "Latitude": 30.755164 }), 
+    //    type: "POST",
+    //    contentType: "application/json; charset=utf-8",
+    //    dataType: 'json',
+    //    success: function (answer) {
+    //        console.log(answer); // для того чтобы увидеть JSON, который ты получил 
+    //        answer.forEach(function (el) {
+    //            var tmp = el.RestIDNameFullAddressRestIDNameFullAddress;
+    //            addToPanel({
+    //                stars: (el.InteriorRate + el.KitchenRate + el.MaintenanceRate) / 3.0,
+    //                adress: tmp.Address,
+    //                name: tmp.Name,
+    //                ID: tmp.RestarauntID
 
-                });
-            });
-        },
-        error: function () {
+    //            });
+    //        });
+    //    },
+    //    error: function () {
 
-            console.log('Такие нюансы-романсы.. :(');
-        },
-        timeout: 10000
-    });
+    //        console.log('Такие нюансы-романсы.. :(');
+    //    },
+    //    timeout: 10000
+    //});
 
     initLocation();
     sleep(1000);
@@ -121,12 +121,12 @@ function initRestMarker(markerType, coords, ID, text) {
     marker.set('infoWindow', infowindow);
     marker.addListener('click', function () {
 
-        if(infoWindowRest)
+        if (infoWindowRest)
             infoWindowRest.close();
-        infoWindowRest = this["infoWindow"] ;
+        infoWindowRest = this["infoWindow"];
         activeRest.marker.setAnimation(null);
         //infoWindows.push({ ID: ID, infowidnow:infowindow.open(map, marker) });
-         infowindow.open(map, marker);
+        infowindow.open(map, marker);
         updateReview(ID);
         $("#review").slideDown();
     });

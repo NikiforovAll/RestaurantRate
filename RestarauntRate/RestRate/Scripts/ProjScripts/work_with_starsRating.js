@@ -2,10 +2,12 @@
     var el = $(strId).rating({
         min: 1, max: 5, step: 0.5,
         size: 'xs',
-        readonly:true,
+        //readonly:true,
         showClear: false,
         stars: 5,
-        showCaption: false
+        showCaption: false,
+        disabled: true,
+        hoverChangeStars:false
         //glyphicon:false 
         //rtl: true
         //symbol: "\uf0f4",

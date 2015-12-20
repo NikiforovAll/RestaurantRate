@@ -12,15 +12,16 @@ function initGallery(i) {
         // for example:
         index: 0 // start at first slide
     };
-    
+
     // tmp1 = galleryItems.slice(0, i);
     // tmp2 = galleryItems.slice(i+1, galleryItems.length);
     var tmp = galleryItems;
-    for (var j = 0; j < galleryItems.length - i -1; j++) {
+    for (var j = 0; j < galleryItems.length - i; j++) {
         tmp = shiftRight(tmp);
     }
     // Initializes and opens PhotoSwipe
-    var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default,tmp, options);
+    var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, tmp, options);
+    //console.log(tmp);
     //gallery.goTo(i);
     gallery.init();
 }
@@ -32,13 +33,11 @@ function shiftRight(arr) {
     return temp;
 }
 
-function populateGallery(links) {
+function pupulateGalleryHall(links) {
     galleryItems = [];
-    $(".my-gallery").empty();
     for (var j = 0; j < links.length; j++) {
         var img = new Image();
-        img.onload= function ()
-        {
+        img.onload = function () {
             galleryItems.push({
                 src: this.src,
                 w: this.width,
@@ -46,8 +45,11 @@ function populateGallery(links) {
             });
         };
         img.src = links[j];
-      
     }
+}
+function populateGallery(links) {
+    $(".my-gallery").empty();
+    pupulateGalleryHall(links);
     var row = "";
     var row_el;
     var item;
@@ -60,10 +62,9 @@ function populateGallery(links) {
         var val = $("<div class=\"Column gallery-Img\"></div>").appendTo(row_el);
 
         var val1 = $("<img src=\"" + links[i] + "\"" + " itemprop=\"thumbnail\" alt=\"Image description\" />");
-        val1.attr("id", "gimg"+i);
-        val1.click(function(source) {
+        val1.attr("id", "gimg" + i);
+        val1.click(function (source) {
             var tmp = $(source.target).attr("id").replace("gimg", "");
-            //alert(tmp);
             initGallery(tmp);
         });
         var val2 = val1.prependTo(val);
@@ -89,7 +90,7 @@ function populateGallery(links) {
         //    $(".my-gallery").append(row);
         //    }
     }
-    
-    
+
+
 }
 

@@ -11,10 +11,24 @@ var testRest = [
     { Name: "Test8", address: "TestAdress8", stars: 4, ID: "9" },
     { Name: "Test9", address: "TestAdress8", stars: 5, ID: "10" }
 ];
+var testitems = [
+          "https://farm3.staticflickr.com/2567/5697107145_3c27ff3cd1_m.jpg",
+          "https://farm2.staticflickr.com/1043/5186867718_06b2e9e551_m.jpg",
+          "https://farm2.staticflickr.com/1043/5186867718_06b2e9e551_m.jpg",
+          "https://vexingpoint.files.wordpress.com/2015/03/flying-tiger-wallpapers.jpg"
+];
+//Test filed for console
+
+//fillReview(1, "RestaurantForTesting", 3, 3, 3, "Lorem ipsum dolor sit amet, consectetur adipisicing elitsed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor inreprehenderit in voluptate velitesse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatatnon proident sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit,", "", [
+//"http://lorempixel.com/400/100/",
+//"http://lorempixel.com/400/200/",
+//"http://lorempixel.com/400/300/",
+//"http://lorempixel.com/400/400/"
+//])
 var minRad = 700;
 var maxRad = 2000;
 var panel;
-var activeRest = {marker:null,infoWindow:null};
+var activeRest = { marker: null, infoWindow: null };
 //var isItemChanged = false;
 //var state = { color: "rgba(55, 47, 45,0.4)", marginLeft: "0%" }
 var prevItem;
@@ -47,11 +61,7 @@ function panelInit() {
     }
 
     getAllRestaurants();
-    //var testitems = [
-    //      'https://farm3.staticflickr.com/2567/5697107145_3c27ff3cd1_m.jpg',
-    //      "https://farm2.staticflickr.com/1043/5186867718_06b2e9e551_m.jpg",
-    //       "https://vexingpoint.files.wordpress.com/2015/03/flying-tiger-wallpapers.jpg"
-    //];
+
     //populateGallery(testitems);
     //TODO URL cohesion 
 
@@ -78,7 +88,11 @@ function panelInit() {
     $("#getFullList").click(function () {
         citySearch();
     });
-
+    $(document).on('keydown', function (e) {
+        if (e.keyCode === 27) { // ESC
+            toggleReview();
+        }
+    });
 
     //TODO pick search lang
 };
@@ -111,8 +125,6 @@ function toggleReview(source) {
         }
     }
 }
-
-
 
 function slideDownReview() {
     $("#review").slideUp();
@@ -273,7 +285,7 @@ function fillReview(ID, name, foodRate, styleRate, serviceRate, reviewContext, c
     starChangeValue(styleRate + 0.5, "input-id2");
     starChangeValue(serviceRate + 0.5, "input-id3");
     var body = $("#reviewContext");
-    body.html("<h4>" + name + "</h2>" +"<hr>");
+    body.html("<h4>" + name + "</h2>" + "<hr>");
     if (reviewContext) {
         body.append(reviewContext);
     } else {
@@ -286,8 +298,30 @@ function fillReview(ID, name, foodRate, styleRate, serviceRate, reviewContext, c
 
     var date = $("#reviewDate").html("Visited on " + strDate);
     fillShareButton(ID, reviewContext, name, Images[0]);
-    populateGallery(Images);
+    fillGalleryFromQuery(ID);
+}
+function fillGalleryFromQuery(restID) {
 
+    $.ajax({
+        url: "/Home/GetRestaurantGallery",
+        data: JSON.stringify({ "restarauntID": restID }),
+        type: "POST",
+        contentType: "application/json; charset=utf-8",
+        dataType: 'json',
+        success: function (answer) {
+            //console.log(answer); // для того чтобы увидеть JSON, который ты получил
+            var tmp = answer.result;
+            
+            populateGallery(tmp.map(function(el) {
+                return el.Url;  
+            }));
+        },
+        error: function () {
+
+            console.log('Такие нюансы-романсы.. :(');
+        },
+        timeout: 10000
+    });
 }
 
 function fillShareButton(ID, desc, name, Image) {
@@ -388,4 +422,3 @@ function getActivePanelElement() {
 
 }
 
-// test 
