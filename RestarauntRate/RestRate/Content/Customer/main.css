@@ -368,6 +368,17 @@ html {
     padding-left: 30px;
     border-radius: 10px;
 }
+#reviewComments > div:first-child {
+    background-color: rgba(55, 47, 45, 0.85);
+    color: rgb(202, 173, 126);
+    background-color: rgba(55, 47, 45, 0.85);
+    font-size: 15pt;
+    height: 50px;
+    padding: 10px;
+    padding-left: 30px;
+    border-radius: 10px;
+}
+ 
 
 .my-gallery {
     margin-top: 2vh;

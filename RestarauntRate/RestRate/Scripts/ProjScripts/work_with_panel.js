@@ -28,7 +28,7 @@ var prevItem;
 var availabletypes = ["restaurant", "bar", "cafe"];
 var reviewItem;
 var markersOnMap = false;
-
+var _allRestaurants = [];
 
 function panelInit() {
 
@@ -94,9 +94,12 @@ function panelInit() {
         if ($(this).is(":checked")) {
             getAllRestaurantsInRadius(marker.position.lat(), marker.position.lng());
         } else {
-            getAllRestaurants(false);
+            poppulateAllRestaurants();
         }
     });
+
+    
+    
 
 
 };
@@ -148,9 +151,7 @@ function citySearch() {
     });
 
 }
-function nearbyMarkerSeacrh() {
-    
-}
+
 function nearbyMarkerSearch(r) {
     restaurants = [];
     var service = new google.maps.places.PlacesService(map);
@@ -198,9 +199,15 @@ function geocodeAddress(geocoder, address, ID, name) {
         }
     });
 }
+function poppulateAllRestaurants() {
+    clearPanel();
+    restaurants = _allRestaurants;
+    _allRestaurants.forEach(function(el) {
+        addToPanel(el);
+    });
+}
 function getAllRestaurants(ismarkerInit) {
     restaurants = [];
-    clearPanel();
     $.ajax({
         url: "/Home/GetAllRestaurants",
         //data: JSON.stringify({ "Longitude": 46.480679, "Latitude": 30.755164 }),
@@ -227,6 +234,7 @@ function getAllRestaurants(ismarkerInit) {
                     ID: tmp.RestarauntID
                 };
                 restaurants.push(currRest);
+                _allRestaurants.push(currRest);
                 addToPanel(currRest);
                 if (ismarkerInit) {
                 geocodeAddress(geocoder, tmp.Address, tmp.RestarauntID, tmp.Name);
@@ -254,6 +262,7 @@ function getAllRestaurantsInRadius(lat, long) {
         contentType: "application/json; charset=utf-8",
         dataType: 'json',
         success: function (answer) {
+            console.log(answer.result);
             var tmpRest = answer.result;
             tmpRest = tmpRest.sort(function (el1, el2) {
                 //console.log("calling async");
@@ -400,6 +409,9 @@ function fillShareButton(ID, desc, name, Image) {
     var tmp = $("a[name=\"fb_share\"]");
     //console.log(tmp);
     tmp.attr("href", body);
+}
+function fillChat() {
+    
 }
 
 

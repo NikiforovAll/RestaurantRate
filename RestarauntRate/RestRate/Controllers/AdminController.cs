@@ -105,9 +105,8 @@ namespace RestRate.Controllers
             string Folder = Server.MapPath("~/Content/Images/RestaurantImages/");
             string pathString = System.IO.Path.Combine(Folder, FolderName);
             System.IO.Directory.CreateDirectory(pathString);
-            string ForSaving = Server.MapPath("~/Content/Images/RestaurantImages/" + FolderName + "/");
+            string ForSaving = Server.MapPath("~/Content/Images/RestaurantImages/" + FolderName + "/");           
             //
-
             int counter = 0;
             foreach (var file in files)
             {
@@ -120,14 +119,17 @@ namespace RestRate.Controllers
                 string ThumbnailUrl = System.IO.Path.Combine(ForSaving, ThumbnailFileName);
                 counter++;
 
+                imageObject.Save(Url, System.Drawing.Imaging.ImageFormat.Jpeg);
+                GetThumbnail(imageObject, 200, 200).Save(ThumbnailUrl, System.Drawing.Imaging.ImageFormat.Jpeg);
+
                 // adding url to DB
+                // костыль. не универсальный способ для сохранения URL
+                Url = System.IO.Path.Combine("http://rest-rate.azurewebsites.net/Content/Images/RestaurantImages/" + FolderName + "/", FileName);
+                //
                 Domain.Entities.Image New = new Domain.Entities.Image() { Url = Url, Name = FileName };
                 New.RestarauntID = id;
                 imageRepository.SaveImage(New);
                 //
-
-                imageObject.Save(Url, System.Drawing.Imaging.ImageFormat.Jpeg);
-                GetThumbnail(imageObject, 200, 200).Save(ThumbnailUrl, System.Drawing.Imaging.ImageFormat.Jpeg);
 
             }
             return null;
