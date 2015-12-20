@@ -105,7 +105,10 @@ namespace RestRate.Controllers
             string Folder = Server.MapPath("~/Content/Images/RestaurantImages/");
             string pathString = System.IO.Path.Combine(Folder, FolderName);
             System.IO.Directory.CreateDirectory(pathString);
-            string ForSaving = Server.MapPath("~/Content/Images/RestaurantImages/" + FolderName + "/");
+            //   string ForSaving = Server.MapPath("~/Content/Images/RestaurantImages/" + FolderName + "/");
+
+            // костыль. не универсальный способ для сохранения URL
+            string ForSaving = "http://rest-rate.azurewebsites.net/Content/Images/RestaurantImages/" + FolderName + "/";
             //
 
             int counter = 0;
