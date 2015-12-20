@@ -28,7 +28,7 @@
     <script src="~/Scripts/jquery.mCustomScrollbar.concat.min.js"></script>
     <link rel="stylesheet" href="~/Content/Customer/jquery.mCustomScrollbar.css" />
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6qMb55_T65pEOrrZ2duf5JMR_KWQtyMY&libraries=places">
-    
+
     </script>
 
 </head>
@@ -45,9 +45,20 @@
                     <img id="cogwheel" src="~/Content/Images/Customer/Cogwheel.png" />
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a href="#">~this is STUB~</a></li>
+                    @*<li><a href="#">~this is STUB~</a></li>*@
                     @*<li><a id="orderByRating" href="#">Order By Rating</a></li>*@
-                    <li><a id="getFullList" href="#">Full List</a></li>
+                    @*<li><a id="getFullList" href="#">Full List</a></li>*@
+                    <li>
+                        <div class="row">
+                            <div class="col-md-8">
+                                Search only for nearby restaurants
+                            </div>
+
+                            <div class="col-md-2">
+                                <input id="radiusSearch" type="checkbox"/>    
+                            </div>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -70,33 +81,33 @@
                 </div>
                 <div class="content1">
                     <div id="reviewRating">
-                     
-                        
+
+
                         <div class="Row">
                             <div class="Column">
-                                <img src="~/Content/Images/Customer/food.svg"/>
+                                <img src="~/Content/Images/Customer/food.svg" />
                                 <input id="input-id1">
                                 @*<input class="rating" value="0" type="number" min="0" max="5" data-symbol="*" data-size="xs">*@
                             </div>
                             <div class="Column">
-                                <img src="~/Content/Images/Customer/interior.svg"/>
+                                <img src="~/Content/Images/Customer/interior.svg" />
                                 <input id="input-id2">
                             </div>
                             <div class="Column">
-                                <img src="~/Content/Images/Customer/service.svg"/>
+                                <img src="~/Content/Images/Customer/service.svg" />
                                 <input id="input-id3">
                             </div>
                         </div>
-                        
+
 
                     </div>
 
                     <div id="reviewBody">
                         <div>Resume</div>
                         @*<p id ="reviewName">
-                          LoremFood
-                        </p>*@
-                        <p id ="reviewContext">
+                              LoremFood
+                            </p>*@
+                        <p id="reviewContext">
                             Lorem ipsum dolor sit amet, consectetur adipisicing elit,
                             sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
                             quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in
@@ -109,7 +120,7 @@
                             non proident sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
                         </p>
-                        <p id ="reviewDate">Visited on November 7th</p>
+                        <p id="reviewDate">Visited on November 7th</p>
                     </div>
                     <div id="reviewShare">
                         <div>Share</div>
@@ -122,8 +133,8 @@
                                     <img src="~/Content/Images/Customer/facebook.png" alt="Facebook" />
                                 </a>
                                 @*<a href="http://www.facebook.com/sharer.php?u=https://simplesharebuttons.com" target="_blank">
-                        <img src="https://simplesharebuttons.com/images/somacro/facebook.png" alt="Facebook" />
-                    </a>*@
+                                        <img src="https://simplesharebuttons.com/images/somacro/facebook.png" alt="Facebook" />
+                                    </a>*@
                             </div>
                         </div>
 
@@ -137,7 +148,7 @@
 
 
                     </div>
-                  
+
 
                 </div>
             </div>
@@ -207,10 +218,10 @@
         </div>
 
     </div>
-<button id="draggableButton" class="btn active">SET POSITION</button>
+    <button id="draggableButton" class="btn active">SET POSITION</button>
 
 
-<div id="map"></div>
+    <div id="map"></div>
     <footer>&copy; @DateTime.Now.Year - Alpha Team</footer>
     <div class="container body-content">
         @RenderBody()

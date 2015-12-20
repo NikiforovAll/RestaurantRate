@@ -27,6 +27,7 @@ var activeRest = { marker: null, infoWindow: null };
 var prevItem;
 var availabletypes = ["restaurant", "bar", "cafe"];
 var reviewItem;
+var markersOnMap = false;
 
 
 function panelInit() {
@@ -55,7 +56,7 @@ function panelInit() {
         initStarRating("#input-id" + j);
     }
 
-    getAllRestaurants();
+    getAllRestaurants(true);
 
     //populateGallery(testitems);
     //TODO URL cohesion 
@@ -70,8 +71,6 @@ function panelInit() {
     //    }
     //});
 
-
-
     //$("#orderByRating").click(function () {
     //    restaurantsSort();
     //    clearPanel();
@@ -83,13 +82,23 @@ function panelInit() {
     $("#getFullList").click(function () {
         citySearch();
     });
+    $("#radiusSearch").click(function() {
+
+    });
     $(document).on('keydown', function (e) {
         if (e.keyCode === 27) { // ESC
             toggleReview();
         }
     });
+    $("#radiusSearch").change(function() {
+        if ($(this).is(":checked")) {
+            getAllRestaurantsInRadius(marker.position.lat(), marker.position.lng());
+        } else {
+            getAllRestaurants(false);
+        }
+    });
 
-    //TODO pick search lang
+
 };
 
 
@@ -139,6 +148,9 @@ function citySearch() {
     });
 
 }
+function nearbyMarkerSeacrh() {
+    
+}
 function nearbyMarkerSearch(r) {
     restaurants = [];
     var service = new google.maps.places.PlacesService(map);
@@ -186,7 +198,9 @@ function geocodeAddress(geocoder, address, ID, name) {
         }
     });
 }
-function getAllRestaurants() {
+function getAllRestaurants(ismarkerInit) {
+    restaurants = [];
+    clearPanel();
     $.ajax({
         url: "/Home/GetAllRestaurants",
         //data: JSON.stringify({ "Longitude": 46.480679, "Latitude": 30.755164 }),
@@ -196,23 +210,28 @@ function getAllRestaurants() {
         success: function (answer) {
             //console.log(answer.result); // для того чтобы увидеть JSON, который ты получил
             var geocoder = new google.maps.Geocoder();
-            var restaurants = answer.result;
-            restaurants = restaurants.sort(function (el1, el2) {
+            var tmpRest = answer.result;
+            tmpRest = tmpRest.sort(function (el1, el2) {
                 //console.log("calling async");
                 return -1.0 * (el1.InteriorRate * 0.3 + el1.KitchenRate * 0.4 + el1.MaintenanceRate * 0.3) +
                     (el2.InteriorRate * 0.3 + el2.KitchenRate * 0.4 + el2.MaintenanceRate * 0.3);
             });
-            console.log(restaurants);
-            restaurants.forEach(function (el) {
+            console.log(tmpRest);
+            tmpRest.forEach(function (el) {
                 var tmp = el.RestaurantIDNameFullAddress;
                 //console.log(tmp.Name);
-                addToPanel({
+                var currRest = {
                     stars: el.InteriorRate * 0.3 + el.KitchenRate * 0.4 + el.MaintenanceRate * 0.3,
                     address: tmp.Address,
                     Name: tmp.Name,
                     ID: tmp.RestarauntID
-                });
+                };
+                restaurants.push(currRest);
+                addToPanel(currRest);
+                if (ismarkerInit) {
                 geocodeAddress(geocoder, tmp.Address, tmp.RestarauntID, tmp.Name);
+                
+                }
             });
         },
         error: function () {
@@ -221,7 +240,45 @@ function getAllRestaurants() {
         },
         timeout: 10000
     });
+  
 
+}
+
+function getAllRestaurantsInRadius(lat, long) {
+    restaurants = [];
+    clearPanel();
+    $.ajax({
+        url: "/Home/GetRestaurantsWithinRadius",
+        data: JSON.stringify({ "Longitude": long, "Latitude": lat }),
+        type: "POST",
+        contentType: "application/json; charset=utf-8",
+        dataType: 'json',
+        success: function (answer) {
+            var tmpRest = answer.result;
+            tmpRest = tmpRest.sort(function (el1, el2) {
+                //console.log("calling async");
+                return -1.0 * (el1.InteriorRate * 0.3 + el1.KitchenRate * 0.4 + el1.MaintenanceRate * 0.3) +
+                (el2.InteriorRate * 0.3 + el2.KitchenRate * 0.4 + el2.MaintenanceRate * 0.3);
+            });
+            console.log(tmpRest);
+            tmpRest.forEach(function (el) {
+                var tmp = el.RestaurantIDNameFullAddress;
+                //console.log(tmp.Name);
+                var currRest = {
+                    stars: el.InteriorRate * 0.3 + el.KitchenRate * 0.4 + el.MaintenanceRate * 0.3,
+                    address: tmp.Address,
+                    Name: tmp.Name,
+                    ID: tmp.RestarauntID
+                };
+                restaurants.push(currRest);
+            });
+        },
+        error: function () {
+
+            console.log('Такие нюансы-романсы.. :(');
+        },
+        timeout: 10000
+    });
 }
 
 function updateReview(restID) {
@@ -344,6 +401,8 @@ function fillShareButton(ID, desc, name, Image) {
     //console.log(tmp);
     tmp.attr("href", body);
 }
+
+
 
 
 function togglePanel(e) {

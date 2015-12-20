@@ -106,12 +106,24 @@ html {
     .settingsPanel ul {
         background-color: rgb(55, 47, 45);
         margin-left: 70%;
+        /*width: 200px;*/
+        padding: 0px;
+        margin: 0;
+        border-radius: 10px;
     }
 
-        .settingsPanel ul li a {
+        .settingsPanel ul li * {
             color: #9F9067;
             font-weight: bold;
         }
+        .settingsPanel ul li  div {
+            margin-left: 0.5vh;
+        }
+#radiusSearch {
+    margin-top: 3vh;
+    
+}
+
 
 .settingsButt {
     background: none;
@@ -306,6 +318,7 @@ html {
 
     #reviewRating > .Row > .Column img {
         align-content: center;
+        margin-left: 6vh;
     }
 
     #reviewRating > .Row > .Column > *:last-child {
@@ -421,6 +434,7 @@ a[name="fb_share"] > img {
     /*top: -10px !important;*/
     /*padding-bottom: 13px;*/
 }
+
 #reviewShare:last-child {
 }
 /*#reviewRating img:nth-child(odd)  {*/

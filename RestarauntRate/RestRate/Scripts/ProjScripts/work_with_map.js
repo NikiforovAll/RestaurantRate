@@ -207,12 +207,15 @@ function switchDraggable() {
         marker.setDraggable(false);
         //$("#" + draggButton).css("background-color", "#900");
         marker.setAnimation(null);
-
+        if ($("#radiusSearch").is(":checked")) {
+            getAllRestaurantsInRadius(marker.position.lat(), marker.position.lng());
+        }
         //nearbyMarkerSearch(minRad);
     }
     else {
         $("#review").slideUp();
         //$("#" + draggButton).css("background-color", "green");
+        if(activeRest.marker)
         activeRest.marker.setAnimation(null);
         if (infoWindowRest) {
             infoWindowRest.close();
