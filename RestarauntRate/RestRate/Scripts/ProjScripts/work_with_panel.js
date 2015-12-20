@@ -11,14 +11,7 @@ var testRest = [
     { Name: "Test8", address: "TestAdress8", stars: 4, ID: "9" },
     { Name: "Test9", address: "TestAdress8", stars: 5, ID: "10" }
 ];
-var testitems = [
-          "https://farm3.staticflickr.com/2567/5697107145_3c27ff3cd1_m.jpg",
-          "https://farm2.staticflickr.com/1043/5186867718_06b2e9e551_m.jpg",
-          "https://farm2.staticflickr.com/1043/5186867718_06b2e9e551_m.jpg",
-          "https://vexingpoint.files.wordpress.com/2015/03/flying-tiger-wallpapers.jpg"
-];
 //Test filed for console
-
 //fillReview(1, "RestaurantForTesting", 3, 3, 3, "Lorem ipsum dolor sit amet, consectetur adipisicing elitsed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor inreprehenderit in voluptate velitesse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatatnon proident sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit,", "", [
 //"http://lorempixel.com/400/100/",
 //"http://lorempixel.com/400/200/",
@@ -34,6 +27,8 @@ var activeRest = { marker: null, infoWindow: null };
 var prevItem;
 var availabletypes = ["restaurant", "bar", "cafe"];
 var reviewItem;
+
+
 function panelInit() {
 
     panel = $(".mainpanel");
@@ -336,7 +331,18 @@ function fillShareButton(ID, desc, name, Image) {
         text: "Share!"
 
     }));
-    //TODO implementation for Facebook
+    var facebookUrl = {
+        url: "",
+        imgPath: "",
+        desc: ""
+    };
+    facebookUrl.url = "http://rest-rate.azurewebsites.net";
+    facebookUrl.imgPath = Image;
+    facebookUrl.desc = desc;
+    var body = "http://www.facebook.com/sharer.php?u=" + facebookUrl.url + "&media=" + facebookUrl.imgPath + "&description=" + facebookUrl.desc;
+    var tmp = $("a[name=\"fb_share\"]");
+    //console.log(tmp);
+    tmp.attr("href", body);
 }
 
 
