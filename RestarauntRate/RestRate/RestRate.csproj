@@ -136,6 +136,7 @@
     <Content Include="Content\Images\Customer\i.png" />
     <Content Include="Content\Images\Customer\interior.svg" />
     <Content Include="Content\Images\Customer\marker.png" />
+    <Content Include="Content\Images\Customer\mCSB_buttons.png" />
     <Content Include="Content\Images\Customer\r.png" />
     <Content Include="Content\Images\Customer\service.svg" />
     <Content Include="Content\Images\Customer\star.png" />

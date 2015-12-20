@@ -98,8 +98,7 @@ function panelInit() {
         }
     });
 
-    
-    
+    fillChat(0);
 
 
 };
@@ -410,8 +409,10 @@ function fillShareButton(ID, desc, name, Image) {
     //console.log(tmp);
     tmp.attr("href", body);
 }
-function fillChat() {
-    
+function fillChat(pageID) {
+    $("#vk_comments").empty();
+    VK.init({ apiId: 5196098, onlyWidgets: true });
+    VK.Widgets.Comments("vk_comments", { limit: 5, width: "665", attach: "*" },pageID);
 }
 
 
