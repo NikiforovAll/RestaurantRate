@@ -35,7 +35,7 @@ footer {
     color: black;
     padding: 8px;
     font-weight: bold;
-    font-style: Italic;
+    /*font-style: Italic;*/
     border: 1px solid;
     border-radius: 6px;
 }
@@ -109,6 +109,7 @@ html {
         /*width: 200px;*/
         padding: 0px;
         margin: 0;
+        border: 2px white solid;
         border-radius: 10px;
     }
 
@@ -116,12 +117,13 @@ html {
             color: #9F9067;
             font-weight: bold;
         }
-        .settingsPanel ul li  div {
+
+        .settingsPanel ul li div {
             margin-left: 0.5vh;
         }
+
 #radiusSearch {
     margin-top: 3vh;
-    
 }
 
 
@@ -237,10 +239,12 @@ html {
 
 #review {
     position: absolute;
-    z-index: 99;
+    z-index: 50;
     /*left: 20.5%;*/
-    top: 5px;
+    margin-top: 2%;
     display: none;
+    width: 100%;
+    margin-left: 25%;
     /*background-color: rgba(55, 47, 45, 0.85);*/
     /*padding: 0px;*/
 }
@@ -310,7 +314,7 @@ html {
 
     #reviewRating *:not(div) {
         /*display: inline;*/
-        width: 45%;
+        width: 35%;
         margin-top: 10px;
         border-radius: 10px;
         /*padding: 5px;*/
@@ -318,19 +322,19 @@ html {
 
     #reviewRating > .Row > .Column img {
         align-content: center;
-        margin-left: 6vh;
+        margin-left: 34%;
     }
 
     #reviewRating > .Row > .Column > *:last-child {
         align-content: center;
-        margin-left: 1vh;
+        margin-left: 10%;
     }
 
 #reviewBody {
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
-    #reviewBody > div {
+    #reviewBody > div:first-child {
         color: rgb(202, 173, 126);
         background-color: rgba(55, 47, 45, 0.85);
         font-size: 15pt;
@@ -344,19 +348,20 @@ html {
     #reviewBody > p {
         font-size: 11pt;
         padding: 20px;
-        font-weight: bold;
+        /*font-weight: bold;*/
         background-color: rgba(255, 255, 255,0.9);
         border-radius: 10px;
     }
 
         #reviewBody > p:nth-child(2) {
-            padding-left: 15%;
+            padding-left: 10%;
+            margin-bottom: 0px;
         }
 
         #reviewBody > p:last-child {
             padding-left: 60%;
+            margin-bottom: 0px;
         }
-
 
 #reviewGallery > div:first-child {
     background-color: rgba(55, 47, 45, 0.85);
@@ -367,21 +372,28 @@ html {
     padding: 10px;
     padding-left: 30px;
     border-radius: 10px;
+    margin-top: 1vh;
 }
-#reviewComments > div:first-child {
-    background-color: rgba(55, 47, 45, 0.85);
-    color: rgb(202, 173, 126);
-    background-color: rgba(55, 47, 45, 0.85);
-    font-size: 15pt;
-    height: 50px;
-    padding: 10px;
-    padding-left: 30px;
-    border-radius: 10px;
+
+#reviewComments {
+    display: none;
+    margin-top: 1vh;
 }
- 
+
+    #reviewComments > div:first-child {
+        background-color: rgba(55, 47, 45, 0.85);
+        color: rgb(202, 173, 126);
+        background-color: rgba(55, 47, 45, 0.85);
+        font-size: 15pt;
+        height: 50px;
+        padding: 10px;
+        padding-left: 30px;
+        border-radius: 10px;
+    }
+
 
 .my-gallery {
-    margin-top: 2vh;
+    margin-top: 1vh;
     background-color: rgba(255, 255, 255,0.8);
     border-radius: 10px;
 }
@@ -393,7 +405,7 @@ html {
 }
 
     .gallery-Img > img:hover {
-        border: 3px solid rgb(162, 45, 16);
+        border: 1px solid rgb(162, 45, 16);
         cursor: pointer;
         cursor: hand;
     }
@@ -409,7 +421,7 @@ html {
     padding-left: 4.5vh;
 }
 
-#reviewShare > div:first-child {
+/*#reviewShare > div:first-child {
     background-color: rgba(55, 47, 45, 0.85);
     color: rgb(202, 173, 126);
     background-color: rgba(55, 47, 45, 0.85);
@@ -420,28 +432,67 @@ html {
     border-radius: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
-}
+}*/
 
 #reviewShare {
-    margin-top: 1vh;
-    border-radius: 10px;
+    /*margin-top: 0.5vh;*/
     background-color: rgba(255, 255, 255,0.8);
+    border-radius: 10px;
+    padding: 0.6vh;
 }
 
-    #reviewShare > .Row {
-        /*width: 50%;
-    float: right;*/
+#shareContent {
+    margin-top: 0.5vh;
+}
+
+
+#commentBtn {
+    margin-right: 15vh;
+}
+
+    #commentBtn > button {
+        background: #998571;
+        background-image: -webkit-linear-gradient(top, #998571, #403618);
+        background-image: -moz-linear-gradient(top, #998571, #403618);
+        background-image: -ms-linear-gradient(top, #998571, #403618);
+        background-image: -o-linear-gradient(top, #998571, #403618);
+        background-image: linear-gradient(to bottom, #998571, #403618);
+        -webkit-border-radius: 28;
+        -moz-border-radius: 28;
+        border-radius: 28px;
+        font-family: Georgia;
+        color: #f0d8af;
+        font-size: 14px;
+        /*padding: 8px;*/
+        padding: 8px 12px 8px 12px;
+        text-decoration: none;
     }
 
-        #reviewShare > .Row > .Column {
-            height: 4vh;
-            padding-left: 1%;
-            padding-right: 5%;
-            float: right;
+        #commentBtn > button:hover {
+            background: #694d1c;
+            background-image: -webkit-linear-gradient(top, #694d1c, #395b6b);
+            background-image: -moz-linear-gradient(top, #694d1c, #395b6b);
+            background-image: -ms-linear-gradient(top, #694d1c, #395b6b);
+            background-image: -o-linear-gradient(top, #694d1c, #395b6b);
+            background-image: linear-gradient(to bottom, #694d1c, #395b6b);
+            text-decoration: none;
         }
 
+#reviewShare > .Row {
+    margin-top: 0vh;
+    /*background-color: rgba(255, 255, 255,0.8);*/
+    border-radius: 10px;
+}
+
+    #reviewShare > .Row > .Column {
+        height: 4vh;
+        padding-left: 1%;
+        padding-right: 5%;
+        float: right;
+    }
+
 a[name="fb_share"] > img {
-    width: 34px;
+    width: 32px;
     /*top: -10px !important;*/
     /*padding-bottom: 13px;*/
 }
@@ -497,11 +548,12 @@ a[name="fb_share"] > img {
 .showReview {
     float: right;
     /*background-color: rgba(159, 144, 120,0.4);*/
-    border-radius: 3px;
+    border-radius: 5px;
     border: 1px solid #798386;
+    background: rgba(120, 101, 88, 0.8);
     /*width: 10%;*/
     position: relative;
-    top: -50px;
+    top: -5vh;
     font-size: 12pt;
     font-family: "Monospace";
     font-weight: bold;

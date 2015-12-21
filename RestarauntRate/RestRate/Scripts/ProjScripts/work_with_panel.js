@@ -55,7 +55,9 @@ function panelInit() {
     for (var j = 1; j <= 3; j++) {
         initStarRating("#input-id" + j);
     }
-
+    $("#commentBtn").click(function() {
+        $("#reviewComments").slideToggle();
+    });
     getAllRestaurants(true);
 
     //populateGallery(testitems);
@@ -121,6 +123,8 @@ function toggleReview(source) {
             var tmp = $(source.target).closest(".panel-item-w").attr("id");
             //console.log(tmp);
             updateReview(tmp);
+            if(activeRest.marker)
+            activeRest.marker.setAnimation(null);
             $("#review").slideDown();
             // infowindow
 
@@ -135,6 +139,7 @@ function toggleReview(source) {
 function slideDownReview() {
     $("#review").slideUp();
     activeRest.marker.setAnimation(null);
+    if(infoWindowRest)
     infoWindowRest.close();
 
 }
@@ -306,7 +311,7 @@ function updateReview(restID) {
             geocoder.geocode({ 'address': tmp.Address }, function (results, status) {
                 if (status === google.maps.GeocoderStatus.OK) {
                     //console.log(results[0].geometry.location.lat());
-                    map_recenter(results[0].geometry.location, $(window).width() / 3.8, 0);
+                    map_recenter(results[0].geometry.location, $(window).width() / 2.8, 0);
                     var activeEl = markers.filter(function (el) {
                         return (el.get('ID') == restID ? true : false);
                     })[0];
@@ -394,7 +399,7 @@ function fillShareButton(ID, desc, name, Image) {
         description: desc
     }, {
         type: "round",
-        text: "Share!"
+        text: "Поделится"
 
     }));
     var facebookUrl = {
@@ -457,7 +462,7 @@ function togglePanel(e) {
 
 function addButton(item) {
     //<span><img src=\"/Content/Images/Customer/arrow1.png\" /></span>
-    var button = "<button type=\"button\" class=\"showReview\" >R</button>";
+    var button = "<button type=\"button\" class=\"showReview\" >+</button>";
     item.append(button);
     toggleFunc();
 }
