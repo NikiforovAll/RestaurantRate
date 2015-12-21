@@ -1,31 +1,7 @@
-﻿var states = [
-    { id: '1', name: 'Люстдорф', location: 'Люстдорфськая дорога, 140В' },
-    { id: '2', name: 'Игуана', location: 'Шишкина, 48/1' },
-    { id: '3', name: "Trattoria Mario's", location: 'Академика Корольова, 24' },
-    { id: '4', name: 'Тавернетта', location: 'Катерининськая, 45' },
-    { id: '5', name: 'Компот', location: 'Пантелеймоновская, 70' },
-    { id: '6', name: 'Робин Бобин Кафе', location: 'Малая Арнаутская, 64' }
-];
-
-
-var restaurant = {
-    id: '1',
-    name: 'Люстдорф',
-    location: 'Люстдорфськая дорога, 140В',
-    kitchenRate: 4,
-    serviceRate: 4.5,
-    interiorRate: 3,
-    review: 'TEst lang \n ksdjfksajfsdklfjs;asldfkjlsdjfsldf',
-    photo: {
-        1: '/Content/Images/Customer/Cogwheel.png'
-    }
-};
-
-
-var _options = {
+﻿var _options = {
     input: null,
     minLength: 0,           // Modified feature, now accepts 0 to search on focus
-    maxItem: 6,             // Modified feature, now accepts 0 as "Infinity" meaning all the results will be displayed
+    maxItem: 100,             // Modified feature, now accepts 0 as "Infinity" meaning all the results will be displayed
     dynamic: false,
     delay: 300,
     order: "asc",            // ONLY sorts the first "display" key
@@ -48,10 +24,10 @@ var _options = {
     generateOnLoad: false,   // -> New feature, forces the source to be generated on page load even if the input is not focused!
     mustSelectItem: true,  // -> New option, the submit function only gets called if an item is selected
     href: null,             // -> New feature, String or Function to format the url for right-click & open in new tab on link results
-    display: ["name", "location"],   // -> Improved feature, allows search in multiple item keys ["display1", "display2"]
+    display: ["Name", "Address"],   // -> Improved feature, allows search in multiple item keys ["display1", "display2"]
     template:   '<span>' +
-                    '<span class="name"><b>{{name}}</b></span><br />' +
-                    '<span class="location"><i>{{location}}</i></span>' +
+                    '<span class="name"><b>{{Name}}</b></span><br />' +
+                    '<span class="location"><i>{{Address}}</i></span>' +
                 '</span>',
     emptyTemplate: function (query) {
         if (query.length > 0) {
@@ -59,7 +35,14 @@ var _options = {
         }
     },
     correlativeTemplate: false, // -> New feature, compile display keys, enables multiple key search from the template string
-    source: states,           // -> Modified feature, source.ignore is now a regex; item.group is a reserved word; Ajax callbacks: done, fail, complete, always
+    source: {
+        url: [{
+            type: "POST",
+            url: "/Admin/GetRestaraunts",
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+        }, "result"]
+    },
     callback: {
         onInit: null,
         onReady: null,      // -> New callback, when the Typeahead initial preparation is completed
@@ -76,29 +59,76 @@ var _options = {
         onReceiveRequest: null,     // -> New callback, gets called when the Ajax request(s) are all received
         onSubmit: null,
         onClick: function (node, a, obj, e) {
-            $('#gridSystemModalLabel').val("Editting restaurant");
-            $('#formRestName').val(obj['name']);
-            $('#formRestAddr').val(obj['location']);
-            $("#myModal").modal({ backdrop: "static" });
+            var preview = '';
+            var previewConfig = [];
+            var counter;
+            $.ajax({
+                url: "/Admin/GetRestarauntInfo",
+                type: "POST",
+                data: JSON.stringify({ 'restarauntID': parseInt(obj['RestarauntID']) }),
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                //beforeSend: function () {
+                //
+                //},
+                success: function (answer) {
+                    if (answer['result']['Images'].length > 0) {
+                        counter = answer['result']['Images'].length;
+                        for (i = 0; i < counter; i++) {
+                            preview += "<img style='height:160px' src='" + answer['result']['Images'][i]['Url'] + "'>,\n"
+                            previewConfig[i] = { caption: answer['result']['Images'][i]['Name'], url: "/Admin/imageDelete", key: i }
+                        };
+                        $("#photosInput").fileinput('refresh', {
+                            initialPreview: [preview],
+                            initialPreviewConfig: previewConfig
+                        });
+                    }
+                    else {
+                        $("#photosInput").fileinput('refresh', {
+                            initialPreview: []
+                        });
+                    }
+                    $('#gridSystemModalLabel').val("Editting restaurant");
+                    $('#formRestName').val(answer['result']['Name']);
+                    $('#formRestAddr').val(answer['result']['Address']);
+                    $('#formRestLocation').val(answer['result']['Locality']);
+                    $('#formRestRegion').val(answer['result']['Region']);
+                    $('#formRestCountry').val(answer['result']['Country']);
+                    $('#formKitchenRate').rating('update', answer['result']['KitchenRate']);
+                    $('#formServiceRate').rating('update', answer['result']['MaintenanceRate']);
+                    $('#formInteriorRate').rating('update', answer['result']['InteriorRate']);
+                    $('#formReview').val(answer['result']['Review']);
+                    //TODO: NOT ADD BUTTON WHEN IT EXIST!
+                    if ($('#addEditRestaurant').length != 0) {
+                        $('<button type="button" class="btn btn-danger" id="removeRestaurant">Delete</button>').appendTo('#addEditRestaurant');
+                    }
+                    $("#myModal").modal({ backdrop: "static" });
+                },
+                //error: function () {
+                //    $(".btn, input").prop("disabled", false);
+                //    informationWindow('Adding failed!', 'Unknown error!\nMaybe DB is not working now. Please, try again later.');
+                //},
+                timeout: 7000
+            });
         }
     },
     selector: {
         container: "typeahead-container",
-        group: "typeahead-group",
+        //group: "typeahead-group",
         result: "typeahead-result",
         list: "typeahead-list",
-        display: "typeahead-display",
+        //display: "typeahead-display",
         query: "typeahead-query",
-        filter: "typeahead-filter",
-        filterButton: "typeahead-filter-button",
-        filterValue: "typeahead-filter-value",
-        dropdown: "typeahead-dropdown",
-        dropdownCarret: "typeahead-caret",
+        //filter: "typeahead-filter",
+        //filterButton: "typeahead-filter-button",
+        //filterValue: "typeahead-filter-value",
+        //dropdown: "typeahead-dropdown",
+        //dropdownCarret: "typeahead-caret",
         button: "typeahead-button",
         backdrop: "typeahead-backdrop",
         hint: "typeahead-hint"
     },
-    debug: true
+    debug: false
 };
 
 $(document).ready(function () {
@@ -114,5 +144,4 @@ $(document).ready(function () {
             $(this).addClass('hideAll');
         }
     });
-
 });

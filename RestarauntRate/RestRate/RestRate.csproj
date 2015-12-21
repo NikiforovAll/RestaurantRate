@@ -144,6 +144,7 @@
     <Content Include="Content\Images\Customer\starIcon.png" />
     <Content Include="Content\Images\Customer\pin56.png" />
     <Content Include="Content\jquery.typeahead.css" />
+    <Content Include="Content\jquery.typeahead.min.css" />
     <Content Include="Content\Login\assets\3dcube\Overlay.css" />
     <Content Include="Content\Login\assets\3dcube\Overlay.js" />
     <Content Include="Content\Login\assets\3dcube\Overlay.min.css" />
@@ -179,6 +180,7 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.mCustomScrollbar.concat.min.js" />
     <Content Include="Scripts\jquery.typeahead.js" />
+    <Content Include="Scripts\jquery.typeahead.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
