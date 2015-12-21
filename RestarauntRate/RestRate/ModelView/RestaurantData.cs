@@ -6,6 +6,9 @@ using Domain.Entities;
 
 namespace RestRate.ModelView
 {
+    /// <summary>
+    /// Сделать code review на тему повторений полей предыдущих моделей при создании новых
+    /// </summary>
     public class RestaurantData
     {
         public Restaraunt RestarauntData { get; set; }
@@ -26,6 +29,8 @@ namespace RestRate.ModelView
         public float KitchenRate { get; set; }
         public float InteriorRate { get; set; }
         public float MaintenanceRate { get; set; }
+        public string Longitude { get; set; }
+        public string Latitude { get; set; }
     }
     public class RestarauntAllData
     {
@@ -40,6 +45,7 @@ namespace RestRate.ModelView
         public string Longitude { get; set; }
         public string Latitude { get; set; }
         public Restaraunt.RestType RestarauntType { get; set; }
+        public DateTime AddedDate { get; set; }
         public string Review { get; set; }
         public List<Image> Images { get; set; }
     }

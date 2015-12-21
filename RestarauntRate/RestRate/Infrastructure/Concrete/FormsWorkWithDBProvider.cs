@@ -32,6 +32,7 @@ namespace RestRate.Infrastructure.Concrete
             result.InteriorRate = restaraunt.InteriorRate;
             result.MaintenanceRate = restaraunt.MaintenanceRate;
             result.RestarauntType = restaraunt.RestarauntType;
+            result.AddedDate = restaraunt.AddedDate;
             result.Images = imageRepository.GetRestarauntImages(restaraunt.RestarauntID);
             return result;
         }

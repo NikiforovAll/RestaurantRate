@@ -63,36 +63,60 @@ namespace RestRate.Controllers
             {
                 try
                 {
-                    using (var context = new EFDbContext())
-                    {
-
-                        Restaraunt NewRestaraunt = data.RestarauntData;
-                        RestarauntLang NewRestLang = data.RestaurantLangData;
-
-                        NewRestaraunt.AddedDate = DateTime.Now;
-                        NewRestaraunt.Latitude = "2";
-                        NewRestaraunt.Longitude = "3";
-                        NewRestaraunt.RestarauntType = Restaraunt.RestType.Bar;
-
-                        restRepository.SaveRestaraunt(NewRestaraunt);
-
-                        NewRestLang.LanguageID = 1;
-                        NewRestLang.RestarauntID = NewRestaraunt.RestarauntID;
-
-                        restLangRepository.SaveRestarauntLang(NewRestLang);
-
-
-                        return Json(new { result = "success", id = NewRestaraunt.RestarauntID });
-                    }
+                    Restaraunt NewRestaraunt = data.RestarauntData;
+                    RestarauntLang NewRestLang = data.RestaurantLangData;
+                    NewRestaraunt.AddedDate = DateTime.Now;
+                    NewRestaraunt.Latitude = "2";
+                    NewRestaraunt.Longitude = "3";
+                    NewRestaraunt.RestarauntType = Restaraunt.RestType.Bar;
+                    restRepository.SaveRestaraunt(NewRestaraunt);
+                    NewRestLang.LanguageID = 1;
+                    NewRestLang.RestarauntID = NewRestaraunt.RestarauntID;
+                    restLangRepository.SaveRestarauntLang(NewRestLang);
+                    return Json(new { result = "success", id = NewRestaraunt.RestarauntID });
                 }
-                catch 
+                catch
                 {
                     return Json(new { result = "error", message = "Ooooooops! Some troubles was happened with DB." });
                 }
             }
             return Json(new { result = "error", message = "JSON IS NULL" });
         }
-
+        public ActionResult EditRestaurant(RestaurantData data)
+        {
+            if (!data.Equals(null))
+            {
+                try
+                {
+                    Restaraunt EditRestaraunt = data.RestarauntData;
+                    RestarauntLang EditRestLang = data.RestaurantLangData;
+                    restRepository.SaveRestaraunt(EditRestaraunt);
+                    restLangRepository.SaveRestarauntLang(EditRestLang);
+                    return Json(new { result = "success" } );
+                }
+                catch
+                {
+                    return Json(new { result = "error", message = "Ooooooops! Some troubles was happened with DB." });
+                }
+            }
+            return Json(new { result = "error", message = "JSON IS NULL" });
+        }
+        public ActionResult DeleteRestaurant(int RestarauntID)
+        {
+            if (!RestarauntID.Equals(null))
+            {
+                try
+                {
+                    restRepository.DeleteRestaraunt(RestarauntID);
+                    return Json(new { result = "success" });
+                }
+                catch
+                {
+                    return Json(new { result = "error", message = "Ooooooops! Some troubles was happened with DB." });
+                }
+            }
+            return Json(new { result = "error", message = "JSON IS NULL" });
+        }
         // Change path which write in db to relative
         [HttpPost]
         public ActionResult Index(IEnumerable<HttpPostedFileBase> files) 
