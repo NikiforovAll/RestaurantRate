@@ -63,13 +63,15 @@ namespace RestRate.Controllers
                         Name = RestarauntLangList[i].Name,
                         Country = RestarauntLangList[i].Country,
                         Locality = RestarauntLangList[i].Locality,
-                        Region = RestarauntLangList[i].Region
+                        Region = RestarauntLangList[i].Region,                        
                     };
                     FullObject = new RestIDNameFullAddressRates()
                     {
                         InteriorRate = RestarauntList[i].InteriorRate,
                         KitchenRate = RestarauntList[i].KitchenRate,
                         MaintenanceRate = RestarauntList[i].MaintenanceRate,
+                        Longitude = RestarauntList[i].Longitude,
+                        Latitude = RestarauntList[i].Latitude,
                         RestaurantIDNameFullAddress = PartOfObject                       
                     };
                     RestIDNameFullAddressRates.Add(FullObject);
