@@ -29,7 +29,7 @@ var availabletypes = ["restaurant", "bar", "cafe"];
 var reviewItem;
 var markersOnMap = false;
 var _allRestaurants = [];
-
+var _typeAhead;
 function panelInit() {
 
     panel = $(".mainpanel");
@@ -55,11 +55,12 @@ function panelInit() {
     for (var j = 1; j <= 3; j++) {
         initStarRating("#input-id" + j);
     }
-    $("#commentBtn").click(function() {
+    $("#commentBtn").click(function () {
         $("#reviewComments").slideToggle();
     });
-    getAllRestaurants(true);
 
+    getAllRestaurants(true);
+    
     //populateGallery(testitems);
     //TODO URL cohesion 
 
@@ -84,7 +85,7 @@ function panelInit() {
     $("#getFullList").click(function () {
         citySearch();
     });
-    $("#radiusSearch").click(function() {
+    $("#radiusSearch").click(function () {
 
     });
     $(document).on('keydown', function (e) {
@@ -92,7 +93,7 @@ function panelInit() {
             toggleReview();
         }
     });
-    $("#radiusSearch").change(function() {
+    $("#radiusSearch").change(function () {
         if ($(this).is(":checked")) {
             getAllRestaurantsInRadius(marker.position.lat(), marker.position.lng());
         } else {
@@ -118,18 +119,24 @@ function toggleReview(source) {
     } else {
         var activeEl = getActivePanelElement();
         if (!!activeEl) {
-
+            console.log(activeEl);
             //changing content stub
-            var tmp = $(source.target).closest(".panel-item-w").attr("id");
+            //if (source.target)
+            //    var tmp = $(source.target).closest(".panel-item-w").attr("id");
+            //else {
+                tmp = $(activeEl).closest(".panel-item-w").attr("id");
+            //}
+            console.log(tmp);
             //console.log(tmp);
             updateReview(tmp);
-            if(activeRest.marker)
-            activeRest.marker.setAnimation(null);
+            if (activeRest.marker)
+                activeRest.marker.setAnimation(null);
             $("#review").slideDown();
             // infowindow
 
         } else {
             $("#review").slideUp();
+            if(activeRest.marker)
             activeRest.marker.setAnimation(null);
             infoWindowRest.close();
         }
@@ -139,8 +146,8 @@ function toggleReview(source) {
 function slideDownReview() {
     $("#review").slideUp();
     activeRest.marker.setAnimation(null);
-    if(infoWindowRest)
-    infoWindowRest.close();
+    if (infoWindowRest)
+        infoWindowRest.close();
 
 }
 
@@ -206,12 +213,13 @@ function geocodeAddress(geocoder, address, ID, name) {
 function poppulateAllRestaurants() {
     clearPanel();
     restaurants = _allRestaurants;
-    _allRestaurants.forEach(function(el) {
+    _allRestaurants.forEach(function (el) {
         addToPanel(el);
     });
 }
 function getAllRestaurants(ismarkerInit) {
     restaurants = [];
+   
     $.ajax({
         url: "/Home/GetAllRestaurants",
         //data: JSON.stringify({ "Longitude": 46.480679, "Latitude": 30.755164 }),
@@ -224,10 +232,10 @@ function getAllRestaurants(ismarkerInit) {
             var tmpRest = answer.result;
             tmpRest = tmpRest.sort(function (el1, el2) {
                 //console.log("calling async");
-                return -1.0 * (el1.InteriorRate * 0.3 + el1.KitchenRate * 0.4 + el1.MaintenanceRate * 0.3) +
+                return  (el1.InteriorRate * 0.3 + el1.KitchenRate * 0.4 + el1.MaintenanceRate * 0.3) -
                     (el2.InteriorRate * 0.3 + el2.KitchenRate * 0.4 + el2.MaintenanceRate * 0.3);
             });
-            console.log(tmpRest);
+           
             tmpRest.forEach(function (el) {
                 var tmp = el.RestaurantIDNameFullAddress;
                 //console.log(tmp.Name);
@@ -237,14 +245,17 @@ function getAllRestaurants(ismarkerInit) {
                     Name: tmp.Name,
                     ID: tmp.RestarauntID
                 };
+
+                //console.log(window.Typeahead["#editRestName"].source);
                 restaurants.push(currRest);
                 _allRestaurants.push(currRest);
                 addToPanel(currRest);
                 if (ismarkerInit) {
-                geocodeAddress(geocoder, tmp.Address, tmp.RestarauntID, tmp.Name);
-                
+                    geocodeAddress(geocoder, tmp.Address, tmp.RestarauntID, tmp.Name);
+
                 }
             });
+            typeAhead(restaurants);
         },
         error: function () {
 
@@ -252,7 +263,7 @@ function getAllRestaurants(ismarkerInit) {
         },
         timeout: 10000
     });
-  
+
 
 }
 
@@ -377,9 +388,9 @@ function fillGalleryFromQuery(restID) {
         success: function (answer) {
             //console.log(answer); // для того чтобы увидеть JSON, который ты получил
             var tmp = answer.result;
-            
-            populateGallery(tmp.map(function(el) {
-                return el.Url;  
+
+            populateGallery(tmp.map(function (el) {
+                return el.Url;
             }));
         },
         error: function () {
@@ -418,9 +429,96 @@ function fillShareButton(ID, desc, name, Image) {
 function fillChat(pageID) {
     $("#vk_comments").empty();
     VK.init({ apiId: 5196098, onlyWidgets: true });
-    VK.Widgets.Comments("vk_comments", { limit: 5, width: "665", attach: "*" },pageID);
+    VK.Widgets.Comments("vk_comments", { limit: 5, width: "665", attach: "*" }, pageID);
 }
 
+function typeAhead(source) {
+    var _options = {
+        input: null,
+        minLength: 0, // Modified feature, now accepts 0 to search on focus
+        maxItem: 6, // Modified feature, now accepts 0 as "Infinity" meaning all the results will be displayed
+        dynamic: false,
+        delay: 300,
+        order: "asc", // ONLY sorts the first "display" key
+        offset: false,
+        hint: true, // -> Improved feature, Added support for excessive "space" characters
+        accent: false,
+        highlight: true,
+        group: false, // -> Improved feature, Array second index is a custom group title (html allowed)
+        groupOrder: null, // -> New feature, order groups "asc", "desc", Array, Function
+        maxItemPerGroup: null, // -> Renamed option
+        dropdownFilter: false, // -> Renamed option, true will take group options string will filter on object key
+        dynamicFilter: null, // -> New feature, filter the typeahead results based on dynamic value, Ex: Players based on TeamID
+        backdrop: false,
+        cache: sessionStorage, // -> Improved option, true OR 'localStorage' OR 'sessionStorage'
+        ttl: 3600000,
+        compression: false, // -> Requires LZString library
+        suggestion: false, // -> *Coming soon* New feature, save last searches and display suggestion on matched characters
+        searchOnFocus: true, // -> New feature, display search results on input focus
+        resultContainer: null, // -> New feature, list the results inside any container string or jQuery object
+        generateOnLoad: false, // -> New feature, forces the source to be generated on page load even if the input is not focused!
+        mustSelectItem: true, // -> New option, the submit function only gets called if an item is selected
+        href: null, // -> New feature, String or Function to format the url for right-click & open in new tab on link results
+        display: ["Name"], // -> Improved feature, allows search in multiple item keys ["display1", "display2"]
+        template: '<span>' +
+            "<span class=\"name\"><b>{{Name}}</b></span><br />" +
+            "</span>",
+        emptyTemplate: function (query) {
+            if (query.length > 0) {
+                return "No results found for \"" + query + "\"";
+            }
+        },
+        correlativeTemplate: false, // -> New feature, compile display keys, enables multiple key search from the template string
+        source:
+            source,
+        callback: {
+            onInit: null,
+            onReady: null, // -> New callback, when the Typeahead initial preparation is completed
+            onSearch: null, // -> New callback, when data is being fetched & analyzed to give search results
+            onResult: null,
+            onLayoutBuiltBefore: null, // -> New callback, when the result HTML is build, modify it before it get showed
+            onLayoutBuiltAfter: null, // -> New callback, modify the dom right after the results gets inserted in the result container
+            onNavigate: null, // -> New callback, when a key is pressed to navigate the results
+            onMouseEnter: null,
+            onMouseLeave: null,
+            onClickBefore: null, // -> Improved feature, possibility to e.preventDefault() to prevent the Typeahead behaviors
+            onClickAfter: null, // -> New feature, happens after the default clicked behaviors has been executed
+            onSendRequest: null, // -> New callback, gets called when the Ajax request(s) are sent
+            onReceiveRequest: null, // -> New callback, gets called when the Ajax request(s) are all received
+            onSubmit: null,
+            onClick: function (node, a, obj, e) {
+                var id = obj.ID;
+                var str = "#"+id;
+                $(str).remove();
+                addToPanel(obj);
+                $(str).click();
+                updateReview(id);
+              
+                toggleReview();
+
+            }
+        },
+        selector: {
+            container: "typeahead-container",
+            group: "typeahead-group",
+            result: "typeahead-result",
+            list: "typeahead-list",
+            display: "typeahead-display",
+            query: "typeahead-query",
+            filter: "typeahead-filter",
+            filterButton: "typeahead-filter-button",
+            filterValue: "typeahead-filter-value",
+            dropdown: "typeahead-dropdown",
+            dropdownCarret: "typeahead-caret",
+            button: "typeahead-button",
+            backdrop: "typeahead-backdrop",
+            hint: "typeahead-hint"
+        },
+        debug: true
+    };
+    
+    _typeAhead = $("#SearchRestName").typeahead(_options);
+}
 
 
 
@@ -494,7 +592,7 @@ function addToPanel(item) {
     var src = "<div id =\"" + item.ID + "\" class=\"panel-item\">" + stars + name + address + "</div>";
     var $item = $(src);
     $item.click(togglePanel);
-    $(".panelItems").append($item);
+    $(".panelItems").prepend($item);
 }
 
 function getActivePanelElement() {
