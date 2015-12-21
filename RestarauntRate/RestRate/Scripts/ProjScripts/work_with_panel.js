@@ -98,7 +98,7 @@ function panelInit() {
         }
     });
 
-    fillChat(0);
+    //fillChat(0);
 
 
 };
@@ -359,6 +359,7 @@ function fillReview(ID, name, foodRate, styleRate, serviceRate, reviewContext, c
     var date = $("#reviewDate").html("Visited on " + strDate);
     fillShareButton(ID, reviewContext, name, Images[0]);
     fillGalleryFromQuery(ID);
+    fillChat(ID);
 }
 function fillGalleryFromQuery(restID) {
 
