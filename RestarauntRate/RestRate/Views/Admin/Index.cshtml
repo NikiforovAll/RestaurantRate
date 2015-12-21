@@ -19,13 +19,13 @@
     <script src="~/Scripts/bootstrap-dialog.min.js"></script>
     <script src="~/Scripts/star-rating.min.js"></script>
     <script src="~/Scripts/fileinput.min.js" type="text/javascript"></script>
-    <script src="~/Scripts/jquery.typeahead.js" type="text/javascript"></script>
+    <script src="~/Scripts/jquery.typeahead.min.js" type="text/javascript"></script>
 
     <link href="~/Content/bootstrap.min.css" rel="stylesheet">
     <link href="~/Content/font-awesome.min.css" rel="stylesheet">
     <link href="~/Content/bootstrap-dialog.min.css" rel="stylesheet">
     <link href="~/Content/star-rating.css" rel="stylesheet">
-    <link href="~/Content/jquery.typeahead.css" rel="stylesheet">
+    <link href="~/Content/jquery.typeahead.min.css" rel="stylesheet">
     <link href="~/Content/bootstrap-fileinput/css/fileinput.min.css" rel="stylesheet">
 
     <link href="~/Content/Login/style.css" rel="stylesheet">
@@ -35,7 +35,7 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="gridSystemModalLabel">Adding new restaurant</h4>
+                    <h4 class="modal-title" id="gridSystemModalLabel"></h4>
                 </div>
                 <div class="modal-body">
                     <div class="container-fluid">
@@ -70,19 +70,19 @@
                                 <div class='row form-group'>
                                     <label class='control-label col-md-3'>City:</label>
                                     <div class='col-md-9'>
-                                        <input class='form-control' placeholder='City' id='formRestLocation' maxlength='80' type='text' value='Odessa city' />
+                                        <input class='form-control' placeholder='City' id='formRestLocation' maxlength='80' type='text' value='' />
                                     </div>
                                 </div>
                                 <div class='row form-group'>
                                     <label class='control-label col-md-3'>Region:</label>
                                     <div class='col-md-9'>
-                                        <input class='form-control' placeholder='Region' id='formRestRegion' maxlength='80' type='text' value='Odessa region' />
+                                        <input class='form-control' placeholder='Region' id='formRestRegion' maxlength='80' type='text' value='' />
                                     </div>
                                 </div>
                                 <div class='row form-group'>
                                     <label class='control-label col-md-3'>Country:</label>
                                     <div class='col-md-9'>
-                                        <input class='form-control' placeholder='Country' id='formRestCountry' maxlength='80' type='text' value='Ukraine' />
+                                        <input class='form-control' placeholder='Country' id='formRestCountry' maxlength='80' type='text' value='' />
                                     </div>
                                 </div>
                             </div>
@@ -95,7 +95,7 @@
                                         <center>
                                             <label class="col-md-4 col-md-offset-1" style="padding-top:12px">Kitchen:</label>
                                             <div class="col-md-2">
-                                                <input class="rating" id="formKitchenRate" value="0" type="number" min=0 max=5 step=0.5 data-size="xs" data-show-clear="false" data-show-caption="false">
+                                                <input class="rating" id="formKitchenRate" value="0" type="number" min="0" max="5" step="0.5" data-size="xs" data-show-clear="false" data-show-caption="false" />
                                             </div>
                                         </center>
                                     </div>
@@ -105,7 +105,7 @@
                                         <center>
                                             <label class="col-md-4 col-md-offset-1" style="padding-top:12px">Service:</label>
                                             <div class="col-md-1">
-                                                <input class="rating" id="formServiceRate" value="0" type="number" min=0 max=5 step=0.5 data-size="xs" data-show-clear="false" data-show-caption="false">
+                                                <input class="rating" id="formServiceRate" value="0" type="number" min="0" max="5" step="0.5" data-size="xs" data-show-clear="false" data-show-caption="false" />
                                             </div>
                                         </center>
                                     </div>
@@ -115,7 +115,7 @@
                                         <center>
                                             <label class="col-md-4 col-md-offset-1" style="padding-top:12px">Interior:</label>
                                             <div class="col-md-1">
-                                                <input class="rating" id="formInteriorRate" value="0" type="number" min=0 max=5 step=0.5 data-size="xs" data-show-clear="false" data-show-caption="false">
+                                                <input class="rating" id="formInteriorRate" value="0" type="number" min="0" max="5" step="0.5" data-size="xs" data-show-clear="false" data-show-caption="false" />
                                             </div>
                                         </center>
                                     </div>
@@ -140,7 +140,7 @@
                     </div>
                 </div>
 
-                <div class="modal-footer">
+                <div class="modal-footer" id="addEditRestaurant" >
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" id="addRestaurant"> Save changes</button>
                 </div>
