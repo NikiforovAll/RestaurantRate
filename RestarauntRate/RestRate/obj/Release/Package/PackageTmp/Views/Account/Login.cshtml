@@ -6,7 +6,9 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <title>Rest-Rate Login Page</title>
     <link rel="icon" type="image/ico" href="~/Content/Images/Admin/favicon.ico" />
+    <meta name="author" content="Yuriy Chikhray">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
@@ -36,7 +38,7 @@
                                     Your e-mail address:
                                 </label>
                                 <div class="col-md-9">
-                                    <input class="form-control" placeholder="E-mail" name="email" maxlength="60" type="text" />
+                                    <input class="form-control" placeholder="E-mail" name="email" maxlength="64" type="text" />
                                 </div>
                             </div>
                         </div>
@@ -45,7 +47,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="restoreButton">Restore</button>
+                    <button type="button" class="btn btn-primary" id="restoreButton"> Restore</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -66,10 +68,10 @@
                         <form method="post" accept-charset="UTF-8" role="form" class="form-signin" id="LoginForm">
 
                             <fieldset>
-                                <input class="form-control" placeholder="Username" name="username" maxlength="20" type="text">
-                                <input class="form-control" placeholder="Password" name="password" maxlength="20" type="password">
+                                <input class="form-control" placeholder="Username" name="username" maxlength="32" type="text">
+                                <input class="form-control" placeholder="Password" name="password" maxlength="32" type="password">
                                 <br>
-                                <button class="btn btn-lg btn-primary btn-block" type="submit" id="login">  Login »</button>
+                                <button class="btn btn-lg btn-primary btn-block" type="submit" id="login"> Login »</button>
                             </fieldset>
                             <br>
                             <center>
@@ -86,6 +88,7 @@
 
     <footer>
         <script src="~/Scripts/ProjScripts/login.js"></script>
+        <script src="~/Scripts/ProjScripts/shareFunctions.js"></script>
     </footer>
 </body>
 </html>
