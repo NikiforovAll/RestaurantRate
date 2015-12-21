@@ -124,6 +124,7 @@ function initRestMarker(markerType, coords, ID, text) {
         if (infoWindowRest)
             infoWindowRest.close();
         infoWindowRest = this["infoWindow"];
+        if (activeRest.marker)
         activeRest.marker.setAnimation(null);
         //infoWindows.push({ ID: ID, infowidnow:infowindow.open(map, marker) });
         infowindow.open(map, marker);

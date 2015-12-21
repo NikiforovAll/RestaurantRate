@@ -63,7 +63,7 @@ namespace RestRate.Controllers
                         Name = RestarauntLangList[i].Name,
                         Country = RestarauntLangList[i].Country,
                         Locality = RestarauntLangList[i].Locality,
-                        Region = RestarauntLangList[i].Region,                        
+                        Region = RestarauntLangList[i].Region                        
                     };
                     FullObject = new RestIDNameFullAddressRates()
                     {

@@ -13,7 +13,9 @@
     <link href="~/Content/font-awesome.min.css" rel="stylesheet">
     <link href="~/Content/star-rating.css" rel="stylesheet">
     <link rel="stylesheet" href="~/Content/photoswipe.css" />
-    <link rel="stylesheet" href="~/Content/default-skin/default-skin.css" />
+    <link rel="stylesheet" href="~/Content/default-skin/default-skin.css"/>
+
+    <link href="~/Content/jquery.typeahead.css" rel="stylesheet">
 
     <link href="~/Content/Customer/main.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/ProjScripts/work_with_map.js"></script>
@@ -21,6 +23,7 @@
     <script src="~/Scripts/ProjScripts/work_with_starsRating.js"></script>
     <script src="~/Scripts/ProjScripts/Work_with_gallery.js"></script>
 
+    <script src="~/Scripts/jquery.typeahead.js" type="text/javascript"></script>
 
     <script src="~/Scripts/ProjScripts/photoswipe.min.js"></script>
     <script src="~/Scripts/ProjScripts/photoswipe-ui-default.min.js"></script>
@@ -39,11 +42,11 @@
         @*<div class="container">*@
         @*<div class=" col-md-4 col-xs-3 ">*@
         <div class="panelheader ">
-            <img src="~/Content/Images/Customer/star.png" />
+            <img src="~/Content/Images/Customer/star.png"/>
             <span>Rest-Rate</span>
             <div class="dropdown settingsPanel">
                 <button type="button" class="  dropdown-toggle  settingsButt" data-toggle="dropdown">
-                    <img id="cogwheel" src="~/Content/Images/Customer/Cogwheel.png" />
+                    <img id="cogwheel" src="~/Content/Images/Customer/Cogwheel.png"/>
                 </button>
                 <ul class="dropdown-menu">
                     @*<li><a href="#">~this is STUB~</a></li>*@
@@ -56,11 +59,23 @@
                             </div>
 
                             <div class="col-md-2">
-                                <input id="radiusSearch" type="checkbox" />
+                                <input id="radiusSearch" type="checkbox"/>
                             </div>
                         </div>
                     </li>
                 </ul>
+            </div>
+        </div>
+        <div class="typeahead-container" id="typeAheadForm">
+            <div class="typeahead-field">
+                <span class="typeahead-query">
+                    <input id="SearchRestName" name="restName[query]" placeholder="Search" autocomplete="off" type="search">
+                </span>
+                <span class="typeahead-button">
+                    <button class="showAll">
+                        <i class="glyphicon glyphicon-chevron-down"></i>
+                    </button>
+                </span>
             </div>
         </div>
         <div>
@@ -121,24 +136,36 @@
                             non proident sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
                         </p>
-                        <p id="reviewDate">Visited on November 7th</p>
+                      
+                       <p >Visited on November 7th</p>
                     </div>
+
                     <div id="reviewShare">
-                        <div>Share</div>
+                        @*<div>Share</div>*@
                         <div class="Row">
-                            <div class="Column"><div id="shareContent"></div></div>
+
+                            <div class="Column">
+                                <div id="shareContent"></div>
+                            </div>
                             <div class="Column">
                                 @*TODO bind facebook share status - RAW*@
                                 <a name="fb_share" type="button"
                                    href="http://www.facebook.com/sharer.php?u={$url}&media={$imgPath}&description={$desc}" class="joinFB">
-                                    <img src="~/Content/Images/Customer/facebook.png" alt="Facebook" />
+                                    <img src="~/Content/Images/Customer/facebook.png" alt="Facebook"/>
                                 </a>
                                 @*<a href="http://www.facebook.com/sharer.php?u=https://simplesharebuttons.com" target="_blank">
                                         <img src="https://simplesharebuttons.com/images/somacro/facebook.png" alt="Facebook" />
                                     </a>*@
                             </div>
+                            <div class="Column" id="commentBtn"><button>Leave a comment</button>
+                            </div>
                         </div>
 
+
+                    </div>
+                    <div id="reviewComments">
+                        <div>Comments</div>
+                        <div id="vk_comments"></div>
 
                     </div>
                     @* TODO Gallery fulfillment *@
@@ -149,11 +176,7 @@
 
 
                     </div>
-                    <div id="reviewComments">
-                        <div>Comments</div>
-                        <div id="vk_comments"></div>
-                      
-                    </div>
+                   
 
 
                 </div>

@@ -75,9 +75,10 @@ function validatePass(pass) {
 
 // Deattach class "Incorrect data" from empty or changed input fields
 $("input").change(function () {
-    var value = this.value;
-    if (value != '') {
-        $(this).removeClass("incorrect_data");
+    if ($(this).hasClass("incorrect_data")) {
+        if (this.value != '') {
+            $(this).removeClass("incorrect_data");
+        }
     }
 }).trigger("change");
 
