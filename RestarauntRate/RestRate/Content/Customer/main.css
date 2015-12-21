@@ -561,7 +561,7 @@ a[name="fb_share"] > img {
     background: rgba(120, 101, 88, 0.8);
     /*width: 10%;*/
     position: relative;
-    top: -5vh;
+    top: -45px;
     font-size: 12pt;
     font-family: "Monospace";
     font-weight: bold;
