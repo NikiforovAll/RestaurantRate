@@ -41,79 +41,13 @@ $("#changePassword").click(function () {
     }
 });
 
-// Adding Restaraunt start
-$("#addRestaurant").click(function () {
-    var restName = $('#formRestName').val();
-    var restAddress = $('#formRestAddr').val();
-    var restLocation = $('#formRestLocation').val();
-    var restRegion = $('#formRestRegion').val();
-    var restCountry = $('#formRestCountry').val();
-    var restKitchenRate = $('#formKitchenRate').val();
-    var restServicerate = $('#formServiceRate').val();
-    var restInteriorRate = $('#formInteriorRate').val();
-    var restReview = $('#formReview').val();
-    if ((restName == '') || (restAddress == '') || (restLocation == '') || (restRegion == '') || (restCountry == '') || (restReview == '')) {
-         informationWindow('Adding error!', "Please fill all the fields.", {
-             'restName': restName, 'restAddress': restAddress, 'restLocation': restLocation,
-             'restRegion': restRegion, 'restCountry': restCountry, 'restReview': restReview
-         });
-    }
-    else if (restAddress == '') {
-        informationWindow('Changing error!', "Address field is empty!\nPlease, enter the restaurant address before saving changes.", {
-            'restAddress': restAddress
-        });
-    }
-    else if ((restKitchenRate == '') || (restServicerate == '') || (restInteriorRate == '')) {
-        informationWindow('Changing error!', "The rates are absent!\nPlease, rate the establishment.");
-    }
-    else if (restReview == '') {
-        informationWindow('Changing error!', "Review field is empty!\nPlease, enter the review before saving changes.", {
-            'restReview': ''
-        });
-    }
-    else{
-    $.ajax({
-        url: "/Admin/AddRestaurant",
-        type: "POST",
-        data: JSON.stringify(
-            {
-                'RestarauntData': { "KitchenRate": restKitchenRate, "MaintenanceRate": restServicerate, "InteriorRate": restInteriorRate },
-                'RestaurantLangData': { "Name": restName, "Address": restAddress, "Locality": restLocation, "Region": restRegion, "Country": restCountry, "Review": restReview }
-            }
-        ),
-        contentType: "application/json; charset=utf-8",
-        dataType: 'json',
-        beforeSend: function () {
-            $("#addRestaurant").prepend("<i class='fa fa-spinner fa-spin' id='spiner'></i> ");
-            $(".btn, input").prop("disabled", true);
-        },
-        success: function (answer) {
-            if (answer['result'] == 'success') {
-                $("<input name='id' value=" + answer['id'] + " style='display:none' />").appendTo('#imagesUpload');
-                console.log(answer['id']);
-                document.cookie = "id" + "=" + answer['id'] + "; "; // TODO coockie выдавать на ~60 секунд
-                setTimeout($('#photosInput').fileinput('upload'), 2000);
-                $(".btn, input").prop("disabled", false);   
-                informationWindow('Adding was successful!', 'Restaraunt was added successfully!');
-            }
-            else {
-                $(".btn, input").prop("disabled", false);
-                informationWindow('Adding failed!', 'Restaurant adding was failed.');
-            }
-        },
-        error: function () {
-            $(".btn, input").prop("disabled", false);
-            informationWindow('Adding failed!', 'Unknown error!\nMaybe DB is not working now. Please, try again later.');
-        },
-        timeout: 10000
-    })
-}
-});
-
 // Show modal form to add new restaurant
 $("#add").click(function () {
     $('#gridSystemModalLabel').val("Adding new restaurant");
+    $('#RestID').val('');
     $('#formRestAddr').val('');
+    $('#Longtitude').val('');
+    $('#Latitude').val('');
     $('#formRestLocation').val('Odessa city');
     $('#formRestRegion').val('Odessa region');
     $('#formRestCountry').val('Ukraine');
@@ -124,21 +58,91 @@ $("#add").click(function () {
     $("#photosInput").fileinput('refresh', {
         initialPreview: [],
     });
+
+    $(".editRestaurant").unbind();
+    $('.editRestaurant').removeClass('editRestaurant').addClass("addRestaurant");
+    $(".addRestaurant").bind("click", function () {
+        var restName = $('#formRestName').val();
+        var restAddress = $('#formRestAddr').val();
+        var restLocation = $('#formRestLocation').val();
+        var coordinates = geocodeAddress(restAddress + ', ' + restLocation);
+        if (!coordinates) {
+            coordinates = { lat: 46.48839155, lng: 30.721056599999997 };
+		}
+        console.log(coordinates); // { lat: 46.4883915, lng: 30.721056599999997 }
+        var restType = 0    // TODO
+        var restRegion = $('#formRestRegion').val();
+        var restCountry = $('#formRestCountry').val();
+        var restKitchenRate = $('#formKitchenRate').val();
+        var restServicerate = $('#formServiceRate').val();
+        var restInteriorRate = $('#formInteriorRate').val();
+        var restReview = $('#formReview').val();
+        if ((restName == '') || (restAddress == '') || (restLocation == '') || (restRegion == '') || (restCountry == '') || (restReview == '')) {
+            informationWindow('Adding error!', "Please fill all the fields.", {
+                'restNames': restName, 'restAddress': restAddress, 'restLocation': restLocation,
+                'restRegion': restRegion, 'restCountry': restCountry, 'restReview': restReview
+            });
+        }
+        else if (restAddress == '') {
+            informationWindow('Changing error!', "Address field is empty!\nPlease, enter the restaurant address before saving changes.", {
+                'restAddress': restAddress
+            });
+        }
+        else if ((restKitchenRate == '') || (restServicerate == '') || (restInteriorRate == '')) {
+            informationWindow('Changing error!', "The rates are absent!\nPlease, rate the establishment.");
+        }
+        else if (restReview == '') {
+            informationWindow('Changing error!', "Review field is empty!\nPlease, enter the review before saving changes.", {
+                'restReview': ''
+            });
+        }
+        else{
+            $.ajax({
+                url: "/Admin/AddRestaurant",
+                type: "POST",
+                data: JSON.stringify(
+                    {
+                        'RestarauntData': { "KitchenRate": restKitchenRate, "MaintenanceRate": restServicerate, "InteriorRate": restInteriorRate, "Longitude": coordinates['lat'], "Latitude": coordinates['lng'], "RestarauntType": restType },
+                        'RestaurantLangData': { "Name": restName, "Address": restAddress, "Locality": restLocation, "Region": restRegion, "Country": restCountry, "Review": restReview }
+                    }
+                ),
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                beforeSend: function () {
+                    $(".addRestaurant").prepend("<i class='fa fa-spinner fa-spin' id='spiner'></i> ");
+                    $(".btn, input").prop("disabled", true);
+                },
+                success: function (answer) {
+                    if (answer['result'] == 'success') {
+                        document.cookie = "id" + "=" + answer['id'] + "; "; // TODO coockie выдавать на ~60 секунд
+                        setTimeout($('#photosInput').fileinput('upload'), 2000);
+                        $(".btn, input").prop("disabled", false);   
+                        informationWindow('Adding was successful!', 'Restaraunt was added successfully!');
+                    }
+                    else {
+                        $(".btn, input").prop("disabled", false);
+                        informationWindow('Adding failed!', 'Restaurant adding was failed.');
+                    }
+                },
+                error: function () {
+                    $(".btn, input").prop("disabled", false);
+                    informationWindow('Adding failed!', 'Unknown error!\nMaybe DB is not working now. Please, try again later.');
+                },
+                timeout: 10000
+            })
+        }
+    });
     if ($('#restName').val() == '') {
         informationWindow('Adding error!', 'Restaurant name field is empty! Please, enter a restaurant name before clicking "Add »"!', { 'restName': '' });
     }
     else {
+        updateCountdown();
+        $("textarea").removeClass("incorrect_data");
         $('#formRestName').val($('#restName').val());
         $("#removeRestaurant").hide();
         $("#myModal").modal({ backdrop: "static" });
     }
 });
-
-// Update countdown to show how mush symbols left
-function updateCountdown() {
-    var remaining = 500 - jQuery('#formReview').val().length;
-    jQuery('.help-block').text(remaining + ' characters left.');
-}
 
 // Open map to add restaurant
 function openMap() {
@@ -167,22 +171,6 @@ jQuery(document).ready(function ($) {
     updateCountdown();
     $('#formReview').change(updateCountdown);
     $('#formReview').keyup(updateCountdown);
-    //$.ajax({
-    //    // url: "/Admin/GetRestaraunts",
-    //    url: "/Admin/GetRestarauntInfo",
-    //    data: JSON.stringify({'id' : 12 }),
-    //    type: "POST",       
-    //    contentType: "application/json; charset=utf-8",
-    //    dataType: 'json',        
-    //    success: function (answer) {
-    //        console.log(answer);
-    //    },
-    //    error: function () {
-            
-    //        console.log(':(');
-    //    },
-    //    timeout: 10000
-    //});
 });
 
 var calculate = function () {

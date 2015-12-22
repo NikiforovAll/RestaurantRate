@@ -76,6 +76,8 @@ namespace RestRate.Controllers
                     };
                     RestIDNameFullAddressRates.Add(FullObject);
                 }
+                var test = Json(RestIDNameFullAddressRates);
+                var a = test.Data;
                 return Json(new { result = RestIDNameFullAddressRates });
             }
             catch
@@ -157,6 +159,8 @@ namespace RestRate.Controllers
                         }
                     }
                     return Json(new { result = result });
+
+                    
                 }
                 return Json(new { result = "JSON is null" });
             }

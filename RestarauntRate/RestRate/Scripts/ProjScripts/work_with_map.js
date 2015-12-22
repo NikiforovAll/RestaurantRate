@@ -12,7 +12,7 @@ var markers = [];
 var infoWindowRest;
 //entry point
 $(document).ready(function () {
-
+    
     //$.ajax({
     //    url: "/Home/GetAllRestaurants",
     //    //data: JSON.stringify({ "Longitude": 46.480679, "Latitude": 30.755164 }), 
@@ -104,8 +104,8 @@ function initRestMarker(markerType, coords, ID, text) {
     //if (markerType === 1) {
     //    imgStr += 'r.png';
     //}
-    imgStr += 'r' + '.png';
-    alert(imgStr);
+    imgStr += markerType+ '.png';
+    //alert(imgStr);
     var markerImage = {
         url: imgStr,
         scaledSize: new google.maps.Size(50, 40)

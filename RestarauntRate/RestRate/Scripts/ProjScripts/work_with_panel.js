@@ -1,4 +1,4 @@
-﻿var restaurants = []; //temporary restaurants 
+﻿﻿var restaurants = []; //temporary restaurants 
 var testRest = [
     { Name: "Test0", address: "TestAdress0", stars: 1, ID: "1" },
     { Name: "Test1", address: "TestAdress1", stars: 2, ID: "2" },
@@ -102,7 +102,7 @@ function panelInit() {
     });
 
     //fillChat(0);
-
+   
 
 };
 
@@ -119,12 +119,12 @@ function toggleReview(source) {
     } else {
         var activeEl = getActivePanelElement();
         if (!!activeEl) {
-            //console.log(activeEl);
+            console.log(activeEl);
             //changing content stub
             //if (source.target)
             //    var tmp = $(source.target).closest(".panel-item-w").attr("id");
             //else {
-               var tmp = $(activeEl).closest(".panel-item-w").attr("id");
+                tmp = $(activeEl).closest(".panel-item-w").attr("id");
             //}
             console.log(tmp);
             //console.log(tmp);
@@ -250,11 +250,14 @@ function getAllRestaurants(ismarkerInit) {
                 restaurants.push(currRest);
                 _allRestaurants.push(currRest);
                 addToPanel(currRest);
-                if (ismarkerInit) {
-                    console.log({ lat: parseFloat(el.Latitude), lng: parseFloat(el.Longitude),type:el.RestarauntType });
+                //TODO SOLVE problem with switched lat lng
+                //if (ismarkerInit) {
+                //console.log("Latitude: " + parseFloat(el.Latitude.replace(",", ".")) + " Longtitude: " + parseFloat(el.Longitude.replace(",", ".")));
+                //console.log({ lat: parseFloat(el.Latitude.replace(",", ".")), lng: parseFloat(el.Longitude.replace(",", ".")) });
                     //geocodeAddress(geocoder, tmp.Address, tmp.RestarauntID, tmp.Name);
-                    initRestMarker(el.RestarauntType, { lat: parseFloat(el.Latitude), lng: parseFloat(el.Longitude) }, tmp.RestarauntID, tmp.Name);
-                }
+                initRestMarker(el.RestarauntType, { lng: parseFloat(el.Latitude.replace(",", ".")), lat: parseFloat(el.Longitude.replace(",", ".")) }, tmp.RestarauntID, tmp.Name);
+                    
+                //}
             });
             typeAhead(restaurants);
         },
@@ -320,23 +323,14 @@ function updateReview(restID) {
             var tmp = answer.result;
             console.log(tmp);
             fillReview(restID, tmp.Name, tmp.KitchenRate, tmp.InteriorRate, tmp.MaintenanceRate, tmp.Review, tmp.AddedDate, tmp.Images.map(function (el) { return el.Url }));
-            //var geocoder = new google.maps.Geocoder();
-            //geocoder.geocode({ 'address': tmp.Address }, function (results, status) {
-            //    if (status === google.maps.GeocoderStatus.OK) {
-            //        //console.log(results[0].geometry.location.lat());
-            //        map_recenter(results[0].geometry.location, $(window).width() / 2.8, 0);
-            //        var activeEl = markers.filter(function (el) {
-            //            return (el.get('ID') == restID ? true : false);
-            //        })[0];
-            //        activeRest.marker = activeEl;
-            //        activeEl.setAnimation(google.maps.Animation.BOUNCE);
-            //        //google.maps.event.trigger(activeEl, "click");
-            //    } else {
-            //        console.log('Geocode was not successful for the following reason: ' + status);
-            //    }
-            //});
-            
-            map_recenter({ lat: parseFloat(tmp.Latitude), lng: parseFloat(tmp.Longitude)  }, $(window).width() / 2.8, 0);
+            //console.log({ lat: parseFloat(tmp.Latitude.replace(",", ".")), lng: parseFloat(tmp.Longitude.replace(",", ".")) });
+            //console.log({ lat: 46.480679, lng: 30.755164 });
+            //console.log("----");
+            //{ lng: parseFloat(tmp.Latitude.replace(",", ".")), lat: parseFloat(tmp.Longitude.replace(",", ".")) }
+            var latlangMarkerPos = { lng: parseFloat(tmp.Latitude.replace(",", ".")), lat: parseFloat(tmp.Longitude.replace(",", ".")) };
+            map.setCenter(latlangMarkerPos);
+            //map.setCenterWithOffset(latlangMarkerPos, 0,0);
+            map_recenter(latlangMarkerPos, $(window).width() / 2.8, 0);
             var activeEl = markers.filter(function (el) {
                 return (el.get('ID') == restID ? true : false);
             })[0];
@@ -354,8 +348,8 @@ function updateReview(restID) {
 
 function map_recenter(latlng, offsetx, offsety) {
     var point1 = map.getProjection().fromLatLngToPoint(
-        (latlng instanceof google.maps.LatLng) ? latlng : map.getCenter()
-    );
+         (latlng instanceof google.maps.LatLng) ? latlng : map.getCenter()
+     );
     var point2 = new google.maps.Point(
         ((typeof (offsetx) == 'number' ? offsetx : 0) / Math.pow(2, map.getZoom())) || 0,
         ((typeof (offsety) == 'number' ? offsety : 0) / Math.pow(2, map.getZoom())) || 0
@@ -364,7 +358,11 @@ function map_recenter(latlng, offsetx, offsety) {
         point1.x - point2.x,
         point1.y + point2.y
     )));
-}
+    //map.setCenter(map.getProjection().fromPointToLatLng(new google.maps.Point(
+    //    point1.x - point2.x,
+    //    point1.y + point2.y
+    //)));
+    }
 function fillReview(ID, name, foodRate, styleRate, serviceRate, reviewContext, currDate, Images) {
     starChangeValue(foodRate + 0.5, "input-id1");
     starChangeValue(styleRate + 0.5, "input-id2");
@@ -442,8 +440,8 @@ function fillShareButton(ID, desc, name, Image) {
 function fillChat(pageID) {
     $("#vk_comments").empty();
     VK.init({ apiId: 5196098, onlyWidgets: true });
-    var tmp = ($("#reviewComments").width())*4;
-    console.log(tmp);
+    var tmp = 538;// ($("#reviewComments").width())*4;
+    //console.log(tmp);
     VK.Widgets.Comments("vk_comments", { limit: 5, width:tmp , attach: "*" }, pageID);
 }
 
