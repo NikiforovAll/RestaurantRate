@@ -12,7 +12,7 @@ var markers = [];
 var infoWindowRest;
 //entry point
 $(document).ready(function () {
-
+    
     //$.ajax({
     //    url: "/Home/GetAllRestaurants",
     //    //data: JSON.stringify({ "Longitude": 46.480679, "Latitude": 30.755164 }), 
