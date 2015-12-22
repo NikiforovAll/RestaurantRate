@@ -71,6 +71,7 @@ namespace RestRate.Controllers
                         MaintenanceRate = RestarauntList[i].MaintenanceRate,
                         Longitude = RestarauntList[i].Longitude,
                         Latitude = RestarauntList[i].Latitude,
+                        RestarauntType = RestarauntList[i].RestarauntType,
                         RestaurantIDNameFullAddress = PartOfObject                       
                     };
                     RestIDNameFullAddressRates.Add(FullObject);
