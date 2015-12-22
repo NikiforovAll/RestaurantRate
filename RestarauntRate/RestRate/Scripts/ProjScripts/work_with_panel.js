@@ -250,12 +250,13 @@ function getAllRestaurants(ismarkerInit) {
                 restaurants.push(currRest);
                 _allRestaurants.push(currRest);
                 addToPanel(currRest);
-                if (ismarkerInit) {
+                //if (ismarkerInit) {
+                console.log("AZAZA");
+                    console.log("Latitude: " + el.Latitude + " Longtitude: " + el.Longtitude);
                     //geocodeAddress(geocoder, tmp.Address, tmp.RestarauntID, tmp.Name);
-                     initRestMarker('2.png', { lat: parseFloat(el.Latitude), lng: parseFloat(el.Longitude) }, tmp.RestarauntID, tmp.Name);
-                 
-
-                }
+                    initRestMarker('2.png', { lat: parseFloat(el.Latitude.replace(',', '.')), lng: parseFloat(el.Longitude.replace(',', '.')) }, tmp.RestarauntID, tmp.Name);
+                    
+                //}
             });
             typeAhead(restaurants);
         },

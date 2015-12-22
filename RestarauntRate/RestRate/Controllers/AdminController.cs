@@ -104,12 +104,12 @@ namespace RestRate.Controllers
         {
             if (!RestarauntID.Equals(null))
             {
-                //try
+                try
                 {
                     restRepository.DeleteRestaraunt(RestarauntID);
                     return Json(new { result = "success" });
                 }
-               // catch
+                catch
                 {
                     return Json(new { result = "error", message = "Ooooooops! Some troubles was happened with DB." });
                 }
