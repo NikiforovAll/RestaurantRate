@@ -66,6 +66,9 @@ $("#add").click(function () {
         var restAddress = $('#formRestAddr').val();
         var restLocation = $('#formRestLocation').val();
         var coordinates = geocodeAddress(restAddress + ', ' + restLocation);
+        if (!coordinates) {
+            coordinates = { lat: 46.4883915, lng: 30.721056599999997 };
+		}
         console.log(coordinates); // { lat: 46.4883915, lng: 30.721056599999997 }
         var restType = 0    // TODO
         var restRegion = $('#formRestRegion').val();
@@ -99,7 +102,7 @@ $("#add").click(function () {
                 type: "POST",
                 data: JSON.stringify(
                     {
-                        'RestarauntData': { "KitchenRate": restKitchenRate, "MaintenanceRate": restServicerate, "InteriorRate": restInteriorRate, "Longtitude": coordinates[lat], "Latitude": coordinates[lng], "RestarauntType": restType},
+                        'RestarauntData': { "KitchenRate": restKitchenRate, "MaintenanceRate": restServicerate, "InteriorRate": restInteriorRate, "Longtitude": coordinates['lat'], "Latitude": coordinates['lng'], "RestarauntType": restType},
                         'RestaurantLangData': { "Name": restName, "Address": restAddress, "Locality": restLocation, "Region": restRegion, "Country": restCountry, "Review": restReview }
                     }
                 ),
