@@ -429,7 +429,8 @@ function fillShareButton(ID, desc, name, Image) {
 function fillChat(pageID) {
     $("#vk_comments").empty();
     VK.init({ apiId: 5196098, onlyWidgets: true });
-    VK.Widgets.Comments("vk_comments", { limit: 5, width: "665", attach: "*" }, pageID);
+    var tmp = ($("#reviewComments").width()) * 4;
+    VK.Widgets.Comments("vk_comments", { limit: 5, width: tmp, attach: "*" }, pageID);
 }
 
 function typeAhead(source) {
