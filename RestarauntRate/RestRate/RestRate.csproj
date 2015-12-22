@@ -64,7 +64,7 @@
       <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Device" />
+    <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -147,6 +147,7 @@
     <Content Include="Content\Images\Customer\starIcon.png" />
     <Content Include="Content\Images\Customer\pin56.png" />
     <Content Include="Content\jquery.typeahead.css" />
+    <Content Include="Content\jquery.typeahead.min.css" />
     <Content Include="Content\Login\assets\3dcube\Overlay.css" />
     <Content Include="Content\Login\assets\3dcube\Overlay.js" />
     <Content Include="Content\Login\assets\3dcube\Overlay.min.css" />
@@ -182,6 +183,7 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.mCustomScrollbar.concat.min.js" />
     <Content Include="Scripts\jquery.typeahead.js" />
+    <Content Include="Scripts\jquery.typeahead.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />

@@ -384,7 +384,7 @@ function fillReview(ID, name, foodRate, styleRate, serviceRate, reviewContext, c
         //strDate = currDate;
     //}
     console.log(strDate);
-    $("#reviewDate").html(strDate);
+    $("#reviewDate").text(strDate);
     fillShareButton(ID, reviewContext, name, Images[0]);
     fillGalleryFromQuery(ID);
     fillChat(ID);
