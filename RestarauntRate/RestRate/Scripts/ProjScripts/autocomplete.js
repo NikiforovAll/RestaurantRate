@@ -68,15 +68,14 @@
                 data: JSON.stringify({ 'restarauntID': parseInt(obj['RestarauntID']) }),
                 contentType: "application/json; charset=utf-8",
                 dataType: 'json',
-                //beforeSend: function () {
-                //
-                //},
                 success: function (answer) {
+                    $("input").removeClass("incorrect_data");
+                    $("textarea").removeClass("incorrect_data");
                     if (answer['result']['Images'].length > 0) {
                         counter = answer['result']['Images'].length;
                         for (i = 0; i < counter; i++) {
                             preview += "<img style='height:160px' src='" + answer['result']['Images'][i]['Url'] + "'>,\n"
-                            previewConfig.push({ caption: answer['result']['Images'][i]['Name'], url: "/Admin/ImageDelete", key: i });
+                            previewConfig[i] = { caption: answer['result']['Images'][i]['Name'], url: "/Admin/imageDelete", key: i }
                         };
                         $("#photosInput").fileinput('refresh', {
                             initialPreview: [preview],
@@ -89,6 +88,9 @@
                         });
                     }
                     $('#gridSystemModalLabel').val("Editting restaurant");
+                    $('#RestID').val(obj['RestarauntID']);
+                    $('#Longtitude').val(answer['result']['Longitude']);
+                    $('#Latitude').val(answer['result']['Latitude']);
                     $('#formRestName').val(answer['result']['Name']);
                     $('#formRestAddr').val(answer['result']['Address']);
                     $('#formRestLocation').val(answer['result']['Locality']);
@@ -98,16 +100,64 @@
                     $('#formServiceRate').rating('update', answer['result']['MaintenanceRate']);
                     $('#formInteriorRate').rating('update', answer['result']['InteriorRate']);
                     $('#formReview').val(answer['result']['Review']);
-                    //TODO: NOT ADD BUTTON WHEN IT EXIST!
-                    if ($('#addEditRestaurant').length != 0) {
+                    updateCountdown();
+                    if (!$('button').hasClass('btn-danger')) {
                         $('<button type="button" class="btn btn-danger" id="removeRestaurant">Delete</button>').appendTo('#addEditRestaurant');
                     }
+                    $(".addRestaurant").unbind();
+                    $('.addRestaurant').removeClass('addRestaurant').addClass("editRestaurant");
                     $("#myModal").modal({ backdrop: "static" });
+
+                    $(".editRestaurant").bind("click", function () {
+                        var restId = $('#RestID').val();
+                        var restName = $('#formRestName').val();
+                        var restAddress = $('#formRestAddr').val();
+                        var restLocation = $('#formRestLocation').val();
+                        var restRegion = $('#formRestRegion').val();
+                        var restCountry = $('#formRestCountry').val();
+                        var restKitchenRate = $('#formKitchenRate').val();
+                        var restServicerate = $('#formServiceRate').val();
+                        var restInteriorRate = $('#formInteriorRate').val();
+                        var restReview = $('#formReview').val();
+                        $.ajax({
+                            url: "/Admin/EditRestaurant",
+                            type: "POST",
+                            data: JSON.stringify(
+                                {
+                                    'RestarauntData': { "KitchenRate": restKitchenRate, "MaintenanceRate": restServicerate, "InteriorRate": restInteriorRate, 'RestaurantID': parseInt(restId) },
+                                    'RestaurantLangData': { "Name": restName, "Address": restAddress, "Locality": restLocation, "Region": restRegion, "Country": restCountry, "Review": restReview }
+                                }
+                            ),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: 'json',
+                            beforeSend: function () {
+                                $(".addRestaurant").prepend("<i class='fa fa-spinner fa-spin' id='spiner'></i> ");
+                                $(".btn, input").prop("disabled", true);
+                            },
+                            success: function (answer) {
+                                if (answer['result'] == 'success') {
+                                    document.cookie = "id" + "=" + answer['id'] + "; "; // TODO coockie выдавать на ~60 секунд
+                                    setTimeout($('#photosInput').fileinput('upload'), 2000);
+                                    $(".btn, input").prop("disabled", false);
+                                    informationWindow('Edditing was successful!', 'Restaraunt was eddited successfully!');
+                                }
+                                else {
+                                    $(".btn, input").prop("disabled", false);
+                                    informationWindow('Edditing failed!', 'Restaurant edditing was failed.');
+                                }
+                            },
+                            error: function () {
+                                $(".btn, input").prop("disabled", false);
+                                informationWindow('Edditing failed!', 'Unknown error!\nMaybe DB is not working now. Please, try again later.');
+                            },
+                            timeout: 10000
+                        });
+                    });
                 },
-                //error: function () {
-                //    $(".btn, input").prop("disabled", false);
-                //    informationWindow('Adding failed!', 'Unknown error!\nMaybe DB is not working now. Please, try again later.');
-                //},
+                error: function () {
+                    $(".btn, input").prop("disabled", false);
+                    informationWindow('Edditing failed!', 'Unknown error!\nMaybe DB is not working now. Please, try again later.');
+                },
                 timeout: 7000
             });
         }
@@ -143,5 +193,38 @@ $(document).ready(function () {
             $("#editRestName").focus();
             $(this).addClass('hideAll');
         }
+    });
+
+    $(document).on('click', "#removeRestaurant", function(){
+        $.ajax({
+            url: "/Admin/DeleteRestaurant",
+            type: "POST",
+            data: JSON.stringify(
+                {
+                    'RestarauntID': parseInt($('#RestID').val())
+                }
+            ),
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            beforeSend: function () {
+                $(".addRestaurant").prepend("<i class='fa fa-spinner fa-spin' id='spiner'></i> ");
+                $(".btn, input").prop("disabled", true);
+            },
+            success: function (answer) {
+                $(".btn, input").prop("disabled", false);
+                if (answer['result'] == 'success') {
+                    $('#myModal').modal('hide');
+                }
+                else {
+                    $('body').addClass('modal-open');
+                    informationWindow('Edditing failed!', 'Restaurant edditing was failed.');
+                }
+            },
+            error: function () {
+                $(".btn, input").prop("disabled", false);
+                informationWindow('Adding failed!', 'Unknown error!\nMaybe DB is not working now. Please, try again later.');
+            },
+            timeout: 5000
+        });
     });
 });
