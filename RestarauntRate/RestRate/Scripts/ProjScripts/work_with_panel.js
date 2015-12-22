@@ -119,12 +119,12 @@ function toggleReview(source) {
     } else {
         var activeEl = getActivePanelElement();
         if (!!activeEl) {
-            console.log(activeEl);
+            //console.log(activeEl);
             //changing content stub
             //if (source.target)
             //    var tmp = $(source.target).closest(".panel-item-w").attr("id");
             //else {
-                tmp = $(activeEl).closest(".panel-item-w").attr("id");
+               var tmp = $(activeEl).closest(".panel-item-w").attr("id");
             //}
             console.log(tmp);
             //console.log(tmp);
@@ -251,9 +251,9 @@ function getAllRestaurants(ismarkerInit) {
                 _allRestaurants.push(currRest);
                 addToPanel(currRest);
                 if (ismarkerInit) {
+                    console.log({ lat: parseFloat(el.Latitude), lng: parseFloat(el.Longitude),type:el.RestarauntType });
                     //geocodeAddress(geocoder, tmp.Address, tmp.RestarauntID, tmp.Name);
                     initRestMarker(el.RestarauntType, { lat: parseFloat(el.Latitude), lng: parseFloat(el.Longitude) }, tmp.RestarauntID, tmp.Name);
-
                 }
             });
             typeAhead(restaurants);
@@ -296,6 +296,7 @@ function getAllRestaurantsInRadius(lat, long) {
                     ID: tmp.RestarauntID
                 };
                 restaurants.push(currRest);
+                addToPanel(currRest);
             });
         },
         error: function () {
@@ -441,7 +442,9 @@ function fillShareButton(ID, desc, name, Image) {
 function fillChat(pageID) {
     $("#vk_comments").empty();
     VK.init({ apiId: 5196098, onlyWidgets: true });
-    VK.Widgets.Comments("vk_comments", { limit: 5, width: $("#reviewComments").width()-10, attach: "*" }, pageID);
+    var tmp = ($("#reviewComments").width())*4;
+    console.log(tmp);
+    VK.Widgets.Comments("vk_comments", { limit: 5, width:tmp , attach: "*" }, pageID);
 }
 
 function typeAhead(source) {
