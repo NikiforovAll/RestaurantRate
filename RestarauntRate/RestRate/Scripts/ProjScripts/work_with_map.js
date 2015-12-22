@@ -104,7 +104,8 @@ function initRestMarker(markerType, coords, ID, text) {
     //if (markerType === 1) {
     //    imgStr += 'r.png';
     //}
-    imgStr +=markerType+'.png' 
+    imgStr += markerType; //+'.png'
+    console.log(imgStr)
     var markerImage = {
         url: imgStr,
         scaledSize: new google.maps.Size(50, 40)
