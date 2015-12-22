@@ -227,7 +227,7 @@ function getAllRestaurants(ismarkerInit) {
         contentType: "application/json; charset=utf-8",
         dataType: 'json',
         success: function (answer) {
-            //console.log(answer.result); // для того чтобы увидеть JSON, который ты получил
+            console.log(answer.result); // для того чтобы увидеть JSON, который ты получил
             var geocoder = new google.maps.Geocoder();
             var tmpRest = answer.result;
             tmpRest = tmpRest.sort(function (el1, el2) {
@@ -251,7 +251,8 @@ function getAllRestaurants(ismarkerInit) {
                 _allRestaurants.push(currRest);
                 addToPanel(currRest);
                 if (ismarkerInit) {
-                    geocodeAddress(geocoder, tmp.Address, tmp.RestarauntID, tmp.Name);
+                    //geocodeAddress(geocoder, tmp.Address, tmp.RestarauntID, tmp.Name);
+                    initRestMarker(el.RestarauntType, { lat: parseFloat(el.Latitude), lng: parseFloat(el.Longitude) }, tmp.RestarauntID, tmp.Name);
 
                 }
             });
@@ -317,22 +318,29 @@ function updateReview(restID) {
             //console.log(answer); // для того чтобы увидеть JSON, который ты получил
             var tmp = answer.result;
             console.log(tmp);
-            fillReview(restID, tmp.Name, tmp.KitchenRate, tmp.InteriorRate, tmp.MaintenanceRate, tmp.Review, "", tmp.Images.map(function (el) { return el.Url }));
-            var geocoder = new google.maps.Geocoder();
-            geocoder.geocode({ 'address': tmp.Address }, function (results, status) {
-                if (status === google.maps.GeocoderStatus.OK) {
-                    //console.log(results[0].geometry.location.lat());
-                    map_recenter(results[0].geometry.location, $(window).width() / 2.8, 0);
-                    var activeEl = markers.filter(function (el) {
-                        return (el.get('ID') == restID ? true : false);
-                    })[0];
-                    activeRest.marker = activeEl;
-                    activeEl.setAnimation(google.maps.Animation.BOUNCE);
-                    //google.maps.event.trigger(activeEl, "click");
-                } else {
-                    console.log('Geocode was not successful for the following reason: ' + status);
-                }
-            });
+            fillReview(restID, tmp.Name, tmp.KitchenRate, tmp.InteriorRate, tmp.MaintenanceRate, tmp.Review, tmp.AddedDate, tmp.Images.map(function (el) { return el.Url }));
+            //var geocoder = new google.maps.Geocoder();
+            //geocoder.geocode({ 'address': tmp.Address }, function (results, status) {
+            //    if (status === google.maps.GeocoderStatus.OK) {
+            //        //console.log(results[0].geometry.location.lat());
+            //        map_recenter(results[0].geometry.location, $(window).width() / 2.8, 0);
+            //        var activeEl = markers.filter(function (el) {
+            //            return (el.get('ID') == restID ? true : false);
+            //        })[0];
+            //        activeRest.marker = activeEl;
+            //        activeEl.setAnimation(google.maps.Animation.BOUNCE);
+            //        //google.maps.event.trigger(activeEl, "click");
+            //    } else {
+            //        console.log('Geocode was not successful for the following reason: ' + status);
+            //    }
+            //});
+            
+            map_recenter({ lat: parseFloat(tmp.Latitude), lng: parseFloat(tmp.Longitude)  }, $(window).width() / 2.8, 0);
+            var activeEl = markers.filter(function (el) {
+                return (el.get('ID') == restID ? true : false);
+            })[0];
+            activeRest.marker = activeEl;
+            activeEl.setAnimation(google.maps.Animation.BOUNCE);
         },
         error: function () {
 
@@ -368,11 +376,15 @@ function fillReview(ID, name, foodRate, styleRate, serviceRate, reviewContext, c
         //body.html("");
     }
     var strDate = "";
-    if (currDate === "") {
-        var strDate = new Date().toJSON().slice(0, 10);
-    }
-
-    var date = $("#reviewDate").html("Visited on " + strDate);
+    //if (currDate === "") {
+    //    var strDate = new Date().toJSON().slice(0, 10);
+    //} else {
+        var jDateStr = new Date(parseInt(currDate.substr(6)));
+        strDate = jDateStr.getDate().toString() + "/" + jDateStr.getMonth().toString() + "/" + jDateStr.getFullYear().toString();
+        //strDate = currDate;
+    //}
+    console.log(strDate);
+    $("#reviewDate").html(strDate);
     fillShareButton(ID, reviewContext, name, Images[0]);
     fillGalleryFromQuery(ID);
     fillChat(ID);
@@ -429,7 +441,7 @@ function fillShareButton(ID, desc, name, Image) {
 function fillChat(pageID) {
     $("#vk_comments").empty();
     VK.init({ apiId: 5196098, onlyWidgets: true });
-    VK.Widgets.Comments("vk_comments", { limit: 5, width: "665", attach: "*" }, pageID);
+    VK.Widgets.Comments("vk_comments", { limit: 5, width: $("#reviewComments").width()-10, attach: "*" }, pageID);
 }
 
 function typeAhead(source) {
@@ -493,7 +505,7 @@ function typeAhead(source) {
                 addToPanel(obj);
                 $(str).click();
                 updateReview(id);
-              
+                $(str).scrollTo();
                 toggleReview();
 
             }
