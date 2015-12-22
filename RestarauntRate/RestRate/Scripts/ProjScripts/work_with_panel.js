@@ -252,7 +252,7 @@ function getAllRestaurants(ismarkerInit) {
                 addToPanel(currRest);
                 if (ismarkerInit) {
                     //geocodeAddress(geocoder, tmp.Address, tmp.RestarauntID, tmp.Name);
-                     initRestMarker('2', { lat: parseFloat(el.Latitude), lng: parseFloat(el.Longitude) }, tmp.RestarauntID, tmp.Name);
+                     initRestMarker('2.png', { lat: parseFloat(el.Latitude), lng: parseFloat(el.Longitude) }, tmp.RestarauntID, tmp.Name);
                  
 
                 }
