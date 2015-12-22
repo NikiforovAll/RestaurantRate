@@ -15,17 +15,17 @@ namespace DB_work
         static void Main(string[] args)
         {
             using (var db = new EFDbContext())
-            {
-                //   var user = new User() { UserName = "proverka", Password = "proverka", Email = "ruslan.avsenin@gmail.com", Role = User.UserRole.Inactive, RegisterDate = DateTime.Now };
-                // var user1 = new User() { UserName = "admin", Password = "secret", Email = "test@gmail.com", Role = User.UserRole.Admin, RegisterDate = DateTime.Now };
-                //var user2 = new User() { UserName = "Elena_Tinkovan", Password = "1111", Email = "tioraelena@gmail.com", Role = User.UserRole.Moderator, RegisterDate = DateTime.Now };
+            //{
+            //     var user = new User() { UserName = "proverka", Password = "proverka", Email = "ruslan.avsenin@gmail.com", Role = User.UserRole.Inactive, RegisterDate = DateTime.Now };
+            //     var user1 = new User() { UserName = "admin", Password = "secret", Email = "test@gmail.com", Role = User.UserRole.Admin, RegisterDate = DateTime.Now };
+            //     var user2 = new User() { UserName = "Elena_Tinkovan", Password = "1111", Email = "tioraelena@gmail.com", Role = User.UserRole.Moderator, RegisterDate = DateTime.Now };
 
 
-                //db.Users.Add(user);
-                //db.Users.Add(user1);
-                //db.Users.Add(user2);
+            //    db.Users.Add(user);
+            //    db.Users.Add(user1);
+            //    db.Users.Add(user2);
                 //var rest = new Restaraunt() { MaintenanceRate = 1, InteriorRate = 3, KitchenRate = 4, AddedDate = DateTime.Now, RestarauntType = Restaraunt.RestType.Cafe, Latitude = "1", Longitude = "2" };
-                // db.Restaraunts.Add(rest);
+                 //db.Restaraunts.Add(rest);
                 //var image = new Image() { ImageMimeType = "123", ImageData = null };
                 //var restLangs = new RestarauntLang() { Country = "rusTest0", Address = "rusTest0", Locality = "rusTest0", Name = "rusTest0", Region = "rusTest0", Review = "rusTest0" };
                 //Language Test = db.Languages.Where(t => t.LanguageID == 1).First();
@@ -42,13 +42,24 @@ namespace DB_work
                 // rest.RestLangs.Add(restLangs1);
                 // language.RestLangs.Add(restLangs);
                 //language1.RestLangs.Add(restLangs1);
-                //db.Restaraunts.Add(rest);
-                // db.Languages.Add(language);
+               // db.Restaraunts.Add(rest);
+                //db.Languages.Add(language);
                 //db.Languages.Add(language1);  
 
 
                 try
                 {
+                    //var rl1 = db.RestarauntLangs.Where(rest => rest.Name == "Dolce la torre").First();
+                    //var r1 = db.Restaraunts.Where(rest => rest.RestarauntID == rl1.RestarauntID).First();
+                    //var img = 
+                    //foreach(var rest in db.Restaraunts)
+                    //{
+                    //    if ((rest.RestarauntID != 27) && (rest.RestarauntID != 33) && (rest.RestarauntID != 34)) 
+                    //    {
+                    //        db.Restaraunts.Remove(rest);
+                    //    }
+                    //}
+
                     //     EFUserRepository test = new EFUserRepository();
                     //  var lol = db.Restaraunts.Where(rest => rest.RestarauntID == 2).First();
                     // var lol2 = db.Restaraunts.Where(rest => rest.RestarauntID == 1).First();
