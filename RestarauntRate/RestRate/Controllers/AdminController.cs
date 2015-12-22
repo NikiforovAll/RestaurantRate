@@ -13,6 +13,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using RestRate.Infrastructure.Abstract;
 using System.Data.Entity.Validation;
+using System.ServiceModel.Web;
 
 namespace RestRate.Controllers
 {
@@ -26,7 +27,7 @@ namespace RestRate.Controllers
         private IUserRepository userRepository;
         private ILanguageRepository langRepository;
         private IWorkWithDBProvider workWithDBProvider;
-        
+
         public AdminController(IRestarauntRepository restRepository, IRestarauntLangRepository restLangRepository,
                                 ICommentRepository commentRepository, IImageRepository imageRepository, IUserRepository userRepository,
                                 ILanguageRepository langRepository, IWorkWithDBProvider workWithDBProvider)
@@ -92,7 +93,7 @@ namespace RestRate.Controllers
                     RestarauntLang EditRestLang = data.RestaurantLangData;
                     restRepository.SaveRestaraunt(EditRestaraunt);
                     restLangRepository.SaveRestarauntLang(EditRestLang);
-                    return Json(new { result = "success" } );
+                    return Json(new { result = "success" });
                 }
                 catch
                 {
@@ -119,7 +120,7 @@ namespace RestRate.Controllers
         }
         // Change path which write in db to relative
         [HttpPost]
-        public ActionResult Index(IEnumerable<HttpPostedFileBase> files) 
+        public ActionResult Index(IEnumerable<HttpPostedFileBase> files)
         {
             var id = Convert.ToInt32(Request.Cookies["id"].Value);
             Restaraunt Restaraunt = restRepository.GetRestarauntByID(id);
@@ -129,7 +130,7 @@ namespace RestRate.Controllers
             string Folder = Server.MapPath("~/Content/Images/RestaurantImages/");
             string pathString = System.IO.Path.Combine(Folder, FolderName);
             System.IO.Directory.CreateDirectory(pathString);
-            string ForSaving = Server.MapPath("~/Content/Images/RestaurantImages/" + FolderName + "/");           
+            string ForSaving = Server.MapPath("~/Content/Images/RestaurantImages/" + FolderName + "/");
             //
             int counter = 0;
             foreach (var file in files)
@@ -188,7 +189,7 @@ namespace RestRate.Controllers
             }
         }
         [HttpPost]
-        public ActionResult GetRestarauntInfo(int restarauntID) 
+        public ActionResult GetRestarauntInfo(int restarauntID)
         {
             try
             {
@@ -226,6 +227,12 @@ namespace RestRate.Controllers
                 }
             }
             return Json(new { result = "JSON IS NULL" });
+        }
+        [WebInvoke(Method = "DELETE", UriTemplate = "{key}")]
+        [HttpDelete]
+        public ActionResult ImageDelete(string key)
+        {
+            return Json(new { result = "success" });
         }
         private bool IsPasswordValid(string username, string password)
         {

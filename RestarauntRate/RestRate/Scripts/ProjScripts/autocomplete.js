@@ -76,7 +76,7 @@
                         counter = answer['result']['Images'].length;
                         for (i = 0; i < counter; i++) {
                             preview += "<img style='height:160px' src='" + answer['result']['Images'][i]['Url'] + "'>,\n"
-                            previewConfig[i] = { caption: answer['result']['Images'][i]['Name'], url: "/Admin/imageDelete", key: i }
+                            previewConfig.push({ caption: answer['result']['Images'][i]['Name'], url: "/Admin/ImageDelete", key: i });
                         };
                         $("#photosInput").fileinput('refresh', {
                             initialPreview: [preview],

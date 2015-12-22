@@ -109,3 +109,15 @@ C:\PROject\rest-rate\RestarauntRate\Domain\bin\Debug\System.Web.Mvc.xml
 C:\PROject\rest-rate\RestarauntRate\Domain\obj\Debug\Domain.csprojResolveAssemblyReference.cache
 C:\PROject\rest-rate\RestarauntRate\Domain\obj\Debug\Domain.dll
 C:\PROject\rest-rate\RestarauntRate\Domain\obj\Debug\Domain.pdb
+C:\Users\chikhray\Documents\PROjects\21.12.2015\rest-rate\RestarauntRate\Domain\bin\Debug\Domain.dll.config
+C:\Users\chikhray\Documents\PROjects\21.12.2015\rest-rate\RestarauntRate\Domain\bin\Debug\Domain.dll
+C:\Users\chikhray\Documents\PROjects\21.12.2015\rest-rate\RestarauntRate\Domain\bin\Debug\Domain.pdb
+C:\Users\chikhray\Documents\PROjects\21.12.2015\rest-rate\RestarauntRate\Domain\bin\Debug\EntityFramework.dll
+C:\Users\chikhray\Documents\PROjects\21.12.2015\rest-rate\RestarauntRate\Domain\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\chikhray\Documents\PROjects\21.12.2015\rest-rate\RestarauntRate\Domain\bin\Debug\System.Web.Mvc.dll
+C:\Users\chikhray\Documents\PROjects\21.12.2015\rest-rate\RestarauntRate\Domain\bin\Debug\EntityFramework.xml
+C:\Users\chikhray\Documents\PROjects\21.12.2015\rest-rate\RestarauntRate\Domain\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\chikhray\Documents\PROjects\21.12.2015\rest-rate\RestarauntRate\Domain\bin\Debug\System.Web.Mvc.xml
+C:\Users\chikhray\Documents\PROjects\21.12.2015\rest-rate\RestarauntRate\Domain\obj\Debug\Domain.csprojResolveAssemblyReference.cache
+C:\Users\chikhray\Documents\PROjects\21.12.2015\rest-rate\RestarauntRate\Domain\obj\Debug\Domain.dll
+C:\Users\chikhray\Documents\PROjects\21.12.2015\rest-rate\RestarauntRate\Domain\obj\Debug\Domain.pdb

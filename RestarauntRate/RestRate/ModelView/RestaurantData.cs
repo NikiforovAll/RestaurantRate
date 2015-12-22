@@ -31,6 +31,7 @@ namespace RestRate.ModelView
         public float MaintenanceRate { get; set; }
         public string Longitude { get; set; }
         public string Latitude { get; set; }
+        public Restaraunt.RestType RestarauntType { get; set; }
     }
     public class RestarauntAllData
     {

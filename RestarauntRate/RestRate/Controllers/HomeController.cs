@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Device.Location;
 using RestRate.Infrastructure.Abstract;
 using RestRate.ModelView;
 using Domain.Abstract;
@@ -72,6 +71,7 @@ namespace RestRate.Controllers
                         MaintenanceRate = RestarauntList[i].MaintenanceRate,
                         Longitude = RestarauntList[i].Longitude,
                         Latitude = RestarauntList[i].Latitude,
+                        RestarauntType = RestarauntList[i].RestarauntType,
                         RestaurantIDNameFullAddress = PartOfObject                       
                     };
                     RestIDNameFullAddressRates.Add(FullObject);
