@@ -296,6 +296,7 @@ function getAllRestaurantsInRadius(lat, long) {
                     ID: tmp.RestarauntID
                 };
                 restaurants.push(currRest);
+                addToPanel(currRest);
             });
         },
         error: function () {
