@@ -108,7 +108,8 @@ function initRestMarker(markerType, coords, ID, text) {
     console.log(imgStr)
     var markerImage = {
         url: imgStr,
-        scaledSize: new google.maps.Size(50, 40)
+        scaledSize: new google.maps.Size(50, 40),
+        
     };
     var marker = new google.maps.Marker({
         position: coords,
