@@ -47,14 +47,14 @@ namespace RestRate.Controllers
         }
         public RedirectToRouteResult Logout()
         {
-            var cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
-            var ticketInfo = FormsAuthentication.Decrypt(cookie.Value);
-            FormsAuthentication.SignOut();
-            string[] cookies = Request.Cookies.AllKeys;
-            foreach (string c in cookies)
-            {
-                Response.Cookies.Remove(c);
-            }
+            HttpCookie cookie = new HttpCookie("username", "");
+            cookie.Expires = DateTime.Now.AddYears(-1);
+            Response.Cookies.Add(cookie);
+
+            HttpCookie cookie1 = new HttpCookie(FormsAuthentication.FormsCookieName, "");
+            cookie1.Expires = DateTime.Now.AddYears(-1);
+            Response.Cookies.Add(cookie1);
+
             return RedirectToAction("Login", "Account");
         }
         [HttpPost]

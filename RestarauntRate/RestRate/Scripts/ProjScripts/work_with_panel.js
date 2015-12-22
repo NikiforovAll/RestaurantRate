@@ -296,6 +296,7 @@ function getAllRestaurantsInRadius(lat, long) {
                     ID: tmp.RestarauntID
                 };
                 restaurants.push(currRest);
+                addToPanel(currRest);
             });
         },
         error: function () {
@@ -441,7 +442,9 @@ function fillShareButton(ID, desc, name, Image) {
 function fillChat(pageID) {
     $("#vk_comments").empty();
     VK.init({ apiId: 5196098, onlyWidgets: true });
-    VK.Widgets.Comments("vk_comments", { limit: 5, width: $("#reviewComments").width()-10, attach: "*" }, pageID);
+    var tmp = ($("#reviewComments").width())*4;
+    console.log(tmp);
+    VK.Widgets.Comments("vk_comments", { limit: 5, width:tmp , attach: "*" }, pageID);
 }
 
 function typeAhead(source) {

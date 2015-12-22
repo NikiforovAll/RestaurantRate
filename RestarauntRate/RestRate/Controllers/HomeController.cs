@@ -157,6 +157,8 @@ namespace RestRate.Controllers
                         }
                     }
                     return Json(new { result = result });
+
+                    
                 }
                 return Json(new { result = "JSON is null" });
             }
