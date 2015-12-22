@@ -67,8 +67,6 @@ namespace RestRate.Controllers
                     Restaraunt NewRestaraunt = data.RestarauntData;
                     RestarauntLang NewRestLang = data.RestaurantLangData;
                     NewRestaraunt.AddedDate = DateTime.Now;
-                    NewRestaraunt.Latitude = "2";
-                    NewRestaraunt.Longitude = "3";
                     NewRestaraunt.RestarauntType = Restaraunt.RestType.Bar;
                     restRepository.SaveRestaraunt(NewRestaraunt);
                     NewRestLang.LanguageID = 1;
@@ -106,12 +104,12 @@ namespace RestRate.Controllers
         {
             if (!RestarauntID.Equals(null))
             {
-                try
+                //try
                 {
                     restRepository.DeleteRestaraunt(RestarauntID);
                     return Json(new { result = "success" });
                 }
-                catch
+               // catch
                 {
                     return Json(new { result = "error", message = "Ooooooops! Some troubles was happened with DB." });
                 }

@@ -36,6 +36,30 @@ function informationWindow(title, message, fields) {
                         $('input[name="restName"]').addClass("incorrect_data")
                         $('input[name="restName"]').focus();
                     }
+                    if (fields['restNames'] == '') {
+                        $('#formRestName').addClass("incorrect_data")
+                        $('#formRestName').focus();
+                    }
+                    if (fields['restAddress'] == '') {
+                        $('#formRestAddr').addClass("incorrect_data")
+                        $('#formRestAddr').focus();
+                    }
+                    if (fields['restLocation'] == '') {
+                        $('#formRestLocation').addClass("incorrect_data")
+                        $('#formRestLocation').focus();
+                    }
+                    if (fields['restRegion'] == '') {
+                        $('#formRestRegion').addClass("incorrect_data")
+                        $('#formRestRegion').focus();
+                    }
+                    if (fields['restCountry'] == '') {
+                        $('#formRestCountry').addClass("incorrect_data")
+                        $('#formRestCountry').focus();
+                    }
+                    if (fields['restReview'] == '') {
+                        $('#formReview').addClass("incorrect_data")
+                        $('#formReview').focus();
+                    }
                     if (fields['user'] == '' && fields['pass'] == '' && fields['email'] == '') {
                         $('input[name="email"]').focus();
                     }
@@ -47,6 +71,24 @@ function informationWindow(title, message, fields) {
                     }
                     else if (fields['user'] == '' && fields['pass'] == '') {
                         $('input[name="username"]').focus();
+                    }
+                    else if (fields['restNames'] == '' && fields['restAddress'] == '' && fields['restLocation'] == '' && fields['restRegion'] == '' && fields['restCountry'] == '' && fields['restReview'] == '') {
+                        $('#formRestName').focus();
+                    }
+                    else if (fields['restAddress'] == '' && fields['restLocation'] == '' && fields['restRegion'] == '' && fields['restCountry'] == '' && fields['restReview'] == '') {
+                        $('#formRestAddr').focus();
+                    }
+                    else if (fields['restLocation'] == '' && fields['restRegion'] == '' && fields['restCountry'] == '' && fields['restReview'] == '') {
+                        $('#formRestLocation').focus();
+                    }
+                    else if (fields['restRegion'] == '' && fields['restCountry'] == '' && fields['restReview'] == '') {
+                        $('#formRestRegion').focus();
+                    }
+                    else if (fields['restCountry'] == '' && fields['restReview'] == '') {
+                        $('#formRestCountry').focus();
+                    }
+                    else if (fields['restAddress'] == '' && fields['restReview'] == '') {
+                        $('#formRestAddr').focus();
                     }
                 }
                 $("#spiner").detach();
@@ -63,18 +105,26 @@ function validateEmail(email) {
 
 // Username validation
 function validateUser(name) {
-    var re = /^[a-zA-Z0-9.\-_$@*!]{1,32}$/i;
+    var re = /^[a-zA-Z0-9.\-_$@*!]*$/i;
     return re.test(name);
 }
 
 // Password validation
 function validatePass(pass) {
-    var re = /^[a-zA-Z0-9.\-_$@*!]{6,32}$/i;
+    var re = /^[a-zA-Z0-9.\-_$@*!]*$/i;
     return re.test(pass);
 }
 
 // Deattach class "Incorrect data" from empty or changed input fields
 $("input").change(function () {
+    if ($(this).hasClass("incorrect_data")) {
+        if (this.value != '') {
+            $(this).removeClass("incorrect_data");
+        }
+    }
+}).trigger("change");
+
+$("textarea").change(function () {
     if ($(this).hasClass("incorrect_data")) {
         if (this.value != '') {
             $(this).removeClass("incorrect_data");
@@ -89,6 +139,22 @@ $(window).resize(function () {
     });
     $(window).resize();
 });
+
+// Update countdown to show how mush symbols left
+function updateCountdown() {
+    var remaining = 500 - jQuery('#formReview').val().length;
+    jQuery('.help-block').text(remaining + ' characters left.');
+}
+
+// Get coordinates
+function geocodeAddress(address) {
+    var geocoder = new google.maps.Geocoder;
+    geocoder.geocode({ 'address': address }, function (results, status) {
+        if (status === google.maps.GeocoderStatus.OK) {
+            return { lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng() };
+        }
+    });
+}
 
 // Locate panel on center by vertical
 $(document).ready(function () {

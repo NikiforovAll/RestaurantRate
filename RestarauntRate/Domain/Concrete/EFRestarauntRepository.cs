@@ -36,7 +36,7 @@ namespace Domain.Concrete
             }
             context.SaveChanges();
         }
-        public Restaraunt DeleteRestaraunt(int restarauntID)
+        public void DeleteRestaraunt(int restarauntID)
         {
             Restaraunt dbEntry = context.Restaraunts.Find(restarauntID);
             RestarauntLang dbEntryRestarauntLangs = context.RestarauntLangs.Find(restarauntID);
@@ -45,12 +45,21 @@ namespace Domain.Concrete
             if (dbEntry != null)
             {
                 context.Restaraunts.Remove(dbEntry);
-                context.RestarauntLangs.Remove(dbEntryRestarauntLangs);
-                context.Images.Remove(dbEntryImages);
-                context.Comments.Remove(dbEntryComments);
-                context.SaveChanges();
+
             }
-            return dbEntry;
+            if(dbEntryRestarauntLangs != null)
+            {
+                context.RestarauntLangs.Remove(dbEntryRestarauntLangs);
+            }
+            if(dbEntryImages != null)
+            {
+                context.Images.Remove(dbEntryImages);
+            }
+            if(dbEntryComments != null)
+            {
+                context.Comments.Remove(dbEntryComments);
+            }
+            context.SaveChanges();
         }
         public Restaraunt GetRestarauntByID(int restarauntID)
         {

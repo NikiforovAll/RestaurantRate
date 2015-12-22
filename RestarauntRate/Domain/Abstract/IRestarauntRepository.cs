@@ -11,7 +11,7 @@ namespace Domain.Abstract
     {
         IQueryable<Restaraunt> Restaraunts { get; }
         void SaveRestaraunt(Restaraunt restaraunt/*, RestarauntLang restLang = null, Image image = null, Comment comment = null*/);
-        Restaraunt DeleteRestaraunt(int restarauntID);
+        void DeleteRestaraunt(int restarauntID);
         Restaraunt GetRestarauntByID(int restarauntID);
         List<Restaraunt> GetAll();
         List<Restaraunt> GetAllWithinRadius(double latitude, double longtitude, double radius);
