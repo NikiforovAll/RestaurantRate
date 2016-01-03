@@ -3,26 +3,15 @@ var galleryItems = [];
 
 function initGallery(i) {
     var pswpElement = document.querySelectorAll('.pswp')[0];
-
-    // build items array
-
-    // define options (if needed)
     var options = {
-        // optionName: 'option value'
-        // for example:
         index: 0 // start at first slide
     };
-
-    // tmp1 = galleryItems.slice(0, i);
-    // tmp2 = galleryItems.slice(i+1, galleryItems.length);
     var tmp = galleryItems;
     for (var j = 0; j < galleryItems.length - i; j++) {
         tmp = shiftRight(tmp);
     }
     // Initializes and opens PhotoSwipe
     var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, tmp, options);
-    //console.log(tmp);
-    //gallery.goTo(i);
     gallery.init();
 }
 
@@ -47,6 +36,7 @@ function pupulateGalleryHall(links) {
         img.src = links[j];
     }
 }
+
 function populateGallery(links) {
     $(".my-gallery").empty();
     pupulateGalleryHall(links);
@@ -54,10 +44,8 @@ function populateGallery(links) {
     var row_el;
     var item;
     for (var i = 0; i < links.length; i++) {
-        //refilling logic??
         if (i % 2 === 0) {
             row_el = $("<div class=\"Row\"></div>");
-
         }
         var val = $("<div class=\"Column gallery-Img\"></div>").appendTo(row_el);
 
@@ -70,7 +58,6 @@ function populateGallery(links) {
         var val2 = val1.prependTo(val);
         $(".my-gallery").append(row_el);
         //indexing
-
         //row += "<div class=\"Column gallery-Img\">";
         //row += "<figure itemprop=\"associatedMedia\" itemscope itemtype=\"http://schema.org/ImageObject\">";
         //row += "<img src=\""+  links[i].src + "\"" + " itemprop=\"thumbnail\" alt=\"Image description\" />";

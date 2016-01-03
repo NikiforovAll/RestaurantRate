@@ -4,15 +4,14 @@ var request;
 var markerImage;
 var startZoom = 15;
 var draggButton = "draggableButton";
-//default = DataArt geoloc
 var coordinates = { lat: 46.480679, lng: 30.755164 };
 var dragState = false;
 var isDragging = false;
 var markers = [];
 var infoWindowRest;
+
 //entry point
 $(document).ready(function () {
-    
     //$.ajax({
     //    url: "/Home/GetAllRestaurants",
     //    //data: JSON.stringify({ "Longitude": 46.480679, "Latitude": 30.755164 }), 
@@ -38,16 +37,9 @@ $(document).ready(function () {
     //    },
     //    timeout: 10000
     //});
-
     initLocation();
     sleep(1000);
-    //initMap();
-
 });
-
-// initiation
-//TODO marshal markers of restaurants
-
 function initGMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: coordinates,
@@ -63,19 +55,12 @@ function initGMap() {
     });
 }
 function initMap() {
-
     initGMap();
     initMarker();
-    //map.addListener('zoom_changed', function() {
-    //    console.log(map.getZoom());
-    //});
     panelInit();
-    //TODO buind the output results of geoloc after clicking 
     google.maps.event.addListener(map, 'click', function (event) {
         if (!isDragging) {
-            //return coordinates 
-            //console.log("Map listener: \n" + "Latitude: " + event.latLng.lat() + " " + ", longitude: " + event.latLng.lng());
-            // return adress
+
             var locName;
             var geocoder = new google.maps.Geocoder;
             geocoder.geocode({ 'location': event.latLng }, function (results, status) {
@@ -94,18 +79,11 @@ function initMap() {
             });
         }
     });
-    //map.addListener('click', function () {
-    //    var coord = map.getProjection().fromPointToLatLng(new google.maps.Point(pageX, pageY))
-    //    console.log( coord.lng()+ " " +coord.lat());
-    //});
 }
+
 function initRestMarker(markerType, coords, ID, text) {
     var imgStr = '/Content/Images/Customer/';
-    //if (markerType === 1) {
-    //    imgStr += 'r.png';
-    //}
-    imgStr += markerType+ '.png';
-    //alert(imgStr);
+    imgStr += markerType + '.png';
     var markerImage = {
         url: imgStr,
         scaledSize: new google.maps.Size(50, 40)
@@ -127,7 +105,7 @@ function initRestMarker(markerType, coords, ID, text) {
             infoWindowRest.close();
         infoWindowRest = this["infoWindow"];
         if (activeRest.marker)
-        activeRest.marker.setAnimation(null);
+            activeRest.marker.setAnimation(null);
         //infoWindows.push({ ID: ID, infowidnow:infowindow.open(map, marker) });
         infowindow.open(map, marker);
         updateReview(ID);
@@ -218,18 +196,16 @@ function switchDraggable() {
     else {
         $("#review").slideUp();
         //$("#" + draggButton).css("background-color", "green");
-        if(activeRest.marker)
-        activeRest.marker.setAnimation(null);
+        if (activeRest.marker)
+            activeRest.marker.setAnimation(null);
         if (infoWindowRest) {
             infoWindowRest.close();
         }
         marker.animation = google.maps.Animation.BOUNCE;
         marker.setDraggable(true);
-
-
     }
-
 }
+
 // centers the map on your marker 
 function setMapPosition() {
     //map.setCenter(marker.getPosition());

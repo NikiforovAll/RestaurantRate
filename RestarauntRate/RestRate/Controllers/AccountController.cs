@@ -94,7 +94,7 @@ namespace RestRate.Controllers
         [HttpPost]
         public JsonResult Register(User user)
         {
-            try // TODO: RETURN ERROR MESSAGE WHEN USER IS ALREADY EXIST
+            try 
             {
                 if (user != null)
                 {

@@ -1,4 +1,4 @@
-﻿﻿var restaurants = []; //temporary restaurants 
+﻿var restaurants = []; //temporary restaurants 
 var testRest = [
     { Name: "Test0", address: "TestAdress0", stars: 1, ID: "1" },
     { Name: "Test1", address: "TestAdress1", stars: 2, ID: "2" },
@@ -11,19 +11,20 @@ var testRest = [
     { Name: "Test8", address: "TestAdress8", stars: 4, ID: "9" },
     { Name: "Test9", address: "TestAdress8", stars: 5, ID: "10" }
 ];
-//Test filed for console
-//fillReview(1, "RestaurantForTesting", 3, 3, 3, "Lorem ipsum dolor sit amet, consectetur adipisicing elitsed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor inreprehenderit in voluptate velitesse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatatnon proident sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit,", "", [
-//"http://lorempixel.com/400/100/",
-//"http://lorempixel.com/400/200/",
-//"http://lorempixel.com/400/300/",
-//"http://lorempixel.com/400/400/"
-//])
+//function testReviewFilling() {//Test filed for console
+//    fillReview(1, "RestaurantForTesting", 3, 3, 3, "Lorem ipsum dolor sit amet, consectetur adipisicing elitsed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor inreprehenderit in voluptate velitesse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatatnon proident sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit,", "",
+//     [
+//        "http://lorempixel.com/400/100/",
+//        "http://lorempixel.com/400/200/",
+//        "http://lorempixel.com/400/300/",
+//        "http://lorempixel.com/400/400/"
+//    ]
+//);
+//}
 var minRad = 700;
 var maxRad = 2000;
 var panel;
 var activeRest = { marker: null, infoWindow: null };
-//var isItemChanged = false;
-//var state = { color: "rgba(55, 47, 45,0.4)", marginLeft: "0%" }
 var prevItem;
 var availabletypes = ["restaurant", "bar", "cafe"];
 var reviewItem;
@@ -35,9 +36,7 @@ function panelInit() {
     panel = $(".mainpanel");
     prevItem = $(".panel-item").first();
     //nearbyMarkerSearch(minRad);
-
     // Scroll init
-
     $(".content").mCustomScrollbar({
         theme: "rounded-dots-dark",
         scrollInertia: 100,
@@ -52,28 +51,16 @@ function panelInit() {
             enable: true
         }
     });
+    // starPluginInit
     for (var j = 1; j <= 3; j++) {
         initStarRating("#input-id" + j);
     }
     $("#commentBtn").click(function () {
         $("#reviewComments").slideToggle();
     });
-
     getAllRestaurants(true);
-    
     //populateGallery(testitems);
-    //TODO URL cohesion 
-
     //initGallery();
-
-    //$(".reviewInfo").mCustomScrollbar({
-    //    theme: "rounded-dots-dark",
-    //    scrollInertia: 100,
-    //    scrollButtons: {
-    //        enable: true
-    //    }
-    //});
-
     //$("#orderByRating").click(function () {
     //    restaurantsSort();
     //    clearPanel();
@@ -81,7 +68,6 @@ function panelInit() {
     //        addToPanel(el, i);
     //    });
     //});
-
     $("#getFullList").click(function () {
         citySearch();
     });
@@ -100,19 +86,12 @@ function panelInit() {
             poppulateAllRestaurants();
         }
     });
-
-    //fillChat(0);
-   
-
 };
 
 
 function toggleFunc() {
     $(".showReview").click(toggleReview);
 }
-//TODO :add filling logic for review panel;
-//TODO tost for not active revision action; finish review toggle logic 
-
 
 function toggleReview(source) {
     if (isDragging) {
@@ -124,20 +103,18 @@ function toggleReview(source) {
             //if (source.target)
             //    var tmp = $(source.target).closest(".panel-item-w").attr("id");
             //else {
-                tmp = $(activeEl).closest(".panel-item-w").attr("id");
+            var activeElement = $(activeEl).closest(".panel-item-w").attr("id");
             //}
-            console.log(tmp);
-            //console.log(tmp);
-            updateReview(tmp);
+            console.log(activeElement);
+            updateReview(activeElement);
             if (activeRest.marker)
                 activeRest.marker.setAnimation(null);
             $("#review").slideDown();
             // infowindow
-
         } else {
             $("#review").slideUp();
-            if(activeRest.marker)
-            activeRest.marker.setAnimation(null);
+            if (activeRest.marker)
+                activeRest.marker.setAnimation(null);
             infoWindowRest.close();
         }
     }
@@ -148,19 +125,15 @@ function slideDownReview() {
     activeRest.marker.setAnimation(null);
     if (infoWindowRest)
         infoWindowRest.close();
-
 }
 
 function citySearch() {
-    // TODO city search - get all restaurants;
-    //nearbyMarkerSearch(maxRad); 
     for (var j = 0; j < 3; j++) {
         restaurants = restaurants.concat(testRest);
     }
     restaurants.forEach(function (el) {
         addToPanel(el);
     });
-
 }
 
 function nearbyMarkerSearch(r) {
@@ -193,7 +166,6 @@ function nearbyMarkerSearch(r) {
                     }
 
                 });
-                //TODO make async sort
                 // restaurantsSort();
             }
         }
@@ -219,56 +191,40 @@ function poppulateAllRestaurants() {
 }
 function getAllRestaurants(ismarkerInit) {
     restaurants = [];
-   
     $.ajax({
         url: "/Home/GetAllRestaurants",
-        //data: JSON.stringify({ "Longitude": 46.480679, "Latitude": 30.755164 }),
         type: "POST",
         contentType: "application/json; charset=utf-8",
         dataType: 'json',
         success: function (answer) {
-            console.log(answer.result); // для того чтобы увидеть JSON, который ты получил
+            console.log(answer.result);
             var geocoder = new google.maps.Geocoder();
             var tmpRest = answer.result;
             tmpRest = tmpRest.sort(function (el1, el2) {
-                //console.log("calling async");
-                return  (el1.InteriorRate * 0.3 + el1.KitchenRate * 0.4 + el1.MaintenanceRate * 0.3) -
+                return (el1.InteriorRate * 0.3 + el1.KitchenRate * 0.4 + el1.MaintenanceRate * 0.3) -
                     (el2.InteriorRate * 0.3 + el2.KitchenRate * 0.4 + el2.MaintenanceRate * 0.3);
             });
-           
             tmpRest.forEach(function (el) {
                 var tmp = el.RestaurantIDNameFullAddress;
-                //console.log(tmp.Name);
                 var currRest = {
                     stars: el.InteriorRate * 0.3 + el.KitchenRate * 0.4 + el.MaintenanceRate * 0.3,
                     address: tmp.Address,
                     Name: tmp.Name,
                     ID: tmp.RestarauntID
                 };
-
                 //console.log(window.Typeahead["#editRestName"].source);
                 restaurants.push(currRest);
                 _allRestaurants.push(currRest);
                 addToPanel(currRest);
-                //TODO SOLVE problem with switched lat lng
-                //if (ismarkerInit) {
-                //console.log("Latitude: " + parseFloat(el.Latitude.replace(",", ".")) + " Longtitude: " + parseFloat(el.Longitude.replace(",", ".")));
-                //console.log({ lat: parseFloat(el.Latitude.replace(",", ".")), lng: parseFloat(el.Longitude.replace(",", ".")) });
-                    //geocodeAddress(geocoder, tmp.Address, tmp.RestarauntID, tmp.Name);
                 initRestMarker(el.RestarauntType, { lng: parseFloat(el.Latitude.replace(",", ".")), lat: parseFloat(el.Longitude.replace(",", ".")) }, tmp.RestarauntID, tmp.Name);
-                    
-                //}
             });
             typeAhead(restaurants);
         },
         error: function () {
-
             console.log('Такие нюансы-романсы.. :(');
         },
         timeout: 10000
     });
-
-
 }
 
 function getAllRestaurantsInRadius(lat, long) {
@@ -319,13 +275,10 @@ function updateReview(restID) {
         contentType: "application/json; charset=utf-8",
         dataType: 'json',
         success: function (answer) {
-            //console.log(answer); // для того чтобы увидеть JSON, который ты получил
             var tmp = answer.result;
             console.log(tmp);
             fillReview(restID, tmp.Name, tmp.KitchenRate, tmp.InteriorRate, tmp.MaintenanceRate, tmp.Review, tmp.AddedDate, tmp.Images.map(function (el) { return el.Url }));
             //console.log({ lat: parseFloat(tmp.Latitude.replace(",", ".")), lng: parseFloat(tmp.Longitude.replace(",", ".")) });
-            //console.log({ lat: 46.480679, lng: 30.755164 });
-            //console.log("----");
             //{ lng: parseFloat(tmp.Latitude.replace(",", ".")), lat: parseFloat(tmp.Longitude.replace(",", ".")) }
             var latlangMarkerPos = { lng: parseFloat(tmp.Latitude.replace(",", ".")), lat: parseFloat(tmp.Longitude.replace(",", ".")) };
             map.setCenter(latlangMarkerPos);
@@ -338,7 +291,6 @@ function updateReview(restID) {
             activeEl.setAnimation(google.maps.Animation.BOUNCE);
         },
         error: function () {
-
             console.log('Такие нюансы-романсы.. :(');
         },
         timeout: 10000
@@ -362,7 +314,7 @@ function map_recenter(latlng, offsetx, offsety) {
     //    point1.x - point2.x,
     //    point1.y + point2.y
     //)));
-    }
+}
 function fillReview(ID, name, foodRate, styleRate, serviceRate, reviewContext, currDate, Images) {
     starChangeValue(foodRate + 0.5, "input-id1");
     starChangeValue(styleRate + 0.5, "input-id2");
@@ -371,16 +323,14 @@ function fillReview(ID, name, foodRate, styleRate, serviceRate, reviewContext, c
     body.html("<h4>" + name + "</h2>" + "<hr>");
     if (reviewContext) {
         body.append(reviewContext);
-    } else {
-        //body.html("");
     }
     var strDate = "";
     //if (currDate === "") {
     //    var strDate = new Date().toJSON().slice(0, 10);
     //} else {
-        var jDateStr = new Date(parseInt(currDate.substr(6)));
-        strDate = jDateStr.getDate().toString() + "/" + jDateStr.getMonth().toString() + "/" + jDateStr.getFullYear().toString();
-        //strDate = currDate;
+    var jDateStr = new Date(parseInt(currDate.substr(6)));
+    strDate = jDateStr.getDate().toString() + "/" + jDateStr.getMonth().toString() + "/" + jDateStr.getFullYear().toString();
+    //strDate = currDate;
     //}
     console.log(strDate);
     $("#reviewDate").text(strDate);
@@ -397,15 +347,12 @@ function fillGalleryFromQuery(restID) {
         contentType: "application/json; charset=utf-8",
         dataType: 'json',
         success: function (answer) {
-            //console.log(answer); // для того чтобы увидеть JSON, который ты получил
             var tmp = answer.result;
-
             populateGallery(tmp.map(function (el) {
                 return el.Url;
             }));
         },
         error: function () {
-
             console.log('Такие нюансы-романсы.. :(');
         },
         timeout: 10000
@@ -422,7 +369,6 @@ function fillShareButton(ID, desc, name, Image) {
     }, {
         type: "round",
         text: "Поделится"
-
     }));
     var facebookUrl = {
         url: "",
@@ -441,8 +387,7 @@ function fillChat(pageID) {
     $("#vk_comments").empty();
     VK.init({ apiId: 5196098, onlyWidgets: true });
     var tmp = 538;// ($("#reviewComments").width())*4;
-    //console.log(tmp);
-    VK.Widgets.Comments("vk_comments", { limit: 5, width:tmp , attach: "*" }, pageID);
+    VK.Widgets.Comments("vk_comments", { limit: 5, width: tmp, attach: "*" }, pageID);
 }
 
 function typeAhead(source) {
@@ -501,14 +446,13 @@ function typeAhead(source) {
             onSubmit: null,
             onClick: function (node, a, obj, e) {
                 var id = obj.ID;
-                var str = "#"+id;
+                var str = "#" + id;
                 $(str).remove();
                 addToPanel(obj);
                 $(str).click();
                 updateReview(id);
                 $(str).scrollTo();
                 toggleReview();
-
             }
         },
         selector: {
@@ -529,7 +473,6 @@ function typeAhead(source) {
         },
         debug: true
     };
-    
     _typeAhead = $("#SearchRestName").typeahead(_options);
 }
 
@@ -555,24 +498,11 @@ function togglePanel(e) {
             target.addClass('panel-item-w');
             addButton(target);
         }
-
-        //if (target.css("background-color") === "rgb(255, 255, 255)") {
-        //    target.css("background-color", state.color);
-        //    target.css("margin-left", state.marginLeft);
-
-        //} else {
-        //    prevItem.css("background-color", state.color);
-        //    prevItem.css("margin-left", state.marginLeft);
-        //    target.css("background-color", "white");
-        //    target.css("margin-left", "12%");
-        //}
-
         prevItem = target;
     }
 }
 
 function addButton(item) {
-    //<span><img src=\"/Content/Images/Customer/arrow1.png\" /></span>
     var button = "<button type=\"button\" class=\"showReview\" >+</button>";
     item.append(button);
     toggleFunc();
@@ -583,7 +513,6 @@ function removeButton(item) {
 }
 function restaurantsSort() {
     restaurants.sort(function (a, b) {
-        //console.log("calling async");
         return b.stars - a.stars;
     });
 }

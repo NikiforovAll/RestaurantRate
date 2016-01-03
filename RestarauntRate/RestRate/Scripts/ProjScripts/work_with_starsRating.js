@@ -16,7 +16,6 @@
         //defaultCaption: "{rating} cups",
         //starCaptions: {}
     });
-    
     el.rating("update", parseInt(strId.substr(strId.length - 1, 1)) + 2);
 }
 

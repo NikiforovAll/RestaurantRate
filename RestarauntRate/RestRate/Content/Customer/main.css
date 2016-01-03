@@ -22,8 +22,6 @@ footer {
     font-weight: bold;
 }
 
-
-
 #draggableButton {
     position: absolute;
     top: 90%;
@@ -84,7 +82,7 @@ html {
     border-radius: 2px;
 }
 
-    .mainpanel > .container {
+.mainpanel > .container {
     }
 
 .panelheader {
@@ -236,7 +234,6 @@ html {
     /*-moz-box-sizing: border-box;*/
 }
 
-
 #review {
     position: absolute;
     z-index: 50;
@@ -286,14 +283,13 @@ html {
     display: table-cell;
 }
 
-    .Column > img {
-        margin-left: 4.5vh;
-    }
+.Column > img {
+    margin-left: 4.5vh;
+}
 
 #reviewRating div div {
     /*margin-left: 2.7vh;*/
 }
-
 
 #review > div > div {
     /*background-color: rgba(55, 47, 45, 0.85);*/
@@ -439,7 +435,6 @@ html {
     margin-bottom: 0px;
     margin-left: 5%;
     width: 90%;
-    
 }
 
 #reviewShare {
@@ -465,8 +460,9 @@ html {
         background-image: -ms-linear-gradient(top, #998571, #403618);
         background-image: -o-linear-gradient(top, #998571, #403618);
         background-image: linear-gradient(to bottom, #998571, #403618);
-        -webkit-border-radius: 28;
-        -moz-border-radius: 28;
+        /*-webkit-border-radius: 28;*/
+        /*-moz-border-radius: 28;*/
+        -ms-border-radius: 28px;
         border-radius: 28px;
         font-family: Georgia;
         color: #f0d8af;
@@ -572,17 +568,8 @@ a[name="fb_share"] > img {
     margin-right: 15px;
     /*top: 50%;*/
 }
-/*.showReview span img{
-    float: right;
-    margin-top: 6px;
-    
-}*/
 
-/* white background and box outline */
 .gm-style > div:first-child > div + div > div:last-child > div > div:first-child > div {
-    /* we have to use !important because we are overwritng inline styles */
-    /*background-color: transparent !important;*/
-    /*box-shadow: none !important;*/
     width: auto !important;
     height: auto !important;
 }
